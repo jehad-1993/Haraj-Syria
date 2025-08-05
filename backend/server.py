@@ -1,15 +1,18 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException, status, Depends
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field
-from typing import List
+from pydantic import BaseModel, Field, EmailStr
+from typing import List, Optional, Dict, Any
 import uuid
-from datetime import datetime
-
+from datetime import datetime, timedelta
+import jwt
+import bcrypt
+from enum import Enum
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -19,38 +22,450 @@ mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
+# JWT Secret - في بيئة الإنتاج يجب أن يكون في .env
+JWT_SECRET = "haraj_syria_secret_key_2025"
+JWT_ALGORITHM = "HS256"
+JWT_EXPIRATION_HOURS = 24 * 7  # أسبوع
+
 # Create the main app without a prefix
-app = FastAPI()
+app = FastAPI(title="Haraj Syria API", version="1.0.0")
 
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
+# Security
+security = HTTPBearer()
 
-# Define Models
-class StatusCheck(BaseModel):
+# Enums
+class AdStatus(str, Enum):
+    ACTIVE = "active"
+    PENDING = "pending"
+    EXPIRED = "expired"
+    REMOVED = "removed"
+
+class AdType(str, Enum):
+    FREE = "free"
+    FEATURED = "featured"
+    PREMIUM = "premium"
+
+# Models
+class User(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    name: str = Field(..., min_length=2, max_length=100)
+    email: EmailStr
+    phone: str = Field(..., min_length=10, max_length=20)
+    country: str
+    city: str
+    password_hash: str = Field(exclude=True)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    is_active: bool = True
+    is_verified: bool = False
 
-class StatusCheckCreate(BaseModel):
-    client_name: str
+class UserCreate(BaseModel):
+    name: str = Field(..., min_length=2, max_length=100)
+    email: EmailStr
+    phone: str = Field(..., min_length=10, max_length=20)
+    country: str
+    city: str
+    password: str = Field(..., min_length=6)
 
-# Add your routes to the router instead of directly to app
-@api_router.get("/")
-async def root():
-    return {"message": "Hello World"}
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.dict()
-    status_obj = StatusCheck(**status_dict)
-    _ = await db.status_checks.insert_one(status_obj.dict())
-    return status_obj
+class UserResponse(BaseModel):
+    id: str
+    name: str
+    email: str
+    phone: str
+    country: str
+    city: str
+    created_at: datetime
+    is_active: bool
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    status_checks = await db.status_checks.find().to_list(1000)
-    return [StatusCheck(**status_check) for status_check in status_checks]
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+    user: UserResponse
+
+class Category(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name_ar: str
+    name_en: str
+    parent_id: Optional[str] = None
+    subcategories: Optional[List[str]] = []
+    is_active: bool = True
+    sort_order: int = 0
+
+class Ad(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    title: str = Field(..., min_length=5, max_length=200)
+    description: str = Field(..., min_length=10, max_length=2000)
+    price: float = Field(..., ge=0)
+    currency: str = "USD"
+    category_id: str
+    subcategory_id: Optional[str] = None
+    user_id: str
+    country: str
+    city: str
+    area: Optional[str] = None
+    images: List[str] = []
+    contact_phone: str
+    contact_whatsapp: Optional[str] = None
+    status: AdStatus = AdStatus.PENDING
+    ad_type: AdType = AdType.FREE
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+    expires_at: datetime = Field(default_factory=lambda: datetime.utcnow() + timedelta(days=30))
+    views: int = 0
+    # خصائص إضافية للسيارات
+    car_brand: Optional[str] = None
+    car_model: Optional[str] = None
+    car_year: Optional[int] = None
+    car_mileage: Optional[int] = None
+    car_condition: Optional[str] = None
+
+class AdCreate(BaseModel):
+    title: str = Field(..., min_length=5, max_length=200)
+    description: str = Field(..., min_length=10, max_length=2000)
+    price: float = Field(..., ge=0)
+    currency: str = "USD"
+    category_id: str
+    subcategory_id: Optional[str] = None
+    country: str
+    city: str
+    area: Optional[str] = None
+    contact_phone: str
+    contact_whatsapp: Optional[str] = None
+    ad_type: AdType = AdType.FREE
+    # خصائص إضافية للسيارات
+    car_brand: Optional[str] = None
+    car_model: Optional[str] = None
+    car_year: Optional[int] = None
+    car_mileage: Optional[int] = None
+    car_condition: Optional[str] = None
+
+class AdUpdate(BaseModel):
+    title: Optional[str] = None
+    description: Optional[str] = None
+    price: Optional[float] = None
+    status: Optional[AdStatus] = None
+
+class AdResponse(BaseModel):
+    id: str
+    title: str
+    description: str
+    price: float
+    currency: str
+    category_id: str
+    subcategory_id: Optional[str]
+    country: str
+    city: str
+    area: Optional[str]
+    images: List[str]
+    contact_phone: str
+    contact_whatsapp: Optional[str]
+    status: AdStatus
+    ad_type: AdType
+    created_at: datetime
+    views: int
+    user_name: Optional[str] = None
+    # خصائص السيارات
+    car_brand: Optional[str] = None
+    car_model: Optional[str] = None
+    car_year: Optional[int] = None
+    car_mileage: Optional[int] = None
+    car_condition: Optional[str] = None
+
+# Utility functions
+def hash_password(password: str) -> str:
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+def verify_password(password: str, hashed: str) -> bool:
+    return bcrypt.checkpw(password.encode('utf-8'), hashed.encode('utf-8'))
+
+def create_access_token(data: dict):
+    to_encode = data.copy()
+    expire = datetime.utcnow() + timedelta(hours=JWT_EXPIRATION_HOURS)
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, JWT_SECRET, algorithm=JWT_ALGORITHM)
+    return encoded_jwt
+
+async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    try:
+        payload = jwt.decode(credentials.credentials, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        user_id: str = payload.get("sub")
+        if user_id is None:
+            raise HTTPException(status_code=401, detail="Invalid token")
+    except jwt.PyJWTError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+    
+    user = await db.users.find_one({"id": user_id})
+    if user is None:
+        raise HTTPException(status_code=401, detail="User not found")
+    
+    return User(**user)
+
+# Data constants
+ARAB_COUNTRIES = {
+    "SA": {"name_ar": "السعودية", "name_en": "Saudi Arabia"},
+    "AE": {"name_ar": "الإمارات", "name_en": "UAE"},
+    "KW": {"name_ar": "الكويت", "name_en": "Kuwait"},
+    "QA": {"name_ar": "قطر", "name_en": "Qatar"},
+    "BH": {"name_ar": "البحرين", "name_en": "Bahrain"},
+    "OM": {"name_ar": "عمان", "name_en": "Oman"},
+    "JO": {"name_ar": "الأردن", "name_en": "Jordan"},
+    "LB": {"name_ar": "لبنان", "name_en": "Lebanon"},
+    "SY": {"name_ar": "سوريا", "name_en": "Syria"},
+    "IQ": {"name_ar": "العراق", "name_en": "Iraq"},
+    "EG": {"name_ar": "مصر", "name_en": "Egypt"},
+    "LY": {"name_ar": "ليبيا", "name_en": "Libya"},
+    "TN": {"name_ar": "تونس", "name_en": "Tunisia"},
+    "DZ": {"name_ar": "الجزائر", "name_en": "Algeria"},
+    "MA": {"name_ar": "المغرب", "name_en": "Morocco"},
+    "YE": {"name_ar": "اليمن", "name_en": "Yemen"},
+    "SD": {"name_ar": "السودان", "name_en": "Sudan"}
+}
+
+CITIES_BY_COUNTRY = {
+    "SY": ["دمشق", "حلب", "حمص", "حماة", "اللاذقية", "طرطوس", "دير الزور", "الرقة", "السويداء", "درعا", "القنيطرة", "إدلب", "الحسكة", "القامشلي"],
+    "SA": ["الرياض", "جدة", "مكة المكرمة", "المدينة المنورة", "الدمام", "الخبر", "تبوك", "بريدة", "خميس مشيط", "الأحساء", "حائل", "جيزان"],
+    "AE": ["دبي", "أبوظبي", "الشارقة", "عجمان", "الفجيرة", "رأس الخيمة", "أم القيوين"],
+    "EG": ["القاهرة", "الإسكندرية", "الجيزة", "شبرا الخيمة", "بورسعيد", "السويس", "الأقصر", "أسوان", "المنصورة", "طنطا"],
+    "JO": ["عمان", "إربد", "الزرقاء", "الرصيفة", "وادي السير", "العقبة", "الكرك", "معان", "جرش", "عجلون"],
+    "LB": ["بيروت", "طرابلس", "صيدا", "صور", "بعلبك", "جونيه", "النبطية", "زحلة", "الخيام", "البترون"],
+    "IQ": ["بغداد", "البصرة", "أربيل", "الموصل", "النجف", "كربلاء", "الحلة", "الرمادي", "كركوك", "السليمانية"],
+    "KW": ["مدينة الكويت", "حولي", "الفروانية", "مبارك الكبير", "الأحمدي", "الجهراء"],
+    "QA": ["الدوحة", "الريان", "أم صلال", "الوكرة", "الخور", "الدعاين"],
+    "BH": ["المنامة", "المحرق", "الحد", "عيسى", "الرفاع", "جدحفص"],
+    "OM": ["مسقط", "صلالة", "نزوى", "صحار", "البريمي", "بوشر"],
+    "MA": ["الرباط", "الدار البيضاء", "فاس", "مراكش", "أغادير", "طنجة", "مكناس", "وجدة"],
+    "TN": ["تونس", "صفاقس", "سوسة", "القيروان", "بنزرت", "المنستير", "قابس", "أريانة"],
+    "DZ": ["الجزائر", "وهران", "قسنطينة", "عنابة", "باتنة", "سطيف", "سيدي بلعباس", "بسكرة"],
+    "LY": ["طرابلس", "بنغازي", "مصراتة", "البيضاء", "الزاوية", "سبها", "طبرق", "درنة"],
+    "YE": ["صنعاء", "عدن", "تعز", "الحديدة", "إب", "ذمار", "المكلا", "لحج"],
+    "SD": ["الخرطوم", "أم درمان", "بحري", "بورسودان", "كسلا", "الأبيض", "نيالا", "الفاشر"]
+}
+
+CAR_BRANDS = [
+    "تويوتا", "هوندا", "نيسان", "مازدا", "سوزوكي", "ميتسوبيشي", "سوبارو", "إنفينيتي", "لكزس", "أكورا",
+    "بي ام دبليو", "مرسيدس", "أودي", "فولكس واغن", "أوبل", "فولفو", "ساب", "رينو", "بيجو", "ستروين",
+    "فيات", "ألفا روميو", "لانسيا", "فيراري", "لامبورغيني", "مازيراتي", "لاند روفر", "رولز رويس", "بنتلي", "جاغوار",
+    "فورد", "شيفروليه", "دودج", "كرايسلر", "جي ام سي", "لينكولن", "كاديلاك", "بويك", "تسلا",
+    "هيونداي", "كيا", "جينيسيس", "داو", "شيري", "جيلي", "بايك", "جريت وول", "إم جي"
+]
+
+CAR_YEARS = list(range(2010, 2051))
+
+# Routes
+
+# Authentication
+@api_router.post("/auth/register", response_model=TokenResponse)
+async def register(user_data: UserCreate):
+    # Check if user exists
+    existing_user = await db.users.find_one({"$or": [{"email": user_data.email}, {"phone": user_data.phone}]})
+    if existing_user:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="User with this email or phone already exists"
+        )
+    
+    # Hash password
+    hashed_password = hash_password(user_data.password)
+    
+    # Create user
+    user = User(
+        name=user_data.name,
+        email=user_data.email,
+        phone=user_data.phone,
+        country=user_data.country,
+        city=user_data.city,
+        password_hash=hashed_password
+    )
+    
+    await db.users.insert_one(user.dict())
+    
+    # Create token
+    access_token = create_access_token(data={"sub": user.id})
+    
+    return TokenResponse(
+        access_token=access_token,
+        user=UserResponse(**user.dict())
+    )
+
+@api_router.post("/auth/login", response_model=TokenResponse)
+async def login(user_data: UserLogin):
+    user = await db.users.find_one({"email": user_data.email})
+    if not user or not verify_password(user_data.password, user["password_hash"]):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password"
+        )
+    
+    access_token = create_access_token(data={"sub": user["id"]})
+    
+    return TokenResponse(
+        access_token=access_token,
+        user=UserResponse(**user)
+    )
+
+# Data endpoints
+@api_router.get("/countries")
+async def get_countries():
+    return ARAB_COUNTRIES
+
+@api_router.get("/cities/{country_code}")
+async def get_cities(country_code: str):
+    if country_code not in CITIES_BY_COUNTRY:
+        raise HTTPException(status_code=404, detail="Country not found")
+    return {"cities": CITIES_BY_COUNTRY[country_code]}
+
+@api_router.get("/car-brands")
+async def get_car_brands():
+    return {"brands": CAR_BRANDS}
+
+@api_router.get("/car-years")
+async def get_car_years():
+    return {"years": CAR_YEARS}
+
+# Categories
+@api_router.get("/categories", response_model=List[Category])
+async def get_categories():
+    # Initialize categories if not exist
+    categories_count = await db.categories.count_documents({})
+    if categories_count == 0:
+        default_categories = [
+            Category(name_ar="سيارات", name_en="Cars", sort_order=1),
+            Category(name_ar="عقارات", name_en="Real Estate", sort_order=2),
+            Category(name_ar="إلكترونيات", name_en="Electronics", sort_order=3),
+            Category(name_ar="وظائف", name_en="Jobs", sort_order=4),
+            Category(name_ar="أثاث", name_en="Furniture", sort_order=5),
+            Category(name_ar="ملابس", name_en="Clothing", sort_order=6),
+            Category(name_ar="خدمات", name_en="Services", sort_order=7),
+            Category(name_ar="أخرى", name_en="Others", sort_order=8)
+        ]
+        
+        for category in default_categories:
+            await db.categories.insert_one(category.dict())
+    
+    categories = await db.categories.find({"is_active": True}).sort("sort_order", 1).to_list(100)
+    return [Category(**cat) for cat in categories]
+
+# Ads
+@api_router.post("/ads", response_model=AdResponse)
+async def create_ad(ad_data: AdCreate, current_user: User = Depends(get_current_user)):
+    ad = Ad(
+        **ad_data.dict(),
+        user_id=current_user.id
+    )
+    
+    await db.ads.insert_one(ad.dict())
+    
+    # Add user name for response
+    ad_response = AdResponse(**ad.dict(), user_name=current_user.name)
+    return ad_response
+
+@api_router.get("/ads", response_model=List[AdResponse])
+async def get_ads(
+    page: int = 1,
+    limit: int = 20,
+    category_id: Optional[str] = None,
+    country: Optional[str] = None,
+    city: Optional[str] = None,
+    min_price: Optional[float] = None,
+    max_price: Optional[float] = None,
+    search: Optional[str] = None
+):
+    skip = (page - 1) * limit
+    
+    # Build filter
+    filter_dict = {"status": AdStatus.ACTIVE}
+    
+    if category_id:
+        filter_dict["category_id"] = category_id
+    if country:
+        filter_dict["country"] = country  
+    if city:
+        filter_dict["city"] = city
+    if min_price is not None:
+        filter_dict["price"] = {"$gte": min_price}
+    if max_price is not None:
+        if "price" in filter_dict:
+            filter_dict["price"]["$lte"] = max_price
+        else:
+            filter_dict["price"] = {"$lte": max_price}
+    if search:
+        filter_dict["$or"] = [
+            {"title": {"$regex": search, "$options": "i"}},
+            {"description": {"$regex": search, "$options": "i"}}
+        ]
+    
+    ads = await db.ads.find(filter_dict).sort("created_at", -1).skip(skip).limit(limit).to_list(limit)
+    
+    # Add user names
+    result = []
+    for ad in ads:
+        user = await db.users.find_one({"id": ad["user_id"]})
+        ad_response = AdResponse(**ad, user_name=user["name"] if user else "Unknown")
+        result.append(ad_response)
+    
+    return result
+
+@api_router.get("/ads/{ad_id}", response_model=AdResponse)
+async def get_ad(ad_id: str):
+    ad = await db.ads.find_one({"id": ad_id})
+    if not ad:
+        raise HTTPException(status_code=404, detail="Ad not found")
+    
+    # Increment views
+    await db.ads.update_one({"id": ad_id}, {"$inc": {"views": 1}})
+    ad["views"] += 1
+    
+    # Get user name
+    user = await db.users.find_one({"id": ad["user_id"]})
+    
+    return AdResponse(**ad, user_name=user["name"] if user else "Unknown")
+
+@api_router.put("/ads/{ad_id}", response_model=AdResponse)
+async def update_ad(ad_id: str, ad_data: AdUpdate, current_user: User = Depends(get_current_user)):
+    ad = await db.ads.find_one({"id": ad_id})
+    if not ad:
+        raise HTTPException(status_code=404, detail="Ad not found")
+    
+    if ad["user_id"] != current_user.id:
+        raise HTTPException(status_code=403, detail="Not authorized to update this ad")
+    
+    update_data = {k: v for k, v in ad_data.dict().items() if v is not None}
+    update_data["updated_at"] = datetime.utcnow()
+    
+    await db.ads.update_one({"id": ad_id}, {"$set": update_data})
+    
+    updated_ad = await db.ads.find_one({"id": ad_id})
+    return AdResponse(**updated_ad, user_name=current_user.name)
+
+@api_router.delete("/ads/{ad_id}")
+async def delete_ad(ad_id: str, current_user: User = Depends(get_current_user)):
+    ad = await db.ads.find_one({"id": ad_id})
+    if not ad:
+        raise HTTPException(status_code=404, detail="Ad not found")
+    
+    if ad["user_id"] != current_user.id:
+        raise HTTPException(status_code=403, detail="Not authorized to delete this ad")
+    
+    await db.ads.update_one({"id": ad_id}, {"$set": {"status": AdStatus.REMOVED}})
+    
+    return {"message": "Ad deleted successfully"}
+
+# User ads
+@api_router.get("/users/ads", response_model=List[AdResponse])
+async def get_user_ads(current_user: User = Depends(get_current_user)):
+    ads = await db.ads.find({"user_id": current_user.id}).sort("created_at", -1).to_list(100)
+    return [AdResponse(**ad, user_name=current_user.name) for ad in ads]
+
+# Health check
+@api_router.get("/health")
+async def health_check():
+    return {"status": "healthy", "timestamp": datetime.utcnow()}
 
 # Include the router in the main app
 app.include_router(api_router)
