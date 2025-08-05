@@ -1,53 +1,684 @@
-import { useEffect } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
+// Language Context
+const LanguageContext = createContext();
+
+// Auth Context
+const AuthContext = createContext();
+
+// Translation object
+const translations = {
+  ar: {
+    appName: "حراج سوريا",
+    home: "الرئيسية",
+    register: "تسجيل",
+    login: "دخول",
+    logout: "خروج",
+    myAds: "إعلاناتي",
+    postAd: "أضف إعلان",
+    search: "بحث",
+    categories: "التصنيفات",
+    welcome: "مرحباً بك في حراج سوريا",
+    subtitle: "منصة الإعلانات المبوبة الأولى في المنطقة العربية",
+    browseCategories: "تصفح التصنيفات",
+    latestAds: "أحدث الإعلانات",
+    // Registration form
+    name: "الاسم",
+    email: "البريد الإلكتروني",
+    phone: "رقم الجوال",
+    country: "الدولة",
+    city: "المدينة",
+    password: "كلمة المرور",
+    confirmPassword: "تأكيد كلمة المرور",
+    registerButton: "تسجيل",
+    loginButton: "دخول",
+    alreadyHaveAccount: "لديك حساب؟",
+    dontHaveAccount: "ليس لديك حساب؟",
+    // Categories
+    cars: "سيارات",
+    realEstate: "عقارات",
+    electronics: "إلكترونيات",
+    jobs: "وظائف",
+    furniture: "أثاث",
+    clothing: "ملابس",
+    services: "خدمات",
+    others: "أخرى",
+    // Car details
+    carBrand: "ماركة السيارة",
+    carYear: "سنة الصنع",
+    selectCountry: "اختر الدولة",
+    selectCity: "اختر المدينة",
+    selectCarBrand: "اختر ماركة السيارة",
+    selectCarYear: "اختر سنة الصنع",
+    chooseCountry: "اختر الدولة...",
+    chooseCity: "اختر المدينة...",
+    chooseCarBrand: "اختر الماركة...",
+    chooseCarYear: "اختر السنة...",
+    loading: "جاري التحميل...",
+    required: "مطلوب"
+  },
+  en: {
+    appName: "Haraj Syria",
+    home: "Home",
+    register: "Register",
+    login: "Login",
+    logout: "Logout",
+    myAds: "My Ads",
+    postAd: "Post Ad",
+    search: "Search",
+    categories: "Categories",
+    welcome: "Welcome to Haraj Syria",
+    subtitle: "The premier classified ads platform in the Arab region",
+    browseCategories: "Browse Categories",
+    latestAds: "Latest Ads",
+    // Registration form
+    name: "Name",
+    email: "Email",
+    phone: "Phone",
+    country: "Country",
+    city: "City",
+    password: "Password",
+    confirmPassword: "Confirm Password",
+    registerButton: "Register",
+    loginButton: "Login",
+    alreadyHaveAccount: "Already have account?",
+    dontHaveAccount: "Don't have account?",
+    // Categories
+    cars: "Cars",
+    realEstate: "Real Estate",
+    electronics: "Electronics",
+    jobs: "Jobs",
+    furniture: "Furniture",
+    clothing: "Clothing",
+    services: "Services",
+    others: "Others",
+    // Car details
+    carBrand: "Car Brand",
+    carYear: "Car Year",
+    selectCountry: "Select Country",
+    selectCity: "Select City",
+    selectCarBrand: "Select Car Brand",
+    selectCarYear: "Select Car Year",
+    chooseCountry: "Choose Country...",
+    chooseCity: "Choose City...",
+    chooseCarBrand: "Choose Brand...",
+    chooseCarYear: "Choose Year...",
+    loading: "Loading...",
+    required: "Required"
+  }
+};
+
+// Language Provider
+const LanguageProvider = ({ children }) => {
+  const [language, setLanguage] = useState('ar');
+  
+  const toggleLanguage = () => {
+    setLanguage(prev => prev === 'ar' ? 'en' : 'ar');
   };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
+  
+  const t = (key) => translations[language][key] || key;
+  
   return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
+    <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+// Auth Provider
+const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem('token'));
+  
+  useEffect(() => {
+    if (token) {
+      // Set default header for authenticated requests
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
+  }, [token]);
+  
+  const login = (tokenData) => {
+    setToken(tokenData.access_token);
+    setUser(tokenData.user);
+    localStorage.setItem('token', tokenData.access_token);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${tokenData.access_token}`;
+  };
+  
+  const logout = () => {
+    setToken(null);
+    setUser(null);
+    localStorage.removeItem('token');
+    delete axios.defaults.headers.common['Authorization'];
+  };
+  
+  return (
+    <AuthContext.Provider value={{ user, token, login, logout, isAuthenticated: !!token }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+// Header Component
+const Header = () => {
+  const { language, toggleLanguage, t } = useContext(LanguageContext);
+  const { user, logout, isAuthenticated } = useContext(AuthContext);
+  
+  return (
+    <header className={`bg-blue-600 text-white shadow-lg ${language === 'ar' ? 'rtl' : 'ltr'}`}>
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center py-4">
+          <div className="flex items-center space-x-4">
+            <Link to="/" className="text-2xl font-bold hover:text-blue-200">
+              {t('appName')}
+            </Link>
+          </div>
+          
+          <nav className="hidden md:flex items-center space-x-6">
+            <Link to="/" className="hover:text-blue-200">{t('home')}</Link>
+            <Link to="/categories" className="hover:text-blue-200">{t('categories')}</Link>
+            {isAuthenticated ? (
+              <>
+                <Link to="/my-ads" className="hover:text-blue-200">{t('myAds')}</Link>
+                <Link to="/post-ad" className="hover:text-blue-200">{t('postAd')}</Link>
+                <span className="text-blue-200">مرحباً {user?.name}</span>
+                <button onClick={logout} className="hover:text-blue-200">{t('logout')}</button>
+              </>
+            ) : (
+              <>
+                <Link to="/login" className="hover:text-blue-200">{t('login')}</Link>
+                <Link to="/register" className="hover:text-blue-200">{t('register')}</Link>
+              </>
+            )}
+          </nav>
+          
+          <button
+            onClick={toggleLanguage}
+            className="bg-blue-700 px-3 py-1 rounded hover:bg-blue-800"
+          >
+            {language === 'ar' ? 'EN' : 'عر'}
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+// Home Page Component
+const Home = () => {
+  const { t, language } = useContext(LanguageContext);
+  const [categories, setCategories] = useState([]);
+  const [ads, setAds] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [categoriesRes, adsRes] = await Promise.all([
+          axios.get(`${API}/categories`),
+          axios.get(`${API}/ads?limit=8`)
+        ]);
+        setCategories(categoriesRes.data);
+        setAds(adsRes.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchData();
+  }, []);
+  
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="text-xl">{t('loading')}</div>
+      </div>
+    );
+  }
+  
+  return (
+    <div className={`${language === 'ar' ? 'rtl' : 'ltr'}`}>
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-20">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-5xl font-bold mb-4">{t('welcome')}</h1>
+          <p className="text-xl mb-8">{t('subtitle')}</p>
+          <div className="max-w-2xl mx-auto">
+            <div className="flex rounded-lg overflow-hidden shadow-lg">
+              <input
+                type="text"
+                placeholder={t('search') + "..."}
+                className="flex-1 px-6 py-4 text-gray-800 text-lg"
+              />
+              <button className="bg-orange-500 hover:bg-orange-600 px-8 py-4 text-lg font-semibold">
+                {t('search')}
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Categories Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">{t('browseCategories')}</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {categories.map((category) => (
+              <Link
+                key={category.id}
+                to={`/category/${category.id}`}
+                className="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow"
+              >
+                <div className="text-4xl mb-3">
+                  {category.name_ar === 'سيارات' && '🚗'}
+                  {category.name_ar === 'عقارات' && '🏠'}
+                  {category.name_ar === 'إلكترونيات' && '📱'}
+                  {category.name_ar === 'وظائف' && '💼'}
+                  {category.name_ar === 'أثاث' && '🪑'}
+                  {category.name_ar === 'ملابس' && '👕'}
+                  {category.name_ar === 'خدمات' && '🔧'}
+                  {category.name_ar === 'أخرى' && '📦'}
+                </div>
+                <h3 className="font-semibold">
+                  {language === 'ar' ? category.name_ar : category.name_en}
+                </h3>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* Latest Ads Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">{t('latestAds')}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {ads.map((ad) => (
+              <div key={ad.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="h-48 bg-gray-200"></div>
+                <div className="p-4">
+                  <h3 className="font-semibold mb-2 truncate">{ad.title}</h3>
+                  <p className="text-gray-600 text-sm mb-2 line-clamp-2">{ad.description}</p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-lg font-bold text-blue-600">${ad.price}</span>
+                    <span className="text-sm text-gray-500">{ad.city}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
 
+// Registration Component
+const Register = () => {
+  const { t, language } = useContext(LanguageContext);
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+  
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    country: '',
+    city: '',
+    password: '',
+    confirmPassword: ''
+  });
+  
+  const [countries, setCountries] = useState({});
+  const [cities, setCities] = useState([]);
+  const [carBrands, setCarBrands] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [countriesRes, carBrandsRes] = await Promise.all([
+          axios.get(`${API}/countries`),
+          axios.get(`${API}/car-brands`)
+        ]);
+        setCountries(countriesRes.data);
+        setCarBrands(carBrandsRes.data.brands);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    
+    fetchData();
+  }, []);
+  
+  useEffect(() => {
+    if (formData.country) {
+      const fetchCities = async () => {
+        try {
+          const response = await axios.get(`${API}/cities/${formData.country}`);
+          setCities(response.data.cities);
+        } catch (error) {
+          console.error('Error fetching cities:', error);
+          setCities([]);
+        }
+      };
+      
+      fetchCities();
+    } else {
+      setCities([]);
+    }
+  }, [formData.country]);
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setErrors({});
+    
+    // Validation
+    const newErrors = {};
+    if (!formData.name.trim()) newErrors.name = t('required');
+    if (!formData.email.trim()) newErrors.email = t('required');
+    if (!formData.phone.trim()) newErrors.phone = t('required');
+    if (!formData.country) newErrors.country = t('required');
+    if (!formData.city) newErrors.city = t('required');
+    if (!formData.password) newErrors.password = t('required');
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'كلمات المرور غير متطابقة';
+    }
+    
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      setLoading(false);
+      return;
+    }
+    
+    try {
+      const response = await axios.post(`${API}/auth/register`, {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        country: formData.country,
+        city: formData.city,
+        password: formData.password
+      });
+      
+      login(response.data);
+      navigate('/');
+    } catch (error) {
+      setErrors({ submit: error.response?.data?.detail || 'حدث خطأ أثناء التسجيل' });
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  return (
+    <div className={`min-h-screen bg-gray-50 py-12 ${language === 'ar' ? 'rtl' : 'ltr'}`}>
+      <div className="container mx-auto px-4">
+        <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-8">
+          <h2 className="text-2xl font-bold text-center mb-8">{t('register')}</h2>
+          
+          {errors.submit && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+              {errors.submit}
+            </div>
+          )}
+          
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {t('name')} *
+              </label>
+              <input
+                type="text"
+                value={formData.name}
+                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  errors.name ? 'border-red-500' : 'border-gray-300'
+                }`}
+              />
+              {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {t('email')} *
+              </label>
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  errors.email ? 'border-red-500' : 'border-gray-300'
+                }`}
+              />
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {t('phone')} *
+              </label>
+              <input
+                type="tel"
+                value={formData.phone}
+                onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  errors.phone ? 'border-red-500' : 'border-gray-300'
+                }`}
+              />
+              {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {t('country')} *
+              </label>
+              <select
+                value={formData.country}
+                onChange={(e) => setFormData({...formData, country: e.target.value, city: ''})}
+                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  errors.country ? 'border-red-500' : 'border-gray-300'
+                }`}
+              >
+                <option value="">{t('chooseCountry')}</option>
+                {Object.entries(countries).map(([code, country]) => (
+                  <option key={code} value={code}>
+                    {language === 'ar' ? country.name_ar : country.name_en}
+                  </option>
+                ))}
+              </select>
+              {errors.country && <p className="text-red-500 text-sm mt-1">{errors.country}</p>}
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {t('city')} *
+              </label>
+              <select
+                value={formData.city}
+                onChange={(e) => setFormData({...formData, city: e.target.value})}
+                disabled={!formData.country}
+                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  errors.city ? 'border-red-500' : 'border-gray-300'
+                } ${!formData.country ? 'bg-gray-100' : ''}`}
+              >
+                <option value="">{t('chooseCity')}</option>
+                {cities.map((city) => (
+                  <option key={city} value={city}>{city}</option>
+                ))}
+              </select>
+              {errors.city && <p className="text-red-500 text-sm mt-1">{errors.city}</p>}
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {t('password')} *
+              </label>
+              <input
+                type="password"
+                value={formData.password}
+                onChange={(e) => setFormData({...formData, password: e.target.value})}
+                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  errors.password ? 'border-red-500' : 'border-gray-300'
+                }`}
+              />
+              {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {t('confirmPassword')} *
+              </label>
+              <input
+                type="password"
+                value={formData.confirmPassword}
+                onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
+                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
+                }`}
+              />
+              {errors.confirmPassword && <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>}
+            </div>
+            
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-md disabled:opacity-50"
+            >
+              {loading ? t('loading') : t('registerButton')}
+            </button>
+          </form>
+          
+          <p className="text-center mt-6 text-gray-600">
+            {t('alreadyHaveAccount')}{' '}
+            <Link to="/login" className="text-blue-600 hover:underline">
+              {t('login')}
+            </Link>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Login Component
+const Login = () => {
+  const { t, language } = useContext(LanguageContext);
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+  
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+  
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    
+    try {
+      const response = await axios.post(`${API}/auth/login`, formData);
+      login(response.data);
+      navigate('/');
+    } catch (error) {
+      setError(error.response?.data?.detail || 'حدث خطأ أثناء تسجيل الدخول');
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  return (
+    <div className={`min-h-screen bg-gray-50 py-12 ${language === 'ar' ? 'rtl' : 'ltr'}`}>
+      <div className="container mx-auto px-4">
+        <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-8">
+          <h2 className="text-2xl font-bold text-center mb-8">{t('login')}</h2>
+          
+          {error && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+              {error}
+            </div>
+          )}
+          
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {t('email')}
+              </label>
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                required
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                {t('password')}
+              </label>
+              <input
+                type="password"
+                value={formData.password}
+                onChange={(e) => setFormData({...formData, password: e.target.value})}
+                required
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-md disabled:opacity-50"
+            >
+              {loading ? t('loading') : t('loginButton')}
+            </button>
+          </form>
+          
+          <p className="text-center mt-6 text-gray-600">
+            {t('dontHaveAccount')}{' '}
+            <Link to="/register" className="text-blue-600 hover:underline">
+              {t('register')}
+            </Link>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Main App Component
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <LanguageProvider>
+      <AuthProvider>
+        <div className="App min-h-screen bg-gray-100">
+          <BrowserRouter>
+            <Header />
+            <main>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="*" element={<Home />} />
+              </Routes>
+            </main>
+          </BrowserRouter>
+        </div>
+      </AuthProvider>
+    </LanguageProvider>
   );
 }
 
