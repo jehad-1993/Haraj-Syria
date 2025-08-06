@@ -464,7 +464,8 @@ COUNTRY_PHONE_CODES = {
     "DZ": "+213",
     "MA": "+212",
     "YE": "+967",
-    "SD": "+249"
+    "SD": "+249",
+    "OTHER": "+000"
 }
 
 # Routes
