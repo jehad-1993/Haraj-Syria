@@ -240,6 +240,7 @@ SUBCATEGORIES = {
         "name_ar": "سيارات",
         "name_en": "Cars", 
         "subcategories": [
+            {"name_ar": "سيارات سيدان", "name_en": "Sedan Cars"},
             {"name_ar": "سيارات صالون", "name_en": "Sedans"},
             {"name_ar": "سيارات دفع رباعي", "name_en": "SUVs"},
             {"name_ar": "سيارات رياضية", "name_en": "Sports Cars"},
@@ -247,7 +248,8 @@ SUBCATEGORIES = {
             {"name_ar": "شاحنات صغيرة", "name_en": "Pickup Trucks"},
             {"name_ar": "فانات", "name_en": "Vans"},
             {"name_ar": "دراجات نارية", "name_en": "Motorcycles"},
-            {"name_ar": "قطع غيار", "name_en": "Auto Parts"}
+            {"name_ar": "قطع غيار", "name_en": "Auto Parts"},
+            {"name_ar": "أخرى", "name_en": "Others"}
         ]
     },
     "real_estate": {
