@@ -297,21 +297,31 @@ class HarajSyriaAPITester:
             self.log_test("Create Ad", False, "No authentication token available")
             return False
         
+        # First get a real category ID
+        success, categories = self.run_test("Get Categories for Ad Creation", "GET", "categories", 200)
+        if not success or not categories:
+            self.log_test("Create Ad", False, "Could not get categories for ad creation")
+            return False
+        
+        # Use the first category (cars)
+        category_id = categories[0]['id'] if categories else "default_category"
+        
         ad_data = {
-            "title": "تويوتا كامري 2020 للبيع",
-            "description": "سيارة تويوتا كامري موديل 2020 في حالة ممتازة، قطعت 50000 كم فقط",
-            "price": 25000,
+            "title": "تويوتا كامري 2022 للبيع - حالة ممتازة",
+            "description": "سيارة تويوتا كامري موديل 2022 في حالة ممتازة، قطعت 35000 كم فقط. السيارة محافظة عليها جداً ولم تتعرض لأي حوادث. جميع الصيانات الدورية تمت في الوكالة المعتمدة.",
+            "price": 28500,
             "currency": "USD",
-            "category_id": "cars_category_id",  # This would need to be a real category ID
+            "category_id": category_id,
             "country": "SY",
             "city": "دمشق",
-            "contact_phone": "+963123456789",
-            "contact_whatsapp": "+963123456789",
+            "area": "المزة",
+            "contact_phone": "+963991234567",
+            "contact_whatsapp": "+963991234567",
             "car_brand": "تويوتا",
             "car_model": "كامري",
-            "car_year": 2020,
-            "car_mileage": 50000,
-            "car_condition": "ممتاز"
+            "car_year": 2022,
+            "car_mileage": 35000,
+            "car_condition": "excellent"
         }
         
         success, response = self.run_test("Create Ad", "POST", "ads", 200, ad_data)
