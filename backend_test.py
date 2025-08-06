@@ -328,7 +328,10 @@ class HarajSyriaAPITester:
         
         if success and isinstance(response, dict):
             if 'id' in response:
+                self.created_ad_id = response['id']  # Store for other tests
                 print(f"   Created ad with ID: {response['id']}")
+                print(f"   Ad title: {response.get('title', 'N/A')}")
+                print(f"   Ad status: {response.get('status', 'N/A')}")
                 return True
             else:
                 self.log_test("Create Ad Response Validation", False, "Missing ad ID in response")
