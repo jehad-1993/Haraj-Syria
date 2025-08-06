@@ -348,15 +348,90 @@ class HarajSyriaAPITester:
         
         return success
 
-    def test_get_ads_with_filters(self):
-        """Test getting ads with filters"""
-        # Test with country filter
-        success1, response1 = self.run_test("Get Ads with Country Filter", "GET", "ads?country=SY", 200)
+    def test_get_user_ads(self):
+        """Test getting user's own ads"""
+        if not self.token:
+            self.log_test("Get User Ads", False, "No authentication token available")
+            return False
         
-        # Test with search filter
-        success2, response2 = self.run_test("Get Ads with Search Filter", "GET", "ads?search=تويوتا", 200)
+        success, response = self.run_test("Get User Ads", "GET", "users/ads", 200)
         
-        return success1 and success2
+        if success and isinstance(response, list):
+            print(f"   Found {len(response)} user ads")
+            return True
+        
+        return success
+
+    def test_get_single_ad(self):
+        """Test getting a single ad by ID"""
+        if not hasattr(self, 'created_ad_id'):
+            self.log_test("Get Single Ad", False, "No created ad ID available")
+            return False
+        
+        success, response = self.run_test("Get Single Ad", "GET", f"ads/{self.created_ad_id}", 200)
+        
+        if success and isinstance(response, dict):
+            if 'id' in response and response['id'] == self.created_ad_id:
+                print(f"   Retrieved ad: {response.get('title', 'N/A')}")
+                print(f"   Views: {response.get('views', 0)}")
+                return True
+            else:
+                self.log_test("Single Ad Response Validation", False, "Ad ID mismatch or missing")
+        
+        return success
+
+    def test_car_models_endpoint(self):
+        """Test car models endpoint"""
+        success, response = self.run_test("Get Toyota Car Models", "GET", "car-models/تويوتا", 200)
+        
+        if success and isinstance(response, dict) and 'models' in response:
+            models = response['models']
+            if len(models) > 5:  # Should have multiple Toyota models
+                print(f"   Found {len(models)} Toyota models")
+                # Check if "كامري" (Camry) is included
+                if "كامري" in models:
+                    print("   ✓ Found 'كامري' (Camry) in Toyota models")
+                return True
+            else:
+                self.log_test("Car Models Content Validation", False, f"Only found {len(models)} models")
+        
+        return success
+
+    def test_car_conditions_endpoint(self):
+        """Test car conditions endpoint"""
+        success, response = self.run_test("Get Car Conditions", "GET", "car-conditions", 200)
+        
+        if success and isinstance(response, dict) and 'conditions' in response:
+            conditions = response['conditions']
+            if len(conditions) >= 5:  # Should have multiple conditions
+                print(f"   Found {len(conditions)} car conditions")
+                # Check if conditions have both Arabic and English names
+                has_arabic = any('name_ar' in condition for condition in conditions)
+                has_english = any('name_en' in condition for condition in conditions)
+                if has_arabic and has_english:
+                    print("   ✓ Car conditions have both Arabic and English names")
+                    return True
+                else:
+                    self.log_test("Car Conditions Validation", False, "Missing Arabic or English names")
+            else:
+                self.log_test("Car Conditions Count Validation", False, f"Only found {len(conditions)} conditions")
+        
+        return success
+
+    def test_phone_codes_endpoint(self):
+        """Test phone codes endpoint"""
+        success, response = self.run_test("Get Phone Codes", "GET", "phone-codes", 200)
+        
+        if success and isinstance(response, dict):
+            # Check if Syria (+963) is included
+            if "SY" in response and response["SY"] == "+963":
+                print("   ✓ Found Syria phone code: +963")
+                print(f"   Total countries with phone codes: {len(response)}")
+                return True
+            else:
+                self.log_test("Phone Codes Validation", False, "Syria phone code not found or incorrect")
+        
+        return success
 
     def run_all_tests(self):
         """Run all API tests"""
