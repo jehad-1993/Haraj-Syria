@@ -100,16 +100,60 @@ const AdDetails = () => {
           <div className="lg:col-span-2">
             {/* Images */}
             <div className="bg-white rounded-lg shadow-md mb-6">
-              <div className="h-96 bg-gray-200 rounded-t-lg flex items-center justify-center relative">
-                <div className="text-gray-400 text-6xl">📷</div>
-                {ad.ad_type !== 'free' && (
-                  <div className={`absolute top-4 ${language === 'ar' ? 'right-4' : 'left-4'} px-3 py-1 rounded text-sm font-bold text-white ${
-                    ad.ad_type === 'featured' ? 'bg-orange-500' : 'bg-purple-500'
-                  }`}>
-                    {ad.ad_type === 'featured' ? (language === 'ar' ? 'إعلان مميز' : 'Featured Ad') : (language === 'ar' ? 'إعلان بريميوم' : 'Premium Ad')}
+              {ad.images && ad.images.length > 0 ? (
+                <div>
+                  {/* Main Image */}
+                  <div className="h-96 bg-gray-200 rounded-t-lg overflow-hidden relative">
+                    <img 
+                      src={ad.images[0]} 
+                      alt={ad.title}
+                      className="w-full h-full object-cover"
+                    />
+                    {ad.ad_type !== 'free' && (
+                      <div className={`absolute top-4 ${language === 'ar' ? 'right-4' : 'left-4'} px-3 py-1 rounded text-sm font-bold text-white ${
+                        ad.ad_type === 'featured' ? 'bg-orange-500' : 'bg-purple-500'
+                      }`}>
+                        {ad.ad_type === 'featured' ? (language === 'ar' ? 'إعلان مميز' : 'Featured Ad') : (language === 'ar' ? 'إعلان بريميوم' : 'Premium Ad')}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
+                  
+                  {/* Thumbnail Images */}
+                  {ad.images.length > 1 && (
+                    <div className="p-4 border-b">
+                      <div className="flex gap-2 overflow-x-auto">
+                        {ad.images.map((image, index) => (
+                          <img
+                            key={index}
+                            src={image}
+                            alt={`${ad.title} ${index + 1}`}
+                            className={`w-20 h-20 object-cover rounded cursor-pointer border-2 ${
+                              index === 0 ? 'border-blue-500' : 'border-gray-200 hover:border-blue-300'
+                            }`}
+                            onClick={() => {
+                              // Switch main image
+                              const newImages = [...ad.images];
+                              [newImages[0], newImages[index]] = [newImages[index], newImages[0]];
+                              setAd({...ad, images: newImages});
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="h-96 bg-gray-200 rounded-t-lg flex items-center justify-center relative">
+                  <div className="text-gray-400 text-6xl">📷</div>
+                  {ad.ad_type !== 'free' && (
+                    <div className={`absolute top-4 ${language === 'ar' ? 'right-4' : 'left-4'} px-3 py-1 rounded text-sm font-bold text-white ${
+                      ad.ad_type === 'featured' ? 'bg-orange-500' : 'bg-purple-500'
+                    }`}>
+                      {ad.ad_type === 'featured' ? (language === 'ar' ? 'إعلان مميز' : 'Featured Ad') : (language === 'ar' ? 'إعلان بريميوم' : 'Premium Ad')}
+                    </div>
+                  )}
+                </div>
+              )}
               
               {/* Ad Title and Price */}
               <div className="p-6">
