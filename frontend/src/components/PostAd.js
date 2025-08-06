@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { LanguageContext, AuthContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import ImageUpload from "./ImageUpload";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
