@@ -344,6 +344,7 @@ const Register = () => {
   
   const [countries, setCountries] = useState({});
   const [cities, setCities] = useState([]);
+  const [phoneCodes, setPhoneCodes] = useState({});
   const [carBrands, setCarBrands] = useState([]);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -351,12 +352,14 @@ const Register = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [countriesRes, carBrandsRes] = await Promise.all([
+        const [countriesRes, carBrandsRes, phoneCodesRes] = await Promise.all([
           axios.get(`${API}/countries`),
-          axios.get(`${API}/car-brands`)
+          axios.get(`${API}/car-brands`),
+          axios.get(`${API}/phone-codes`)
         ]);
         setCountries(countriesRes.data);
         setCarBrands(carBrandsRes.data.brands);
+        setPhoneCodes(phoneCodesRes.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
