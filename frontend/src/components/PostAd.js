@@ -39,6 +39,8 @@ const PostAd = () => {
     car_condition: 'excellent'
   });
   
+  const [images, setImages] = useState([]);
+  
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const [countries, setCountries] = useState({});
