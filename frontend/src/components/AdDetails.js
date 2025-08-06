@@ -302,8 +302,19 @@ const AdDetails = () => {
               {relatedAds.map((relatedAd) => (
                 <div key={relatedAd.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
                      onClick={() => navigate(`/ads/${relatedAd.id}`)}>
-                  <div className="h-40 bg-gray-200 flex items-center justify-center">
-                    <span className="text-gray-400">📷</span>
+                  <div className="h-40 relative">
+                    {relatedAd.images && relatedAd.images.length > 0 ? (
+                      <LazyImage
+                        src={relatedAd.images[0]}
+                        alt={relatedAd.title}
+                        className="w-full h-full object-cover"
+                        skeletonClassName="bg-gray-200 animate-pulse"
+                      />
+                    ) : (
+                      <div className="h-full bg-gray-200 flex items-center justify-center">
+                        <span className="text-gray-400">📷</span>
+                      </div>
+                    )}
                   </div>
                   <div className="p-4">
                     <h3 className="font-semibold mb-2 line-clamp-2">{relatedAd.title}</h3>
