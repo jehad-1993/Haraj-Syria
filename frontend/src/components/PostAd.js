@@ -530,11 +530,11 @@ const PostAd = () => {
                       onChange={(e) => setFormData({...formData, car_condition: e.target.value})}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
-                      <option value="excellent">{language === 'ar' ? 'ممتازة' : 'Excellent'}</option>
-                      <option value="very_good">{language === 'ar' ? 'جيدة جداً' : 'Very Good'}</option>
-                      <option value="good">{language === 'ar' ? 'جيدة' : 'Good'}</option>
-                      <option value="fair">{language === 'ar' ? 'مقبولة' : 'Fair'}</option>
-                      <option value="needs_work">{language === 'ar' ? 'تحتاج عمل' : 'Needs Work'}</option>
+                      {carConditions.map((condition) => (
+                        <option key={condition.value} value={condition.value}>
+                          {language === 'ar' ? condition.name_ar : condition.name_en}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
