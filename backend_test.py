@@ -341,12 +341,15 @@ class HarajSyriaAPITester:
         self.test_get_countries()
         self.test_get_cities()
         self.test_get_categories()
+        self.test_get_categories_with_counts()  # NEW API
         self.test_get_subcategories()
         self.test_get_car_data()
         
         # Authentication tests
         self.test_register_user()
-        self.test_login_existing_user()
+        self.test_login_with_test_credentials()  # NEW test with specific credentials
+        self.test_forgot_password()  # NEW API
+        self.test_reset_password()   # NEW API
         
         # Ads tests
         self.test_create_ad()
