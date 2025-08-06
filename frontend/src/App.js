@@ -693,4 +693,5 @@ function App() {
   );
 }
 
+export { LanguageContext, AuthContext };
 export default App;
