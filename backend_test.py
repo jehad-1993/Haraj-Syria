@@ -259,22 +259,28 @@ class HarajSyriaAPITester:
         
         return success
 
-    def test_login_with_test_credentials(self):
-        """Test login with the specific test credentials mentioned in the request"""
+    def test_login_user(self):
+        """Test user login with registered credentials"""
+        if not hasattr(self, 'registered_email') or not hasattr(self, 'registered_password'):
+            self.log_test("User Login", False, "No registered user credentials available")
+            return False
+            
         login_data = {
-            "email": "final1754470057@test.com",
-            "password": "FinalTest123!"
+            "email": self.registered_email,
+            "password": self.registered_password
         }
         
-        success, response = self.run_test("Login with Test Credentials", "POST", "auth/login", 200, login_data)
+        success, response = self.run_test("User Login", "POST", "auth/login", 200, login_data)
         
         if success and isinstance(response, dict):
             if 'access_token' in response and 'user' in response:
+                self.token = response['access_token']
+                self.user_id = response['user']['id']
                 print(f"   ✅ Logged in as: {response['user']['name']}")
                 print(f"   User email: {response['user']['email']}")
                 return True
             else:
-                self.log_test("Test Login Response Validation", False, "Missing access_token or user in response")
+                self.log_test("Login Response Validation", False, "Missing access_token or user in response")
         
         return success
 
