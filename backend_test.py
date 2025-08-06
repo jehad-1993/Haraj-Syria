@@ -200,6 +200,9 @@ class HarajSyriaAPITester:
             if 'access_token' in response and 'user' in response:
                 self.token = response['access_token']
                 self.user_id = response['user']['id']
+                # Store credentials for login test
+                self.registered_email = test_user_data['email']
+                self.registered_password = test_user_data['password']
                 print(f"   Registered user with ID: {self.user_id}")
                 return True
             else:
