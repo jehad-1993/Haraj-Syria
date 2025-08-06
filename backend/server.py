@@ -262,7 +262,8 @@ ARAB_COUNTRIES = {
     "DZ": {"name_ar": "الجزائر", "name_en": "Algeria"},
     "MA": {"name_ar": "المغرب", "name_en": "Morocco"},
     "YE": {"name_ar": "اليمن", "name_en": "Yemen"},
-    "SD": {"name_ar": "السودان", "name_en": "Sudan"}
+    "SD": {"name_ar": "السودان", "name_en": "Sudan"},
+    "OTHER": {"name_ar": "أخرى", "name_en": "Others"}
 }
 
 # Subcategories for all main categories
