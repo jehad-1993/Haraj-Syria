@@ -187,7 +187,7 @@ const Header = () => {
           
           <nav className="hidden md:flex items-center space-x-6">
             <Link to="/" className="hover:text-blue-200">{t('home')}</Link>
-            <Link to="/categories" className="hover:text-blue-200">{t('categories')}</Link>
+            <Link to="/ads" className="hover:text-blue-200">{t('categories')}</Link>
             {isAuthenticated ? (
               <>
                 <Link to="/my-ads" className="hover:text-blue-200">{t('myAds')}</Link>
