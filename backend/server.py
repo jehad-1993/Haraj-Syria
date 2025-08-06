@@ -505,6 +505,16 @@ async def get_car_brands():
 async def get_car_years():
     return {"years": CAR_YEARS}
 
+@api_router.get("/car-models/{brand}")
+async def get_car_models(brand: str):
+    if brand not in CAR_MODELS:
+        raise HTTPException(status_code=404, detail="Brand not found")
+    return {"models": CAR_MODELS[brand]}
+
+@api_router.get("/phone-codes")
+async def get_phone_codes():
+    return COUNTRY_PHONE_CODES
+
 @api_router.get("/subcategories/{category_key}")
 async def get_subcategories(category_key: str):
     if category_key not in SUBCATEGORIES:
