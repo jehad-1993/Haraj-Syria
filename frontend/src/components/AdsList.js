@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { LanguageContext } from "../App";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import LazyImage from "./LazyImage";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
