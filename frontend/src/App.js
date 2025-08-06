@@ -232,7 +232,7 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const [categoriesRes, adsRes] = await Promise.all([
-          axios.get(`${API}/categories`),
+          axios.get(`${API}/categories-with-counts`),
           axios.get(`${API}/ads?limit=8`)
         ]);
         setCategories(categoriesRes.data);
