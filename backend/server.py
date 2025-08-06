@@ -419,6 +419,15 @@ CAR_BRANDS = [
 
 CAR_YEARS = list(range(2010, 2051)) + ["أخرى"]
 
+CAR_CONDITIONS = [
+    {"value": "excellent", "name_ar": "ممتازة", "name_en": "Excellent"},
+    {"value": "very_good", "name_ar": "جيدة جداً", "name_en": "Very Good"},
+    {"value": "good", "name_ar": "جيدة", "name_en": "Good"},
+    {"value": "fair", "name_ar": "مقبولة", "name_en": "Fair"},
+    {"value": "needs_work", "name_ar": "تحتاج عمل", "name_en": "Needs Work"},
+    {"value": "other", "name_ar": "أخرى", "name_en": "Others"}
+]
+
 CAR_MODELS = {
     "تويوتا": ["كامري", "كورولا", "افالون", "راف 4", "هايلاندر", "برادو", "لاند كروزر", "هيلوكس", "يارس", "أخرى"],
     "هوندا": ["أكورد", "سيفيك", "سي ار في", "بايلوت", "أوديسي", "فيت", "سيتي", "أخرى"],
