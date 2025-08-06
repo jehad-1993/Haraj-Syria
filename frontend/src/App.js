@@ -739,7 +739,21 @@ const Login = () => {
       
       setShowForgotPassword(false);
     } catch (error) {
-      setError(error.response?.data?.detail || 'حدث خطأ في إرسال طلب استعادة كلمة المرور');
+      console.error('Forgot password error:', error.response?.data);
+      let errorMessage = 'حدث خطأ في إرسال طلب استعادة كلمة المرور';
+      
+      if (error.response?.data?.detail) {
+        if (typeof error.response.data.detail === 'string') {
+          errorMessage = error.response.data.detail;
+        } else if (Array.isArray(error.response.data.detail)) {
+          const validationErrors = error.response.data.detail.map(err => err.msg).join(', ');
+          errorMessage = validationErrors;
+        } else {
+          errorMessage = 'خطأ في بيانات استعادة كلمة المرور';
+        }
+      }
+      
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
