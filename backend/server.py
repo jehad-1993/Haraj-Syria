@@ -967,9 +967,22 @@ async def should_auto_approve(ad_data: dict, user: dict) -> bool:
     
     # Check if user is new and requires approval
     if settings.get("require_approval_for_new_users", True):
-        user_age_days = (datetime.utcnow() - datetime.fromisoformat(user["created_at"].replace("Z", "+00:00"))).days
-        if user_age_days <= settings.get("require_approval_days", 30):
-            return False
+        try:
+            # Handle both datetime object and string formats
+            created_at = user["created_at"]
+            if isinstance(created_at, str):
+                # Parse ISO format datetime string
+                user_created = datetime.fromisoformat(created_at.replace("Z", "+00:00"))
+            else:
+                # Already a datetime object
+                user_created = created_at
+            
+            user_age_days = (datetime.utcnow() - user_created).days
+            if user_age_days <= settings.get("require_approval_days", 30):
+                return False
+        except Exception as e:
+            print(f"Error parsing user creation date: {e}")
+            return False  # Default to requiring approval on error
     
     # Check ad type auto-approval settings
     ad_type = ad_data.get("ad_type", "free")
