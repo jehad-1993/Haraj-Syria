@@ -531,9 +531,16 @@ async def login(user_data: UserLogin):
         )
     
     # Verify password
+    password_hash = user.get("password_hash")
+    if not password_hash:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password"
+        )
+    
     password_valid = bcrypt.checkpw(
         user_data.password.encode('utf-8'), 
-        user["password_hash"].encode('utf-8')
+        password_hash.encode('utf-8')
     )
     
     if not password_valid:
