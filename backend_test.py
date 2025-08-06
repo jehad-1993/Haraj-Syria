@@ -184,13 +184,14 @@ class HarajSyriaAPITester:
 
     def test_register_user(self):
         """Test user registration"""
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         test_user_data = {
-            "name": "Test User",
-            "email": f"test_user_{datetime.now().strftime('%H%M%S')}@test.com",
-            "phone": "+963123456789",
+            "name": "Ahmad Al-Shami",
+            "email": f"ahmad_shami_{timestamp}@harajsyria.com",
+            "phone": f"+96311{timestamp[-6:]}",
             "country": "SY",
             "city": "دمشق",
-            "password": "TestPass123!"
+            "password": "Damascus2025!"
         }
         
         success, response = self.run_test("User Registration", "POST", "auth/register", 200, test_user_data)
