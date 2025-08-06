@@ -449,14 +449,21 @@ class HarajSyriaAPITester:
         
         # Authentication tests
         self.test_register_user()
-        self.test_login_with_test_credentials()  # NEW test with specific credentials
-        self.test_forgot_password()  # NEW API
-        self.test_reset_password()   # NEW API
+        self.test_login_user()  # Changed from test_login_with_test_credentials
+        self.test_forgot_password()
+        self.test_reset_password()
         
         # Ads tests
         self.test_create_ad()
         self.test_get_ads()
         self.test_get_ads_with_filters()
+        self.test_get_user_ads()
+        self.test_get_single_ad()
+        
+        # Additional car-related endpoints
+        self.test_car_models_endpoint()
+        self.test_car_conditions_endpoint()
+        self.test_phone_codes_endpoint()
         
         # Print final results
         print("\n" + "=" * 50)
