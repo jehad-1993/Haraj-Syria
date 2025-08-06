@@ -286,9 +286,9 @@ const Home = () => {
               <Link
                 key={category.id}
                 to={`/category/${category.id}`}
-                className="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow"
+                className="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-xl hover:scale-105 transition-all duration-300 group"
               >
-                <div className="text-4xl mb-3">
+                <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
                   {category.name_ar === 'سيارات' && '🚗'}
                   {category.name_ar === 'عقارات' && '🏠'}
                   {category.name_ar === 'إلكترونيات' && '📱'}
@@ -298,9 +298,12 @@ const Home = () => {
                   {category.name_ar === 'خدمات' && '🔧'}
                   {category.name_ar === 'أخرى' && '📦'}
                 </div>
-                <h3 className="font-semibold">
+                <h3 className="font-semibold text-lg mb-2">
                   {language === 'ar' ? category.name_ar : category.name_en}
                 </h3>
+                <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full inline-block">
+                  {category.ads_count || 0} {language === 'ar' ? 'إعلان' : 'ads'}
+                </div>
               </Link>
             ))}
           </div>
