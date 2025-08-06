@@ -172,6 +172,16 @@ class AdCreate(BaseModel):
     car_mileage: Optional[int] = None
     car_condition: Optional[str] = None
 
+class AdApprovalSettings(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    auto_approve_free: bool = False
+    auto_approve_featured: bool = False
+    auto_approve_premium: bool = False
+    require_approval_for_new_users: bool = True
+    require_approval_days: int = 30  # New users need approval for X days
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+
 class AdUpdate(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
