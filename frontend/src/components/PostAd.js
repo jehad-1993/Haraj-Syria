@@ -414,15 +414,20 @@ const PostAd = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   {language === 'ar' ? 'رقم الهاتف' : 'Phone Number'} *
                 </label>
-                <input
-                  type="tel"
-                  value={formData.contact_phone}
-                  onChange={(e) => setFormData({...formData, contact_phone: e.target.value})}
-                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    errors.contact_phone ? 'border-red-500' : 'border-gray-300'
-                  }`}
-                  placeholder="+963xxxxxxxxx"
-                />
+                <div className="flex">
+                  <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">
+                    {formData.country && phoneCodes[formData.country] ? phoneCodes[formData.country] : '+963'}
+                  </span>
+                  <input
+                    type="tel"
+                    value={formData.contact_phone}
+                    onChange={(e) => setFormData({...formData, contact_phone: e.target.value})}
+                    className={`flex-1 px-3 py-2 border rounded-r-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      errors.contact_phone ? 'border-red-500' : 'border-gray-300'
+                    }`}
+                    placeholder="123456789"
+                  />
+                </div>
                 {errors.contact_phone && <p className="text-red-500 text-sm mt-1">{errors.contact_phone}</p>}
               </div>
               
@@ -430,13 +435,18 @@ const PostAd = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   {language === 'ar' ? 'واتساب' : 'WhatsApp'}
                 </label>
-                <input
-                  type="tel"
-                  value={formData.contact_whatsapp}
-                  onChange={(e) => setFormData({...formData, contact_whatsapp: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="+963xxxxxxxxx"
-                />
+                <div className="flex">
+                  <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">
+                    {formData.country && phoneCodes[formData.country] ? phoneCodes[formData.country] : '+963'}
+                  </span>
+                  <input
+                    type="tel"
+                    value={formData.contact_whatsapp}
+                    onChange={(e) => setFormData({...formData, contact_whatsapp: e.target.value})}
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-r-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="123456789"
+                  />
+                </div>
               </div>
             </div>
             
