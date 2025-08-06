@@ -595,8 +595,14 @@ const Login = () => {
     password: ''
   });
   
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [forgotPasswordData, setForgotPasswordData] = useState({
+    email: '',
+    method: 'email'
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -614,6 +620,29 @@ const Login = () => {
     }
   };
   
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setMessage('');
+    
+    try {
+      const response = await axios.post(`${API}/auth/forgot-password`, forgotPasswordData);
+      setMessage(response.data.message);
+      
+      // For development - show the token (remove in production)
+      if (response.data.token) {
+        setMessage(prev => prev + `\nToken: ${response.data.token}`);
+      }
+      
+      setShowForgotPassword(false);
+    } catch (error) {
+      setError(error.response?.data?.detail || 'حدث خطأ في إرسال طلب استعادة كلمة المرور');
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   return (
     <div className={`min-h-screen bg-gray-50 py-12 ${language === 'ar' ? 'rtl' : 'ltr'}`}>
       <div className="container mx-auto px-4">
@@ -626,41 +655,106 @@ const Login = () => {
             </div>
           )}
           
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                {t('email')}
-              </label>
-              <input
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({...formData, email: e.target.value})}
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+          {message && (
+            <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+              {message}
             </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                {t('password')}
-              </label>
-              <input
-                type="password"
-                value={formData.password}
-                onChange={(e) => setFormData({...formData, password: e.target.value})}
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-md disabled:opacity-50"
-            >
-              {loading ? t('loading') : t('loginButton')}
-            </button>
-          </form>
+          )}
+          
+          {!showForgotPassword ? (
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {t('email')}
+                </label>
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {t('password')}
+                </label>
+                <input
+                  type="password"
+                  value={formData.password}
+                  onChange={(e) => setFormData({...formData, password: e.target.value})}
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-md disabled:opacity-50"
+              >
+                {loading ? t('loading') : t('loginButton')}
+              </button>
+              
+              <div className="text-center">
+                <button
+                  type="button"
+                  onClick={() => setShowForgotPassword(true)}
+                  className="text-blue-600 hover:text-blue-700 text-sm"
+                >
+                  {language === 'ar' ? 'نسيت كلمة المرور؟' : 'Forgot Password?'}
+                </button>
+              </div>
+            </form>
+          ) : (
+            <form onSubmit={handleForgotPassword} className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {t('email')}
+                </label>
+                <input
+                  type="email"
+                  value={forgotPasswordData.email}
+                  onChange={(e) => setForgotPasswordData({...forgotPasswordData, email: e.target.value})}
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {language === 'ar' ? 'طريقة الاستلام' : 'Recovery Method'}
+                </label>
+                <select
+                  value={forgotPasswordData.method}
+                  onChange={(e) => setForgotPasswordData({...forgotPasswordData, method: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="email">{language === 'ar' ? 'البريد الإلكتروني' : 'Email'}</option>
+                  <option value="sms">{language === 'ar' ? 'رسالة نصية' : 'SMS'}</option>
+                </select>
+              </div>
+              
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-md disabled:opacity-50"
+              >
+                {loading ? t('loading') : (language === 'ar' ? 'إرسال رابط الاستعادة' : 'Send Recovery Link')}
+              </button>
+              
+              <div className="text-center">
+                <button
+                  type="button"
+                  onClick={() => setShowForgotPassword(false)}
+                  className="text-gray-600 hover:text-gray-700 text-sm"
+                >
+                  {language === 'ar' ? 'العودة للدخول' : 'Back to Login'}
+                </button>
+              </div>
+            </form>
+          )}
           
           <p className="text-center mt-6 text-gray-600">
             {t('dontHaveAccount')}{' '}
