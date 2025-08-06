@@ -465,7 +465,23 @@ const Register = () => {
       login(response.data);
       navigate('/');
     } catch (error) {
-      setErrors({ submit: error.response?.data?.detail || 'حدث خطأ أثناء التسجيل' });
+      console.error('Registration error:', error.response?.data);
+      let errorMessage = 'حدث خطأ أثناء التسجيل';
+      
+      if (error.response?.data?.detail) {
+        // Handle different types of error details
+        if (typeof error.response.data.detail === 'string') {
+          errorMessage = error.response.data.detail;
+        } else if (Array.isArray(error.response.data.detail)) {
+          // Handle FastAPI validation errors
+          const validationErrors = error.response.data.detail.map(err => err.msg).join(', ');
+          errorMessage = validationErrors;
+        } else {
+          errorMessage = 'خطأ في البيانات المدخلة';
+        }
+      }
+      
+      setErrors({ submit: errorMessage });
     } finally {
       setLoading(false);
     }
