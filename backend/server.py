@@ -816,18 +816,73 @@ async def reject_ad(ad_id: str):
     
     return {"message": "Ad rejected"}
 
-@api_router.get("/admin/ads/pending")
-async def get_pending_ads():
-    """Get all pending ads for admin review - in production this would require admin authentication"""
-    ads = await db.ads.find({"status": AdStatus.PENDING}).sort("created_at", 1).to_list(100)
+# Advanced Approval System
+@api_router.get("/admin/approval-settings")
+async def get_approval_settings():
+    """Get current approval settings"""
+    settings = await db.approval_settings.find_one()
     
-    result = []
-    for ad in ads:
-        user = await db.users.find_one({"id": ad["user_id"]})
-        ad_response = AdResponse(**ad, user_name=user["name"] if user else "Unknown")
-        result.append(ad_response)
+    if not settings:
+        # Create default settings
+        default_settings = AdApprovalSettings()
+        await db.approval_settings.insert_one(default_settings.dict())
+        return default_settings.dict()
     
-    return result
+    return settings
+
+@api_router.put("/admin/approval-settings")
+async def update_approval_settings(settings: AdApprovalSettings):
+    """Update approval settings"""
+    settings.updated_at = datetime.utcnow()
+    
+    await db.approval_settings.replace_one(
+        {},
+        settings.dict(),
+        upsert=True
+    )
+    
+    return {"message": "Approval settings updated successfully"}
+
+@api_router.put("/admin/ads/{ad_id}/set-approval-status")
+async def set_ad_approval_status(ad_id: str, status: AdStatus, override_settings: bool = False):
+    """Set individual ad approval status with option to override global settings"""
+    ad = await db.ads.find_one({"id": ad_id})
+    if not ad:
+        raise HTTPException(status_code=404, detail="Ad not found")
+    
+    update_data = {
+        "status": status,
+        "updated_at": datetime.utcnow(),
+        "approval_override": override_settings
+    }
+    
+    await db.ads.update_one({"id": ad_id}, {"$set": update_data})
+    
+    return {"message": f"Ad status updated to {status}"}
+
+async def should_auto_approve(ad_data: dict, user: dict) -> bool:
+    """Determine if ad should be auto-approved based on settings"""
+    settings = await db.approval_settings.find_one()
+    if not settings:
+        return False  # Default: require approval
+    
+    # Check if user is new and requires approval
+    if settings.get("require_approval_for_new_users", True):
+        user_age_days = (datetime.utcnow() - datetime.fromisoformat(user["created_at"].replace("Z", "+00:00"))).days
+        if user_age_days <= settings.get("require_approval_days", 30):
+            return False
+    
+    # Check ad type auto-approval settings
+    ad_type = ad_data.get("ad_type", "free")
+    
+    if ad_type == "free" and settings.get("auto_approve_free", False):
+        return True
+    elif ad_type == "featured" and settings.get("auto_approve_featured", False):
+        return True
+    elif ad_type == "premium" and settings.get("auto_approve_premium", False):
+        return True
+    
+    return False
 
 # Include the router in the main app
 app.include_router(api_router)
