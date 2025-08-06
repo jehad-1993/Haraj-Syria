@@ -297,16 +297,25 @@ const AdsList = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {ads.map((ad) => (
               <div key={ad.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                {/* Image placeholder */}
-                <div className="h-48 bg-gray-200 relative overflow-hidden">
+                {/* Image with lazy loading */}
+                <div className="h-48 relative overflow-hidden">
                   {ad.images && ad.images.length > 0 ? (
-                    <img 
+                    <LazyImage 
                       src={ad.images[0]} 
                       alt={ad.title}
                       className="w-full h-full object-cover"
+                      skeletonClassName="bg-gray-200 animate-pulse"
+                      placeholder={
+                        <div className="flex flex-col items-center justify-center h-full">
+                          <div className="text-gray-400 text-2xl mb-2">📷</div>
+                          <div className="text-gray-400 text-xs">
+                            {language === 'ar' ? 'جاري التحميل...' : 'Loading...'}
+                          </div>
+                        </div>
+                      }
                     />
                   ) : (
-                    <div className="absolute inset-0 flex items-center justify-center text-gray-400">
+                    <div className="absolute inset-0 flex items-center justify-center text-gray-400 bg-gray-200">
                       📷
                     </div>
                   )}
