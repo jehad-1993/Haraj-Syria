@@ -321,7 +321,20 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {ads.map((ad) => (
               <div key={ad.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="h-48 bg-gray-200"></div>
+                <div className="h-48 relative">
+                  {ad.images && ad.images.length > 0 ? (
+                    <LazyImage
+                      src={ad.images[0]}
+                      alt={ad.title}
+                      className="w-full h-full object-cover"
+                      skeletonClassName="bg-gray-200 animate-pulse"
+                    />
+                  ) : (
+                    <div className="h-full bg-gray-200 flex items-center justify-center">
+                      <span className="text-gray-400 text-4xl">📷</span>
+                    </div>
+                  )}
+                </div>
                 <div className="p-4">
                   <h3 className="font-semibold mb-2 truncate">{ad.title}</h3>
                   <p className="text-gray-600 text-sm mb-2 line-clamp-2">{ad.description}</p>
