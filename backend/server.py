@@ -643,9 +643,14 @@ async def get_categories():
 # Ads
 @api_router.post("/ads", response_model=AdResponse)
 async def create_ad(ad_data: AdCreate, current_user: User = Depends(get_current_user)):
+    # Determine initial status based on approval settings
+    should_approve = await should_auto_approve(ad_data.dict(), current_user.dict())
+    initial_status = AdStatus.ACTIVE if should_approve else AdStatus.PENDING
+    
     ad = Ad(
         **ad_data.dict(),
-        user_id=current_user.id
+        user_id=current_user.id,
+        status=initial_status
     )
     
     await db.ads.insert_one(ad.dict())
