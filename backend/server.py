@@ -619,6 +619,10 @@ async def get_car_models(brand: str):
 async def get_phone_codes():
     return COUNTRY_PHONE_CODES
 
+@api_router.get("/car-conditions")
+async def get_car_conditions():
+    return {"conditions": CAR_CONDITIONS}
+
 @api_router.get("/subcategories/{category_key}")
 async def get_subcategories(category_key: str):
     if category_key not in SUBCATEGORIES:
