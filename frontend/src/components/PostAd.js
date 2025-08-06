@@ -154,7 +154,8 @@ const PostAd = () => {
         ...formData,
         price: parseFloat(formData.price),
         car_year: formData.car_year ? parseInt(formData.car_year) : null,
-        car_mileage: formData.car_mileage ? parseInt(formData.car_mileage) : null
+        car_mileage: formData.car_mileage ? parseInt(formData.car_mileage) : null,
+        images: images
       };
       
       // Remove empty optional fields
