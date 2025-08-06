@@ -849,18 +849,31 @@ function App() {
           <BrowserRouter>
             <Header />
             <main>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/post-ad" element={<PostAd />} />
-                <Route path="/my-ads" element={<MyAds />} />
-                <Route path="/ads" element={<AdsList />} />
-                <Route path="/ads/:id" element={<AdDetails />} />
-                <Route path="/category/:categoryId" element={<AdsList />} />
-                <Route path="/reset-password" element={<ResetPassword />} />
-                <Route path="*" element={<Home />} />
-              </Routes>
+              <Suspense fallback={
+                <div className="flex justify-center items-center min-h-screen">
+                  <div className="text-xl animate-pulse">
+                    {/* Loading spinner */}
+                    <div className="flex items-center space-x-2">
+                      <div className="w-4 h-4 bg-blue-600 rounded-full animate-bounce"></div>
+                      <div className="w-4 h-4 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                      <div className="w-4 h-4 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    </div>
+                  </div>
+                </div>
+              }>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/post-ad" element={<PostAd />} />
+                  <Route path="/my-ads" element={<MyAds />} />
+                  <Route path="/ads" element={<AdsList />} />
+                  <Route path="/ads/:id" element={<AdDetails />} />
+                  <Route path="/category/:categoryId" element={<AdsList />} />
+                  <Route path="/reset-password" element={<ResetPassword />} />
+                  <Route path="*" element={<Home />} />
+                </Routes>
+              </Suspense>
             </main>
           </BrowserRouter>
         </div>
