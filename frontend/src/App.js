@@ -678,6 +678,11 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/post-ad" element={<PostAd />} />
+                <Route path="/my-ads" element={<MyAds />} />
+                <Route path="/ads" element={<AdsList />} />
+                <Route path="/ads/:id" element={<AdDetails />} />
+                <Route path="/category/:categoryId" element={<AdsList />} />
                 <Route path="*" element={<Home />} />
               </Routes>
             </main>
