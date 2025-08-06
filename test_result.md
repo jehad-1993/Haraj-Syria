@@ -201,11 +201,7 @@ Implement "Lazy Loading" for images and components to enhance the application's 
   run_ui: false
 
 ## test_plan:
-  current_focus:
-    - "Implement React.lazy for route-based code splitting"
-    - "Implement image lazy loading in AdsList component"
-    - "Implement image lazy loading in AdDetails component"
-    - "Create LazyImage component with loading placeholder"
+  current_focus: []
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
