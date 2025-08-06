@@ -206,26 +206,74 @@ class HarajSyriaAPITester:
         
         return success
 
-    def test_login_existing_user(self):
-        """Test login with existing user"""
-        login_data = {
-            "email": "ahmed@test.com",
-            "password": "123456"
+    def test_forgot_password(self):
+        """Test NEW forgot password functionality"""
+        forgot_data = {
+            "email": "final1754470057@test.com",
+            "method": "email"
         }
         
-        success, response = self.run_test("Login Existing User", "POST", "auth/login", 200, login_data)
+        success, response = self.run_test("Forgot Password", "POST", "auth/forgot-password", 200, forgot_data)
+        
+        if success and isinstance(response, dict):
+            if 'message' in response:
+                print(f"   Message: {response['message']}")
+                # Check for development info
+                if 'dev_info' in response:
+                    dev_info = response['dev_info']
+                    if 'token' in dev_info:
+                        print(f"   ✅ Reset token generated: {dev_info['token'][:10]}...")
+                        # Store token for reset password test
+                        self.reset_token = dev_info['token']
+                        return True
+                    else:
+                        self.log_test("Forgot Password Token Validation", False, "No token in dev_info")
+                else:
+                    print("   ✅ Password reset request processed (no dev_info in production)")
+                    return True
+            else:
+                self.log_test("Forgot Password Response Validation", False, "Missing message in response")
+        
+        return success
+
+    def test_reset_password(self):
+        """Test NEW reset password functionality"""
+        if not hasattr(self, 'reset_token'):
+            self.log_test("Reset Password", False, "No reset token available from forgot password test")
+            return False
+        
+        reset_data = {
+            "token": self.reset_token,
+            "new_password": "NewTestPass123!"
+        }
+        
+        success, response = self.run_test("Reset Password", "POST", "auth/reset-password", 200, reset_data)
+        
+        if success and isinstance(response, dict):
+            if 'message' in response:
+                print(f"   Message: {response['message']}")
+                return True
+            else:
+                self.log_test("Reset Password Response Validation", False, "Missing message in response")
+        
+        return success
+
+    def test_login_with_test_credentials(self):
+        """Test login with the specific test credentials mentioned in the request"""
+        login_data = {
+            "email": "final1754470057@test.com",
+            "password": "FinalTest123!"
+        }
+        
+        success, response = self.run_test("Login with Test Credentials", "POST", "auth/login", 200, login_data)
         
         if success and isinstance(response, dict):
             if 'access_token' in response and 'user' in response:
-                # Store token for authenticated requests
-                backup_token = self.token
-                self.token = response['access_token']
-                print(f"   Logged in as: {response['user']['name']}")
-                # Restore original token for other tests
-                self.token = backup_token
+                print(f"   ✅ Logged in as: {response['user']['name']}")
+                print(f"   User email: {response['user']['email']}")
                 return True
             else:
-                self.log_test("Login Response Validation", False, "Missing access_token or user in response")
+                self.log_test("Test Login Response Validation", False, "Missing access_token or user in response")
         
         return success
 
