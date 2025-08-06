@@ -34,6 +34,7 @@ const PostAd = () => {
     ad_type: 'free',
     // Car specific fields
     car_brand: '',
+    car_model: '',
     car_year: '',
     car_mileage: '',
     car_condition: 'excellent'
@@ -46,6 +47,7 @@ const PostAd = () => {
   const [countries, setCountries] = useState({});
   const [cities, setCities] = useState([]);
   const [carBrands, setCarBrands] = useState([]);
+  const [carModels, setCarModels] = useState([]);
   const [carYears, setCarYears] = useState([]);
   const [allSubcategories, setAllSubcategories] = useState({});
   const [selectedCategoryKey, setSelectedCategoryKey] = useState('');
