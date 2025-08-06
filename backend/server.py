@@ -530,18 +530,11 @@ async def login(user_data: UserLogin):
             detail="Invalid email or password"
         )
     
-    # Debug: Print password info (remove in production)
-    print(f"Login attempt for: {user_data.email}")
-    print(f"Password provided length: {len(user_data.password)}")
-    print(f"Stored hash length: {len(user['password_hash'])}")
-    
     # Verify password
     password_valid = bcrypt.checkpw(
         user_data.password.encode('utf-8'), 
         user["password_hash"].encode('utf-8')
     )
-    
-    print(f"Password valid: {password_valid}")
     
     if not password_valid:
         raise HTTPException(
