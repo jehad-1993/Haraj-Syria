@@ -297,16 +297,30 @@ const AdsList = () => {
             {ads.map((ad) => (
               <div key={ad.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                 {/* Image placeholder */}
-                <div className="h-48 bg-gray-200 relative">
-                  <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                    📷
-                  </div>
+                <div className="h-48 bg-gray-200 relative overflow-hidden">
+                  {ad.images && ad.images.length > 0 ? (
+                    <img 
+                      src={ad.images[0]} 
+                      alt={ad.title}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center text-gray-400">
+                      📷
+                    </div>
+                  )}
                   {/* Ad type badge */}
                   {ad.ad_type !== 'free' && (
                     <div className={`absolute top-2 ${language === 'ar' ? 'right-2' : 'left-2'} px-2 py-1 rounded text-xs font-bold text-white ${
                       ad.ad_type === 'featured' ? 'bg-orange-500' : 'bg-purple-500'
                     }`}>
                       {ad.ad_type === 'featured' ? (language === 'ar' ? 'مميز' : 'Featured') : (language === 'ar' ? 'بريميوم' : 'Premium')}
+                    </div>
+                  )}
+                  {/* Images count indicator */}
+                  {ad.images && ad.images.length > 1 && (
+                    <div className="absolute bottom-2 right-2 bg-black bg-opacity-75 text-white text-xs px-2 py-1 rounded">
+                      📷 {ad.images.length}
                     </div>
                   )}
                 </div>
