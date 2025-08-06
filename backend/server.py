@@ -83,6 +83,23 @@ class UserLogin(BaseModel):
     email: EmailStr
     password: str
 
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+    method: str = Field(..., description="email or sms")
+
+class ResetPasswordRequest(BaseModel):
+    token: str
+    new_password: str = Field(..., min_length=8)
+
+class PasswordResetToken(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str
+    token: str
+    method: str  # "email" or "sms"
+    expires_at: datetime = Field(default_factory=lambda: datetime.utcnow() + timedelta(hours=1))
+    is_used: bool = False
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
 class UserResponse(BaseModel):
     id: str
     name: str
