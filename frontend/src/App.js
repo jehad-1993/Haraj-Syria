@@ -1,14 +1,17 @@
-import React, { useState, useEffect, createContext, useContext } from "react";
+import React, { useState, useEffect, createContext, useContext, Suspense, lazy } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-// Import components
-import PostAd from "./components/PostAd";
-import MyAds from "./components/MyAds";
-import AdsList from "./components/AdsList";
-import AdDetails from "./components/AdDetails";
-import ResetPassword from "./components/ResetPassword";
+// Lazy load components for better performance
+const PostAd = lazy(() => import("./components/PostAd"));
+const MyAds = lazy(() => import("./components/MyAds"));
+const AdsList = lazy(() => import("./components/AdsList"));
+const AdDetails = lazy(() => import("./components/AdDetails"));
+const ResetPassword = lazy(() => import("./components/ResetPassword"));
+
+// Import LazyImage component
+import LazyImage from "./components/LazyImage";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
