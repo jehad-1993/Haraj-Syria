@@ -227,6 +227,122 @@ ARAB_COUNTRIES = {
     "SD": {"name_ar": "السودان", "name_en": "Sudan"}
 }
 
+# Subcategories for all main categories
+SUBCATEGORIES = {
+    "cars": {
+        "name_ar": "سيارات",
+        "name_en": "Cars", 
+        "subcategories": [
+            {"name_ar": "سيارات صالون", "name_en": "Sedans"},
+            {"name_ar": "سيارات دفع رباعي", "name_en": "SUVs"},
+            {"name_ar": "سيارات رياضية", "name_en": "Sports Cars"},
+            {"name_ar": "سيارات اقتصادية", "name_en": "Economy Cars"},
+            {"name_ar": "شاحنات صغيرة", "name_en": "Pickup Trucks"},
+            {"name_ar": "فانات", "name_en": "Vans"},
+            {"name_ar": "دراجات نارية", "name_en": "Motorcycles"},
+            {"name_ar": "قطع غيار", "name_en": "Auto Parts"}
+        ]
+    },
+    "real_estate": {
+        "name_ar": "عقارات",
+        "name_en": "Real Estate",
+        "subcategories": [
+            {"name_ar": "شقق للبيع", "name_en": "Apartments for Sale"},
+            {"name_ar": "شقق للإيجار", "name_en": "Apartments for Rent"},
+            {"name_ar": "فلل للبيع", "name_en": "Villas for Sale"},
+            {"name_ar": "فلل للإيجار", "name_en": "Villas for Rent"},
+            {"name_ar": "أراضي", "name_en": "Land"},
+            {"name_ar": "محلات تجارية", "name_en": "Commercial Stores"},
+            {"name_ar": "مكاتب", "name_en": "Offices"},
+            {"name_ar": "مستودعات", "name_en": "Warehouses"}
+        ]
+    },
+    "electronics": {
+        "name_ar": "إلكترونيات",
+        "name_en": "Electronics",
+        "subcategories": [
+            {"name_ar": "جوالات وهواتف", "name_en": "Mobile Phones"},
+            {"name_ar": "أجهزة كمبيوتر", "name_en": "Computers"},
+            {"name_ar": "لابتوب", "name_en": "Laptops"},
+            {"name_ar": "تلفزيونات", "name_en": "TVs"},
+            {"name_ar": "كاميرات", "name_en": "Cameras"},
+            {"name_ar": "أجهزة صوت", "name_en": "Audio Systems"},
+            {"name_ar": "ألعاب فيديو", "name_en": "Video Games"},
+            {"name_ar": "إكسسوارات", "name_en": "Accessories"}
+        ]
+    },
+    "jobs": {
+        "name_ar": "وظائف",
+        "name_en": "Jobs",
+        "subcategories": [
+            {"name_ar": "تقنية المعلومات", "name_en": "IT"},
+            {"name_ar": "طب وصحة", "name_en": "Healthcare"},
+            {"name_ar": "هندسة", "name_en": "Engineering"},
+            {"name_ar": "تعليم", "name_en": "Education"},
+            {"name_ar": "مبيعات وتسويق", "name_en": "Sales & Marketing"},
+            {"name_ar": "محاسبة ومالية", "name_en": "Accounting & Finance"},
+            {"name_ar": "خدمة عملاء", "name_en": "Customer Service"},
+            {"name_ar": "أخرى", "name_en": "Others"}
+        ]
+    },
+    "furniture": {
+        "name_ar": "أثاث",
+        "name_en": "Furniture",
+        "subcategories": [
+            {"name_ar": "غرف نوم", "name_en": "Bedrooms"},
+            {"name_ar": "صالات ومجالس", "name_en": "Living Rooms"},
+            {"name_ar": "غرف طعام", "name_en": "Dining Rooms"},
+            {"name_ar": "مطابخ", "name_en": "Kitchens"},
+            {"name_ar": "مكاتب", "name_en": "Office Furniture"},
+            {"name_ar": "أثاث أطفال", "name_en": "Kids Furniture"},
+            {"name_ar": "أثاث حدائق", "name_en": "Garden Furniture"},
+            {"name_ar": "ديكور ومفروشات", "name_en": "Decor & Furnishings"}
+        ]
+    },
+    "clothing": {
+        "name_ar": "ملابس",
+        "name_en": "Clothing",
+        "subcategories": [
+            {"name_ar": "ملابس رجالية", "name_en": "Men's Clothing"},
+            {"name_ar": "ملابس نسائية", "name_en": "Women's Clothing"},
+            {"name_ar": "ملابس أطفال", "name_en": "Kids Clothing"},
+            {"name_ar": "أحذية", "name_en": "Shoes"},
+            {"name_ar": "حقائب", "name_en": "Bags"},
+            {"name_ar": "إكسسوارات", "name_en": "Accessories"},
+            {"name_ar": "ساعات", "name_en": "Watches"},
+            {"name_ar": "مجوهرات", "name_en": "Jewelry"}
+        ]
+    },
+    "services": {
+        "name_ar": "خدمات",
+        "name_en": "Services",
+        "subcategories": [
+            {"name_ar": "صيانة وإصلاح", "name_en": "Maintenance & Repair"},
+            {"name_ar": "تنظيف", "name_en": "Cleaning"},
+            {"name_ar": "تدريس خصوصي", "name_en": "Private Tutoring"},
+            {"name_ar": "تصميم وبرمجة", "name_en": "Design & Programming"},
+            {"name_ar": "نقل وشحن", "name_en": "Moving & Shipping"},
+            {"name_ar": "خدمات طبية", "name_en": "Medical Services"},
+            {"name_ar": "خدمات قانونية", "name_en": "Legal Services"},
+            {"name_ar": "أخرى", "name_en": "Others"}
+        ]
+    },
+    "others": {
+        "name_ar": "أخرى",
+        "name_en": "Others",
+        "subcategories": [
+            {"name_ar": "كتب ومجلات", "name_en": "Books & Magazines"},
+            {"name_ar": "رياضة ولياقة", "name_en": "Sports & Fitness"},
+            {"name_ar": "هوايات وألعاب", "name_en": "Hobbies & Games"},
+            {"name_ar": "حيوانات أليفة", "name_en": "Pets"},
+            {"name_ar": "موسيقى وآلات", "name_en": "Music & Instruments"},
+            {"name_ar": "صحة وجمال", "name_en": "Health & Beauty"},
+            {"name_ar": "أدوات ومعدات", "name_en": "Tools & Equipment"},
+            {"name_ar": "متنوعة", "name_en": "Miscellaneous"}
+        ]
+    }
+}
+
 CITIES_BY_COUNTRY = {
     "SY": ["دمشق", "حلب", "حمص", "حماة", "اللاذقية", "طرطوس", "دير الزور", "الرقة", "السويداء", "درعا", "القنيطرة", "إدلب", "الحسكة", "القامشلي"],
     "SA": ["الرياض", "جدة", "مكة المكرمة", "المدينة المنورة", "الدمام", "الخبر", "تبوك", "بريدة", "خميس مشيط", "الأحساء", "حائل", "جيزان"],
