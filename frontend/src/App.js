@@ -8,6 +8,7 @@ import PostAd from "./components/PostAd";
 import MyAds from "./components/MyAds";
 import AdsList from "./components/AdsList";
 import AdDetails from "./components/AdDetails";
+import ResetPassword from "./components/ResetPassword";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
