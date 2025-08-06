@@ -697,6 +697,46 @@ app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 async def health_check():
     return {"status": "healthy", "timestamp": datetime.utcnow()}
 
+# Admin endpoints for ad approval
+@api_router.put("/admin/ads/{ad_id}/approve")
+async def approve_ad(ad_id: str):
+    """Approve an ad - in production this would require admin authentication"""
+    result = await db.ads.update_one(
+        {"id": ad_id}, 
+        {"$set": {"status": AdStatus.ACTIVE, "updated_at": datetime.utcnow()}}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Ad not found")
+    
+    return {"message": "Ad approved successfully"}
+
+@api_router.put("/admin/ads/{ad_id}/reject")
+async def reject_ad(ad_id: str):
+    """Reject an ad - in production this would require admin authentication"""
+    result = await db.ads.update_one(
+        {"id": ad_id}, 
+        {"$set": {"status": AdStatus.REMOVED, "updated_at": datetime.utcnow()}}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Ad not found")
+    
+    return {"message": "Ad rejected"}
+
+@api_router.get("/admin/ads/pending")
+async def get_pending_ads():
+    """Get all pending ads for admin review - in production this would require admin authentication"""
+    ads = await db.ads.find({"status": AdStatus.PENDING}).sort("created_at", 1).to_list(100)
+    
+    result = []
+    for ad in ads:
+        user = await db.users.find_one({"id": ad["user_id"]})
+        ad_response = AdResponse(**ad, user_name=user["name"] if user else "Unknown")
+        result.append(ad_response)
+    
+    return result
+
 # Include the router in the main app
 app.include_router(api_router)
 
