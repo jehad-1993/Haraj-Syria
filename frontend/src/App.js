@@ -260,11 +260,11 @@ const Home = () => {
             <div className="flex rounded-lg overflow-hidden shadow-lg">
               <input
                 type="text"
-                placeholder={t('search') + "..."}
-                className="flex-1 px-6 py-4 text-gray-800 text-lg"
+                placeholder={language === 'ar' ? 'ابحث عن سيارات، عقارات، إلكترونيات، وظائف...' : 'Search for cars, real estate, electronics, jobs...'}
+                className="flex-1 px-6 py-4 text-gray-800 text-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
-              <button className="bg-orange-500 hover:bg-orange-600 px-8 py-4 text-lg font-semibold">
-                {t('search')}
+              <button className="bg-orange-500 hover:bg-orange-600 px-8 py-4 text-lg font-semibold transition-colors duration-200 flex items-center gap-2">
+                🔍 {t('search')}
               </button>
             </div>
           </div>
