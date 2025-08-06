@@ -207,7 +207,7 @@ const Header = () => {
             onClick={toggleLanguage}
             className="bg-blue-700 px-3 py-1 rounded hover:bg-blue-800"
           >
-            {language === 'ar' ? 'EN' : 'عر'}
+            {language === 'ar' ? 'EN' : 'ع'}
           </button>
         </div>
       </div>
