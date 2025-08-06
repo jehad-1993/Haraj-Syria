@@ -348,6 +348,19 @@ class HarajSyriaAPITester:
         
         return success
 
+    def test_get_ads_with_filters(self):
+        """Test getting ads with filters"""
+        # Test with country filter
+        success1, response1 = self.run_test("Get Ads with Country Filter", "GET", "ads?country=SY", 200)
+        
+        # Test with search filter
+        success2, response2 = self.run_test("Get Ads with Search Filter", "GET", "ads?search=تويوتا", 200)
+        
+        # Test with price range filter
+        success3, response3 = self.run_test("Get Ads with Price Filter", "GET", "ads?min_price=20000&max_price=50000", 200)
+        
+        return success1 and success2 and success3
+
     def test_get_user_ads(self):
         """Test getting user's own ads"""
         if not self.token:
