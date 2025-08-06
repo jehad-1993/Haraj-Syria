@@ -685,6 +685,25 @@ async def get_categories():
     categories = await db.categories.find({"is_active": True}).sort("sort_order", 1).to_list(100)
     return [Category(**cat) for cat in categories]
 
+@api_router.get("/categories-with-counts")
+async def get_categories_with_counts():
+    """Get categories with active ads count"""
+    categories = await db.categories.find({"is_active": True}).sort("sort_order", 1).to_list(100)
+    
+    result = []
+    for category in categories:
+        # Count active ads in this category
+        ads_count = await db.ads.count_documents({
+            "category_id": category["id"],
+            "status": "active"
+        })
+        
+        category_data = Category(**category).dict()
+        category_data["ads_count"] = ads_count
+        result.append(category_data)
+    
+    return result
+
 # Ads
 @api_router.post("/ads", response_model=AdResponse)
 async def create_ad(ad_data: AdCreate, current_user: User = Depends(get_current_user)):
