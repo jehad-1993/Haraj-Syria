@@ -530,17 +530,20 @@ async def login(user_data: UserLogin):
             detail="Invalid email or password"
         )
     
-    try:
-        # Verify password with proper error handling
-        password_valid = verify_password(user_data.password, user["password_hash"])
-        if not password_valid:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid email or password"
-            )
-    except Exception as e:
-        # Log the error but don't expose internal details
-        print(f"Password verification error: {e}")
+    # Debug: Print password info (remove in production)
+    print(f"Login attempt for: {user_data.email}")
+    print(f"Password provided length: {len(user_data.password)}")
+    print(f"Stored hash length: {len(user['password_hash'])}")
+    
+    # Verify password
+    password_valid = bcrypt.checkpw(
+        user_data.password.encode('utf-8'), 
+        user["password_hash"].encode('utf-8')
+    )
+    
+    print(f"Password valid: {password_valid}")
+    
+    if not password_valid:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password"
@@ -550,7 +553,16 @@ async def login(user_data: UserLogin):
     
     return TokenResponse(
         access_token=access_token,
-        user=UserResponse(**user)
+        user=UserResponse(
+            id=user["id"],
+            name=user["name"],
+            email=user["email"],
+            phone=user["phone"],
+            country=user["country"],
+            city=user["city"],
+            created_at=user["created_at"],
+            is_active=user["is_active"]
+        )
     )
 
 @api_router.post("/auth/forgot-password")
