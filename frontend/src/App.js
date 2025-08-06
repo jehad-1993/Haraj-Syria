@@ -194,7 +194,7 @@ const Header = () => {
               <>
                 <Link to="/my-ads" className="hover:text-blue-200">{t('myAds')}</Link>
                 <Link to="/post-ad" className="hover:text-blue-200">{t('postAd')}</Link>
-                <span className="text-blue-200">مرحباً {user?.name}</span>
+                <span className="text-blue-200">{t('welcomeUser')} {user?.name}</span>
                 <button onClick={logout} className="hover:text-blue-200">{t('logout')}</button>
               </>
             ) : (
