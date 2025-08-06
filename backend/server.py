@@ -517,6 +517,67 @@ async def login(user_data: UserLogin):
         user=UserResponse(**user)
     )
 
+@api_router.post("/auth/forgot-password")
+async def forgot_password(request: ForgotPasswordRequest):
+    # Check if user exists
+    user = await db.users.find_one({"email": request.email})
+    if not user:
+        # Don't reveal if email exists or not for security
+        return {"message": "If the email exists, reset instructions have been sent"}
+    
+    # Generate reset token
+    reset_token = secrets.token_urlsafe(32)
+    
+    # Save reset token to database
+    password_reset = PasswordResetToken(
+        user_id=user["id"],
+        token=reset_token,
+        method=request.method
+    )
+    
+    await db.password_resets.insert_one(password_reset.dict())
+    
+    if request.method == "email":
+        # In production, send actual email
+        print(f"Reset token for {request.email}: {reset_token}")
+        message = "Password reset instructions have been sent to your email"
+    else:  # SMS
+        # In production, send SMS
+        print(f"SMS reset token for {user['phone']}: {reset_token}")
+        message = "Password reset code has been sent to your phone"
+    
+    return {"message": message, "token": reset_token}  # Remove token in production
+
+@api_router.post("/auth/reset-password")
+async def reset_password(request: ResetPasswordRequest):
+    # Find valid reset token
+    reset_record = await db.password_resets.find_one({
+        "token": request.token,
+        "is_used": False,
+        "expires_at": {"$gt": datetime.utcnow()}
+    })
+    
+    if not reset_record:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid or expired reset token"
+        )
+    
+    # Update user password
+    new_password_hash = hash_password(request.new_password)
+    await db.users.update_one(
+        {"id": reset_record["user_id"]},
+        {"$set": {"password_hash": new_password_hash}}
+    )
+    
+    # Mark token as used
+    await db.password_resets.update_one(
+        {"id": reset_record["id"]},
+        {"$set": {"is_used": True}}
+    )
+    
+    return {"message": "Password has been reset successfully"}
+
 # Data endpoints
 @api_router.get("/countries")
 async def get_countries():
