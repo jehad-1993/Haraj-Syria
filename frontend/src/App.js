@@ -682,11 +682,13 @@ const Login = () => {
     
     try {
       const response = await axios.post(`${API}/auth/forgot-password`, forgotPasswordData);
+      
+      // Show success message
       setMessage(response.data.message);
       
-      // For development - show the token (remove in production)
-      if (response.data.token) {
-        setMessage(prev => prev + `\nToken: ${response.data.token}`);
+      // If development info is available, show it
+      if (response.data.dev_info) {
+        setMessage(prev => prev + `\n\n${language === 'ar' ? 'للتطوير:' : 'For Development:'}\n${language === 'ar' ? 'الرمز:' : 'Token:'} ${response.data.dev_info.token}\n${language === 'ar' ? 'الرابط:' : 'Link:'} ${response.data.dev_info.reset_link || 'N/A'}`);
       }
       
       setShowForgotPassword(false);
