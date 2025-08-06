@@ -116,6 +116,25 @@ class HarajSyriaAPITester:
                 self.log_test("Categories Count Validation", False, f"Only found {len(response)} categories, expected 8")
         return success
 
+    def test_get_categories_with_counts(self):
+        """Test NEW categories-with-counts endpoint"""
+        success, response = self.run_test("Get Categories with Counts", "GET", "categories-with-counts", 200)
+        if success and isinstance(response, list):
+            if len(response) >= 8:  # Should have 8 main categories
+                print(f"   Found {len(response)} categories with counts")
+                # Check if ads_count field is present
+                has_counts = all('ads_count' in category for category in response)
+                if has_counts:
+                    print("   ✅ All categories have ads_count field")
+                    total_ads = sum(category.get('ads_count', 0) for category in response)
+                    print(f"   Total ads across all categories: {total_ads}")
+                    return True
+                else:
+                    self.log_test("Categories Counts Validation", False, "Some categories missing ads_count field")
+            else:
+                self.log_test("Categories with Counts Validation", False, f"Only found {len(response)} categories, expected 8")
+        return success
+
     def test_get_subcategories(self):
         """Test subcategories endpoints"""
         # Test cars subcategories
