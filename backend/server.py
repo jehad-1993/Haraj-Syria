@@ -263,7 +263,8 @@ SUBCATEGORIES = {
             {"name_ar": "أراضي", "name_en": "Land"},
             {"name_ar": "محلات تجارية", "name_en": "Commercial Stores"},
             {"name_ar": "مكاتب", "name_en": "Offices"},
-            {"name_ar": "مستودعات", "name_en": "Warehouses"}
+            {"name_ar": "مستودعات", "name_en": "Warehouses"},
+            {"name_ar": "أخرى", "name_en": "Others"}
         ]
     },
     "electronics": {
@@ -277,7 +278,8 @@ SUBCATEGORIES = {
             {"name_ar": "كاميرات", "name_en": "Cameras"},
             {"name_ar": "أجهزة صوت", "name_en": "Audio Systems"},
             {"name_ar": "ألعاب فيديو", "name_en": "Video Games"},
-            {"name_ar": "إكسسوارات", "name_en": "Accessories"}
+            {"name_ar": "إكسسوارات", "name_en": "Accessories"},
+            {"name_ar": "أخرى", "name_en": "Others"}
         ]
     },
     "jobs": {
@@ -305,7 +307,8 @@ SUBCATEGORIES = {
             {"name_ar": "مكاتب", "name_en": "Office Furniture"},
             {"name_ar": "أثاث أطفال", "name_en": "Kids Furniture"},
             {"name_ar": "أثاث حدائق", "name_en": "Garden Furniture"},
-            {"name_ar": "ديكور ومفروشات", "name_en": "Decor & Furnishings"}
+            {"name_ar": "ديكور ومفروشات", "name_en": "Decor & Furnishings"},
+            {"name_ar": "أخرى", "name_en": "Others"}
         ]
     },
     "clothing": {
@@ -319,7 +322,8 @@ SUBCATEGORIES = {
             {"name_ar": "حقائب", "name_en": "Bags"},
             {"name_ar": "إكسسوارات", "name_en": "Accessories"},
             {"name_ar": "ساعات", "name_en": "Watches"},
-            {"name_ar": "مجوهرات", "name_en": "Jewelry"}
+            {"name_ar": "مجوهرات", "name_en": "Jewelry"},
+            {"name_ar": "أخرى", "name_en": "Others"}
         ]
     },
     "services": {
