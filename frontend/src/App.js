@@ -81,6 +81,7 @@ const translations = {
     search: "Search",
     categories: "Categories",
     welcome: "Welcome to Haraj Syria",
+    welcomeUser: "Hello",
     subtitle: "The premier classified ads platform in the Arab region",
     browseCategories: "Browse Categories",
     latestAds: "Latest Ads",
