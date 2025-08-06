@@ -206,11 +206,12 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     except jwt.PyJWTError:
         raise HTTPException(status_code=401, detail="Invalid token")
     
-    user = await db.users.find_one({"id": user_id})
-    if user is None:
+    user_doc = await db.users.find_one({"id": user_id})
+    if user_doc is None:
         raise HTTPException(status_code=401, detail="User not found")
     
-    return User(**user)
+    # Create User object with password_hash included
+    return User(**user_doc)
 
 # Data constants
 ARAB_COUNTRIES = {
