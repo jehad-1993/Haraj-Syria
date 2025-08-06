@@ -557,12 +557,39 @@ const Register = () => {
               <input
                 type="password"
                 value={formData.password}
-                onChange={(e) => setFormData({...formData, password: e.target.value})}
+                onChange={(e) => {
+                  setFormData({...formData, password: e.target.value});
+                  checkPasswordStrength(e.target.value);
+                }}
                 className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                   errors.password ? 'border-red-500' : 'border-gray-300'
                 }`}
               />
               {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+              
+              {/* Password Strength Indicators */}
+              <div className="mt-2 space-y-1">
+                <div className={`flex items-center text-xs ${passwordStrength.isValidLength ? 'text-green-600' : 'text-gray-400'}`}>
+                  <span className="mr-2">{passwordStrength.isValidLength ? '✓' : '○'}</span>
+                  {language === 'ar' ? 'على الأقل 8 أحرف' : 'At least 8 characters'}
+                </div>
+                <div className={`flex items-center text-xs ${passwordStrength.hasUpperCase ? 'text-green-600' : 'text-gray-400'}`}>
+                  <span className="mr-2">{passwordStrength.hasUpperCase ? '✓' : '○'}</span>
+                  {language === 'ar' ? 'حرف كبير (A-Z)' : 'Uppercase letter (A-Z)'}
+                </div>
+                <div className={`flex items-center text-xs ${passwordStrength.hasLowerCase ? 'text-green-600' : 'text-gray-400'}`}>
+                  <span className="mr-2">{passwordStrength.hasLowerCase ? '✓' : '○'}</span>
+                  {language === 'ar' ? 'حرف صغير (a-z)' : 'Lowercase letter (a-z)'}
+                </div>
+                <div className={`flex items-center text-xs ${passwordStrength.hasNumber ? 'text-green-600' : 'text-gray-400'}`}>
+                  <span className="mr-2">{passwordStrength.hasNumber ? '✓' : '○'}</span>
+                  {language === 'ar' ? 'رقم (0-9)' : 'Number (0-9)'}
+                </div>
+                <div className={`flex items-center text-xs ${passwordStrength.hasSpecialChar ? 'text-green-600' : 'text-gray-400'}`}>
+                  <span className="mr-2">{passwordStrength.hasSpecialChar ? '✓' : '○'}</span>
+                  {language === 'ar' ? 'رمز خاص (!@#$...)' : 'Special character (!@#$...)'}
+                </div>
+              </div>
             </div>
             
             <div>
