@@ -594,6 +594,39 @@ async def get_user_ads(current_user: User = Depends(get_current_user)):
     ads = await db.ads.find({"user_id": current_user.id}).sort("created_at", -1).to_list(100)
     return [AdResponse(**ad, user_name=current_user.name) for ad in ads]
 
+# Image upload
+@api_router.post("/upload-image")
+async def upload_image(file: UploadFile = File(...), current_user: User = Depends(get_current_user)):
+    # Validate file type
+    allowed_types = ["image/jpeg", "image/png", "image/gif", "image/webp"]
+    if file.content_type not in allowed_types:
+        raise HTTPException(status_code=400, detail="Invalid file type. Only JPEG, PNG, GIF, and WebP are allowed.")
+    
+    # Validate file size (max 5MB)
+    file_size = 0
+    content = await file.read()
+    file_size = len(content)
+    
+    if file_size > 5 * 1024 * 1024:  # 5MB
+        raise HTTPException(status_code=400, detail="File too large. Maximum size is 5MB.")
+    
+    # Generate unique filename
+    file_extension = file.filename.split(".")[-1] if "." in file.filename else "jpg"
+    filename = f"{uuid.uuid4()}.{file_extension}"
+    file_path = UPLOAD_DIR / filename
+    
+    # Save file
+    async with aiofiles.open(file_path, "wb") as buffer:
+        await buffer.write(content)
+    
+    # Return file URL
+    file_url = f"/uploads/{filename}"
+    return {"url": file_url, "filename": filename}
+
+# Serve uploaded files
+from fastapi.staticfiles import StaticFiles
+app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
+
 # Health check
 @api_router.get("/health")
 async def health_check():
