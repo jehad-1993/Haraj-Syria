@@ -320,6 +320,11 @@ const PostAd = () => {
               {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
             </div>
             
+            {/* Images Upload */}
+            <div>
+              <ImageUpload images={images} setImages={setImages} maxImages={5} />
+            </div>
+            
             {/* Location */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
