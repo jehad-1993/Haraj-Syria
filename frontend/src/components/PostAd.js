@@ -49,6 +49,8 @@ const PostAd = () => {
   const [carBrands, setCarBrands] = useState([]);
   const [carModels, setCarModels] = useState([]);
   const [carYears, setCarYears] = useState([]);
+  const [carConditions, setCarConditions] = useState([]);
+  const [phoneCodes, setPhoneCodes] = useState({});
   const [allSubcategories, setAllSubcategories] = useState({});
   const [selectedCategoryKey, setSelectedCategoryKey] = useState('');
   const [loading, setLoading] = useState(false);
@@ -58,12 +60,14 @@ const PostAd = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [categoriesRes, countriesRes, carBrandsRes, carYearsRes, subcategoriesRes] = await Promise.all([
+        const [categoriesRes, countriesRes, carBrandsRes, carYearsRes, subcategoriesRes, carConditionsRes, phoneCodesRes] = await Promise.all([
           axios.get(`${API}/categories`),
           axios.get(`${API}/countries`),
           axios.get(`${API}/car-brands`),
           axios.get(`${API}/car-years`),
-          axios.get(`${API}/all-subcategories`)
+          axios.get(`${API}/all-subcategories`),
+          axios.get(`${API}/car-conditions`),
+          axios.get(`${API}/phone-codes`)
         ]);
         
         setCategories(categoriesRes.data);
@@ -71,6 +75,8 @@ const PostAd = () => {
         setCarBrands(carBrandsRes.data.brands);
         setCarYears(carYearsRes.data.years);
         setAllSubcategories(subcategoriesRes.data);
+        setCarConditions(carConditionsRes.data.conditions);
+        setPhoneCodes(phoneCodesRes.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
