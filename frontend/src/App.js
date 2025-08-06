@@ -3,6 +3,12 @@ import "./App.css";
 import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
+// Import components
+import PostAd from "./components/PostAd";
+import MyAds from "./components/MyAds";
+import AdsList from "./components/AdsList";
+import AdDetails from "./components/AdDetails";
+
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
