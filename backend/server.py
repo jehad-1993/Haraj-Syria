@@ -62,7 +62,7 @@ class User(BaseModel):
     phone: str = Field(..., min_length=10, max_length=20)
     country: str
     city: str
-    password_hash: str = Field(exclude=True)
+    password_hash: str = Field(exclude=True, default="")
     created_at: datetime = Field(default_factory=datetime.utcnow)
     is_active: bool = True
     is_verified: bool = False
