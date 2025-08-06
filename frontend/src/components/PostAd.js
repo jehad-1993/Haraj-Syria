@@ -129,6 +129,24 @@ const PostAd = () => {
     }
   }, [formData.category_id, categories, allSubcategories]);
   
+  // Load car models when car brand changes
+  useEffect(() => {
+    if (formData.car_brand) {
+      const fetchCarModels = async () => {
+        try {
+          const response = await axios.get(`${API}/car-models/${formData.car_brand}`);
+          setCarModels(response.data.models);
+        } catch (error) {
+          console.error('Error fetching car models:', error);
+          setCarModels([]);
+        }
+      };
+      fetchCarModels();
+    } else {
+      setCarModels([]);
+    }
+  }, [formData.car_brand]);
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
