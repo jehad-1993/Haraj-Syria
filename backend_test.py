@@ -147,12 +147,18 @@ class HarajSyriaAPITester:
             brands = response1['brands']
             if len(brands) > 20:  # Should have many car brands
                 print(f"   Found {len(brands)} car brands")
+                # Check if "أخرى" (Others) is included
+                if "أخرى" in brands:
+                    print("   ✓ Found 'أخرى' (Others) option in car brands")
                 brands_valid = True
         
         if success2 and isinstance(response2, dict) and 'years' in response2:
             years = response2['years']
             if len(years) > 30:  # Should have years from 2010-2050
                 print(f"   Found {len(years)} car years")
+                # Check if "أخرى" (Others) is included
+                if "أخرى" in years:
+                    print("   ✓ Found 'أخرى' (Others) option in car years")
                 years_valid = True
         
         return success1 and success2 and brands_valid and years_valid
