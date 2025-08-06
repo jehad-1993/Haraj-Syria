@@ -211,9 +211,13 @@ class HarajSyriaAPITester:
         return success
 
     def test_forgot_password(self):
-        """Test NEW forgot password functionality"""
+        """Test forgot password functionality"""
+        if not hasattr(self, 'registered_email'):
+            self.log_test("Forgot Password", False, "No registered user email available")
+            return False
+            
         forgot_data = {
-            "email": "final1754470057@test.com",
+            "email": self.registered_email,
             "method": "email"
         }
         
