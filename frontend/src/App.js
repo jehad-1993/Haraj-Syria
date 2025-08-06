@@ -31,6 +31,7 @@ const translations = {
     search: "بحث",
     categories: "التصنيفات",
     welcome: "مرحباً بك في حراج سوريا",
+    welcomeUser: "مرحباً",
     subtitle: "منصة الإعلانات المبوبة الأولى في المنطقة العربية",
     browseCategories: "تصفح التصنيفات",
     latestAds: "أحدث الإعلانات",
