@@ -840,6 +840,7 @@ function App() {
                 <Route path="/ads" element={<AdsList />} />
                 <Route path="/ads/:id" element={<AdDetails />} />
                 <Route path="/category/:categoryId" element={<AdsList />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="*" element={<Home />} />
               </Routes>
             </main>
