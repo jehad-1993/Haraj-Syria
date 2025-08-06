@@ -348,6 +348,23 @@ const Register = () => {
   const [carBrands, setCarBrands] = useState([]);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const [passwordStrength, setPasswordStrength] = useState({
+    hasUpperCase: false,
+    hasLowerCase: false,
+    hasNumber: false,
+    hasSpecialChar: false,
+    isValidLength: false
+  });
+  
+  const checkPasswordStrength = (password) => {
+    setPasswordStrength({
+      hasUpperCase: /[A-Z]/.test(password),
+      hasLowerCase: /[a-z]/.test(password),
+      hasNumber: /\d/.test(password),
+      hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password),
+      isValidLength: password.length >= 8
+    });
+  };
   
   useEffect(() => {
     const fetchData = async () => {
