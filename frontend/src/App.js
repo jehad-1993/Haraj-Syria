@@ -700,7 +700,21 @@ const Login = () => {
       login(response.data);
       navigate('/');
     } catch (error) {
-      setError(error.response?.data?.detail || 'حدث خطأ أثناء تسجيل الدخول');
+      console.error('Login error:', error.response?.data);
+      let errorMessage = 'حدث خطأ أثناء تسجيل الدخول';
+      
+      if (error.response?.data?.detail) {
+        if (typeof error.response.data.detail === 'string') {
+          errorMessage = error.response.data.detail;
+        } else if (Array.isArray(error.response.data.detail)) {
+          const validationErrors = error.response.data.detail.map(err => err.msg).join(', ');
+          errorMessage = validationErrors;
+        } else {
+          errorMessage = 'خطأ في بيانات تسجيل الدخول';
+        }
+      }
+      
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
