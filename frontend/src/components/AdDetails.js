@@ -103,12 +103,21 @@ const AdDetails = () => {
             <div className="bg-white rounded-lg shadow-md mb-6">
               {ad.images && ad.images.length > 0 ? (
                 <div>
-                  {/* Main Image */}
+                  {/* Main Image with lazy loading */}
                   <div className="h-96 bg-gray-200 rounded-t-lg overflow-hidden relative">
-                    <img 
+                    <LazyImage
                       src={ad.images[0]} 
                       alt={ad.title}
                       className="w-full h-full object-cover"
+                      skeletonClassName="bg-gray-200 animate-pulse"
+                      placeholder={
+                        <div className="flex flex-col items-center justify-center h-full">
+                          <div className="text-gray-400 text-6xl mb-4">📷</div>
+                          <div className="text-gray-400 text-lg">
+                            {language === 'ar' ? 'جاري تحميل الصورة...' : 'Loading image...'}
+                          </div>
+                        </div>
+                      }
                     />
                     {ad.ad_type !== 'free' && (
                       <div className={`absolute top-4 ${language === 'ar' ? 'right-4' : 'left-4'} px-3 py-1 rounded text-sm font-bold text-white ${
@@ -119,25 +128,27 @@ const AdDetails = () => {
                     )}
                   </div>
                   
-                  {/* Thumbnail Images */}
+                  {/* Thumbnail Images with lazy loading */}
                   {ad.images.length > 1 && (
                     <div className="p-4 border-b">
                       <div className="flex gap-2 overflow-x-auto">
                         {ad.images.map((image, index) => (
-                          <img
-                            key={index}
-                            src={image}
-                            alt={`${ad.title} ${index + 1}`}
-                            className={`w-20 h-20 object-cover rounded cursor-pointer border-2 ${
-                              index === 0 ? 'border-blue-500' : 'border-gray-200 hover:border-blue-300'
-                            }`}
-                            onClick={() => {
-                              // Switch main image
-                              const newImages = [...ad.images];
-                              [newImages[0], newImages[index]] = [newImages[index], newImages[0]];
-                              setAd({...ad, images: newImages});
-                            }}
-                          />
+                          <div key={index} className="flex-shrink-0">
+                            <LazyImage
+                              src={image}
+                              alt={`${ad.title} ${index + 1}`}
+                              className={`w-20 h-20 object-cover rounded cursor-pointer border-2 ${
+                                index === 0 ? 'border-blue-500' : 'border-gray-200 hover:border-blue-300'
+                              }`}
+                              skeletonClassName="bg-gray-100 animate-pulse"
+                              onClick={() => {
+                                // Switch main image
+                                const newImages = [...ad.images];
+                                [newImages[0], newImages[index]] = [newImages[index], newImages[0]];
+                                setAd({...ad, images: newImages});
+                              }}
+                            />
+                          </div>
                         ))}
                       </div>
                     </div>
