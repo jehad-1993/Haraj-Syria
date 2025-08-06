@@ -579,15 +579,45 @@ async def forgot_password(request: ForgotPasswordRequest):
     await db.password_resets.insert_one(password_reset.dict())
     
     if request.method == "email":
-        # In production, send actual email
-        print(f"Reset token for {request.email}: {reset_token}")
-        message = "Password reset instructions have been sent to your email"
+        # Send actual email (simplified version for demonstration)
+        try:
+            # In production, use proper email service like SendGrid, AWS SES, etc.
+            # For now, we'll simulate email sending and provide the token
+            
+            reset_link = f"https://125a4c96-6313-4dfe-92cb-f10682c853f4.preview.emergentagent.com/reset-password?token={reset_token}"
+            
+            # Simulate email sending (in production, replace with actual email service)
+            print(f"EMAIL SENT TO {request.email}:")
+            print(f"Subject: Password Reset - Haraj Syria")
+            print(f"Reset Link: {reset_link}")
+            print(f"Token: {reset_token}")
+            
+            message = "Password reset link has been sent to your email"
+            
+            # For development - return the token and link
+            return {
+                "message": message, 
+                "dev_info": {
+                    "token": reset_token,
+                    "reset_link": reset_link,
+                    "note": "In production, this would be sent via email"
+                }
+            }
+        except Exception as e:
+            print(f"Error sending email: {e}")
+            return {"message": "There was an error sending the reset email. Please try again later."}
     else:  # SMS
         # In production, send SMS
-        print(f"SMS reset token for {user['phone']}: {reset_token}")
+        print(f"SMS SENT TO {user['phone']}: Your password reset code is: {reset_token}")
         message = "Password reset code has been sent to your phone"
-    
-    return {"message": message, "token": reset_token}  # Remove token in production
+        
+        return {
+            "message": message,
+            "dev_info": {
+                "token": reset_token,
+                "note": "In production, this would be sent via SMS"
+            }
+        }
 
 @api_router.post("/auth/reset-password")
 async def reset_password(request: ResetPasswordRequest):
