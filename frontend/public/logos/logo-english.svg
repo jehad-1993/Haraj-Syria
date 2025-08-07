@@ -4,12 +4,12 @@
       <stop offset="0%" style="stop-color:#2c4f85"/>
       <stop offset="100%" style="stop-color:#3d6bb3"/>
     </linearGradient>
-    <!-- Swapped: Arch gradient now dark blue instead of gold -->
+    <!-- Arch gradient now darker blue to match language button exactly -->
     <linearGradient id="archGradient" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#152238"/>
       <stop offset="100%" style="stop-color:#1e2e47"/>
     </linearGradient>
-    <!-- New: Gold gradient for text area -->
+    <!-- Gold gradient for text area -->
     <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#d4af37"/>
       <stop offset="100%" style="stop-color:#b8860b"/>
@@ -22,10 +22,10 @@
   <!-- Simple 3D Shadow Base -->
   <rect x="3" y="3" width="314" height="94" rx="20" fill="rgba(0,0,0,0.2)"/>
   
-  <!-- Main Background -->
-  <rect x="0" y="0" width="314" height="94" rx="20" fill="url(#bgGradientEn)"/>
+  <!-- Main Background with golden border restored -->
+  <rect x="0" y="0" width="314" height="94" rx="20" fill="url(#bgGradientEn)" stroke="#d4af37" stroke-width="2"/>
   
-  <!-- Traditional Arch Icon - now dark blue -->
+  <!-- Traditional Arch Icon - now darker blue to match language button -->
   <path d="M 18 12 Q 18 8, 25 8 Q 35 8, 50 8 Q 65 8, 75 8 Q 82 8, 82 12 L 82 68 Q 82 75, 75 75 L 25 75 Q 18 75, 18 68 Z" fill="url(#archGradient)" stroke="#1e2e47" stroke-width="1"/>
   <path d="M 26 18 Q 26 12, 30 12 Q 40 12, 50 12 Q 60 12, 70 12 Q 74 12, 74 18 L 74 62 Q 74 66, 70 66 L 30 66 Q 26 66, 26 62 Z" fill="#2c4f85"/>
   
@@ -40,9 +40,9 @@
   <path d="M 32 22 Q 50 18, 68 22" stroke="#d4af37" stroke-width="1.5" fill="none"/>
   <path d="M 34 42 Q 50 38, 66 42" stroke="#d4af37" stroke-width="1" fill="none"/>
   
-  <!-- Text Area - now gold instead of dark blue -->
-  <rect x="102" y="28" width="205" height="44" rx="8" fill="url(#textGradient)"/>
+  <!-- Text Area with golden border restored -->
+  <rect x="102" y="28" width="205" height="44" rx="8" fill="url(#textGradient)" stroke="#d4af37" stroke-width="1.5"/>
   
-  <!-- English Text - now dark blue for readability on gold background -->
+  <!-- English Text -->
   <text x="204.5" y="58" fill="#152238" font-family="Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" filter="url(#simpleShadow)">Haraj Syria</text>
 </svg>
