@@ -186,8 +186,12 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center space-x-4">
-            <Link to="/" className="text-2xl font-bold hover:text-blue-200">
-              {t('appName')}
+            <Link to="/" className="text-2xl font-bold hover:text-blue-200 flex items-center">
+              <img 
+                src={language === 'ar' ? '/logos/logo-arabic.svg' : '/logos/logo-english.svg'} 
+                alt={t('appName')} 
+                className="h-8 w-auto"
+              />
             </Link>
           </div>
           
