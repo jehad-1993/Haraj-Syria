@@ -591,7 +591,7 @@ async def forgot_password(request: ForgotPasswordRequest):
             # In production, use proper email service like SendGrid, AWS SES, etc.
             # For now, we'll simulate email sending and provide the token
             
-            reset_link = f"https://ca33c9b0-1706-48ac-be05-1e904cd05bee.preview.emergentagent.com/reset-password?token={reset_token}"
+            reset_link = f"https://03d85582-b3fc-417e-8770-843cb9242a9b.preview.emergentagent.com/reset-password?token={reset_token}"
             
             # Simulate email sending (in production, replace with actual email service)
             print(f"EMAIL SENT TO {request.email}:")
