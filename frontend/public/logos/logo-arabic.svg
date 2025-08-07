@@ -1,8 +1,8 @@
 <svg width="320" height="100" viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="bgGradientAr" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1e3c72"/>
-      <stop offset="100%" style="stop-color:#2a5298"/>
+      <stop offset="0%" style="stop-color:#0c1a2e"/>
+      <stop offset="100%" style="stop-color:#1a2332"/>
     </linearGradient>
     <linearGradient id="archGradient" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#d4af37"/>
@@ -24,7 +24,7 @@
   
   <!-- Traditional Arch Icon - Clear and Sharp -->
   <path d="M 18 12 Q 18 8, 25 8 Q 35 8, 50 8 Q 65 8, 75 8 Q 82 8, 82 12 L 82 68 Q 82 75, 75 75 L 25 75 Q 18 75, 18 68 Z" fill="url(#archGradient)" stroke="#b8860b" stroke-width="1"/>
-  <path d="M 26 18 Q 26 12, 30 12 Q 40 12, 50 12 Q 60 12, 70 12 Q 74 12, 74 18 L 74 62 Q 74 66, 70 66 L 30 66 Q 26 66, 26 62 Z" fill="#1e3c72"/>
+  <path d="M 26 18 Q 26 12, 30 12 Q 40 12, 50 12 Q 60 12, 70 12 Q 74 12, 74 18 L 74 62 Q 74 66, 70 66 L 30 66 Q 26 66, 26 62 Z" fill="#0c1a2e"/>
   
   <!-- Simple Decorative elements -->
   <circle cx="50" cy="22" r="3" fill="#d4af37"/>
