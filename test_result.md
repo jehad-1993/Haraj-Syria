@@ -277,6 +277,9 @@ Complete deployment of Haraj Syria application to free hosting platforms (Vercel
         -working: "NA"
         -agent: "main"
         -comment: "User encountered 'Project haraj-syria already exists' error. Now attempting deployment with project name 'syrian-haraj'"
+        -working: false
+        -agent: "main"
+        -comment: "User deployed with name 'Syria-haraj' but getting error on redeploy: 'The provided GitHub repository does not contain the requested branch or commit reference. Please ensure the repository is not empty.' This indicates GitHub repository sync issue."
 
   - task: "MongoDB Atlas database connection"
     implemented: true
