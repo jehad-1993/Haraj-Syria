@@ -200,13 +200,13 @@ const Header = () => {
             onClick={toggleLanguage}
             className="px-4 py-2 rounded-full font-semibold transition-all shadow-lg border-2 border-yellow-400 text-yellow-400"
             style={{
-              background: 'linear-gradient(135deg, #2c4f85 0%, #3d6bb3 100%)'
+              background: 'linear-gradient(135deg, #152238 0%, #1e2e47 100%)'
             }}
             onMouseEnter={(e) => {
-              e.target.style.background = 'linear-gradient(135deg, #3d6bb3 0%, #2c4f85 100%)';
+              e.target.style.background = 'linear-gradient(135deg, #1e2e47 0%, #152238 100%)';
             }}
             onMouseLeave={(e) => {
-              e.target.style.background = 'linear-gradient(135deg, #2c4f85 0%, #3d6bb3 100%)';
+              e.target.style.background = 'linear-gradient(135deg, #152238 0%, #1e2e47 100%)';
             }}
           >
             {language === 'ar' ? (
