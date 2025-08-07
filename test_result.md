@@ -294,7 +294,7 @@ Complete deployment of Haraj Syria application to free hosting platforms (Vercel
         -comment: "Vercel error: 'The provided GitHub repository does not contain the requested branch or commit reference. Please ensure the repository is not empty.' Need to verify GitHub repository status and branch configuration."
         -working: "NA"
         -agent: "main"
-        -comment: "User created new GitHub repository: https://github.com/jehad-1993/syria-haraj-2025. Now connecting local project to this repository and pushing code."
+        -comment: "User created GitHub repository: https://github.com/jehad-1993/syria-haraj-2025. User now wants to use project name 'Haraj-Syria' instead. Will help set up deployment with this preferred name."
     implemented: true
     working: "NA"
     file: "/app/backend/.env"
