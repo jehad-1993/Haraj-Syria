@@ -63,7 +63,7 @@ class User(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     name: str = Field(..., min_length=2, max_length=100)
     email: EmailStr
-    phone: str = Field(..., min_length=10, max_length=20)
+    phone: str = Field(..., min_length=7, max_length=20)  # Flexible phone validation for different countries
     country: str
     city: str
     password_hash: str
