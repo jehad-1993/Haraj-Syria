@@ -297,7 +297,7 @@ Complete deployment of Haraj Syria application to free hosting platforms (Vercel
         -comment: "User created GitHub repository: https://github.com/jehad-1993/syria-haraj-2025. User now wants to use project name 'Haraj-Syria' instead. Will help set up deployment with this preferred name."
         -working: true
         -agent: "main"
-        -comment: "Successfully obtained MongoDB connection string from user. Connection string ready with hostname cluster-1.hutlvny.mongodb.net. Will construct final connection string with password and database name."
+        -comment: "User successfully added environment variables to Vercel (MONGO_URL and REACT_APP_BACKEND_URL). Now guiding through redeploy process to complete deployment."
     implemented: true
     working: "NA"
     file: "/app/backend/.env"
