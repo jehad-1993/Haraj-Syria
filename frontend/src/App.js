@@ -183,6 +183,7 @@ const Header = () => {
   
   return (
     <header className={`bg-gradient-to-r from-slate-800 via-slate-700 to-slate-800 text-white shadow-lg border-b-2 border-yellow-500 ${language === 'ar' ? 'rtl' : 'ltr'}`}>
+      {/* Logo Row */}
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center space-x-4 pl-1">
@@ -195,7 +196,23 @@ const Header = () => {
             </Link>
           </div>
           
-          <nav className="hidden md:flex items-center space-x-8 text-lg">
+          <button
+            onClick={toggleLanguage}
+            className="bg-gradient-to-r from-yellow-500 to-amber-600 text-slate-800 px-4 py-2 rounded-full font-semibold hover:from-yellow-400 hover:to-amber-500 transition-all shadow-lg border-2 border-yellow-400"
+          >
+            {language === 'ar' ? (
+              <>🇺🇸 EN</>
+            ) : (
+              <>🇸🇦 ع</>
+            )}
+          </button>
+        </div>
+      </div>
+      
+      {/* Navigation Row - Aligned with content */}
+      <div className="border-t border-slate-600">
+        <div className="container mx-auto px-4">
+          <nav className="flex items-center space-x-8 text-lg py-3">
             <Link to="/" className="hover:text-yellow-300 transition-colors font-medium">{t('home')}</Link>
             <Link to="/ads" className="hover:text-yellow-300 transition-colors font-medium">{t('categories')}</Link>
             {isAuthenticated ? (
@@ -212,17 +229,6 @@ const Header = () => {
               </>
             )}
           </nav>
-          
-          <button
-            onClick={toggleLanguage}
-            className="bg-gradient-to-r from-yellow-500 to-amber-600 text-slate-800 px-4 py-2 rounded-full font-semibold hover:from-yellow-400 hover:to-amber-500 transition-all shadow-lg border-2 border-yellow-400"
-          >
-            {language === 'ar' ? (
-              <>🇺🇸 EN</>
-            ) : (
-              <>🇸🇦 ع</>
-            )}
-          </button>
         </div>
       </div>
     </header>
