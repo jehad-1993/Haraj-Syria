@@ -1,52 +1,45 @@
 <svg width="320" height="100" viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- Gradient matching website background -->
     <linearGradient id="bgGradientAr" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#667eea"/>
-      <stop offset="100%" style="stop-color:#764ba2"/>
+      <stop offset="0%" style="stop-color:#1e3c72"/>
+      <stop offset="100%" style="stop-color:#2a5298"/>
     </linearGradient>
-    <!-- Complementary gradient for arch -->
     <linearGradient id="archGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#f093fb"/>
-      <stop offset="100%" style="stop-color:#f5576c"/>
+      <stop offset="0%" style="stop-color:#d4af37"/>
+      <stop offset="100%" style="stop-color:#b8860b"/>
     </linearGradient>
-    <!-- Light accent color -->
-    <linearGradient id="frameGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#ffecd2"/>
-      <stop offset="100%" style="stop-color:#fcb69f"/>
-    </linearGradient>
-    <filter id="softShadow">
-      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    <filter id="simpleShadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-opacity="0.5"/>
     </filter>
   </defs>
   
-  <!-- Soft Shadow Base -->
-  <rect x="3" y="3" width="314" height="94" rx="20" fill="rgba(255,255,255,0.1)"/>
+  <!-- Simple 3D Shadow Base -->
+  <rect x="3" y="3" width="314" height="94" rx="20" fill="rgba(0,0,0,0.2)"/>
   
-  <!-- Main Background - matches website colors -->
-  <rect x="0" y="0" width="314" height="94" rx="20" fill="url(#bgGradientAr)" stroke="url(#frameGradient)" stroke-width="2"/>
+  <!-- Main Background -->
+  <rect x="0" y="0" width="314" height="94" rx="20" fill="url(#bgGradientAr)" stroke="#d4af37" stroke-width="2"/>
   
   <!-- Traditional Arch Icon Area Frame -->
-  <rect x="8" y="8" width="84" height="78" rx="12" fill="rgba(255, 255, 255, 0.15)" stroke="url(#frameGradient)" stroke-width="1.5"/>
+  <rect x="8" y="8" width="84" height="78" rx="12" fill="rgba(212, 175, 55, 0.15)" stroke="#d4af37" stroke-width="1.5"/>
   
-  <!-- Traditional Arch Icon - Harmonized colors -->
-  <path d="M 18 12 Q 18 8, 25 8 Q 35 8, 50 8 Q 65 8, 75 8 Q 82 8, 82 12 L 82 68 Q 82 75, 75 75 L 25 75 Q 18 75, 18 68 Z" fill="url(#archGradient)" stroke="#f5576c" stroke-width="1"/>
-  <path d="M 26 18 Q 26 12, 30 12 Q 40 12, 50 12 Q 60 12, 70 12 Q 74 12, 74 18 L 74 62 Q 74 66, 70 66 L 30 66 Q 26 66, 26 62 Z" fill="#667eea"/>
+  <!-- Traditional Arch Icon - Clear and Sharp -->
+  <path d="M 18 12 Q 18 8, 25 8 Q 35 8, 50 8 Q 65 8, 75 8 Q 82 8, 82 12 L 82 68 Q 82 75, 75 75 L 25 75 Q 18 75, 18 68 Z" fill="url(#archGradient)" stroke="#b8860b" stroke-width="1"/>
+  <path d="M 26 18 Q 26 12, 30 12 Q 40 12, 50 12 Q 60 12, 70 12 Q 74 12, 74 18 L 74 62 Q 74 66, 70 66 L 30 66 Q 26 66, 26 62 Z" fill="#1e3c72"/>
   
-  <!-- Decorative elements - harmonized -->
-  <circle cx="50" cy="22" r="3" fill="#ffecd2"/>
-  <circle cx="42" cy="32" r="2" fill="#fcb69f"/>
-  <circle cx="58" cy="32" r="2" fill="#fcb69f"/>
-  <circle cx="50" cy="42" r="2.5" fill="#ffecd2"/>
-  <circle cx="50" cy="52" r="2" fill="#fcb69f"/>
+  <!-- Simple Decorative elements -->
+  <circle cx="50" cy="22" r="3" fill="#d4af37"/>
+  <circle cx="42" cy="32" r="2" fill="#d4af37"/>
+  <circle cx="58" cy="32" r="2" fill="#d4af37"/>
+  <circle cx="50" cy="42" r="2.5" fill="#d4af37"/>
+  <circle cx="50" cy="52" r="2" fill="#d4af37"/>
   
-  <!-- Arch curves - soft colors -->
-  <path d="M 32 22 Q 50 18, 68 22" stroke="#ffecd2" stroke-width="1.5" fill="none"/>
-  <path d="M 34 42 Q 50 38, 66 42" stroke="#fcb69f" stroke-width="1" fill="none"/>
+  <!-- Simple arch curves -->
+  <path d="M 32 22 Q 50 18, 68 22" stroke="#d4af37" stroke-width="1.5" fill="none"/>
+  <path d="M 34 42 Q 50 38, 66 42" stroke="#d4af37" stroke-width="1" fill="none"/>
   
-  <!-- Text Area Frame - harmonized -->
-  <rect x="102" y="28" width="205" height="44" rx="8" fill="rgba(255, 255, 255, 0.2)" stroke="url(#frameGradient)" stroke-width="1.5"/>
+  <!-- Text Area Frame - Simple -->
+  <rect x="102" y="28" width="205" height="44" rx="8" fill="rgba(255, 255, 255, 0.1)" stroke="#d4af37" stroke-width="1.5"/>
   
-  <!-- Arabic Text - clear white with soft shadow -->
-  <text x="204.5" y="58" fill="white" font-family="Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" filter="url(#softShadow)">حراج سوريا</text>
+  <!-- Arabic Text - Centered in Rectangle -->
+  <text x="204.5" y="58" fill="white" font-family="Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" filter="url(#simpleShadow)">حراج سوريا</text>
 </svg>
