@@ -264,8 +264,7 @@ Logo refinement: Remove thin gold outer frames from logo while keeping internal 
   run_ui: false
 
 ## test_plan:
-  current_focus:
-    - "Logo visual refinement"
+  current_focus: []
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
