@@ -118,6 +118,18 @@ Logo refinement: Remove thin gold outer frames from logo while keeping internal 
         -agent: "main"
         -comment: "Backend APIs are stable and ready, no changes needed for lazy loading implementation"
 
+  - task: "Logo visual refinement"
+    implemented: true
+    working: true
+    file: "/app/frontend/public/logos/logo-arabic.svg, /app/frontend/public/logos/logo-english.svg, /app/frontend/src/App.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        -working: true
+        -agent: "main"
+        -comment: "Removed thin gold outer strokes from logo background and text area, kept internal gold decorative elements. Changed text area background from #1a2d4a to #152238 (darker). Updated language button gradient to match darker blue (#152238 to #1e2e47)."
+
 ## frontend:
   - task: "Implement React.lazy for route-based code splitting"
     implemented: true
