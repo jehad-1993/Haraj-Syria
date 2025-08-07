@@ -328,33 +328,35 @@ const Home = () => {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12 text-white">{t('latestAds')}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {ads.map((ad) => (
-              <div key={ad.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="h-48 relative">
-                  {ad.images && ad.images.length > 0 ? (
-                    <LazyImage
-                      src={ad.images[0]}
-                      alt={ad.title}
-                      className="w-full h-full object-cover"
-                      skeletonClassName="bg-gray-200 animate-pulse"
-                    />
-                  ) : (
-                    <div className="h-full bg-gray-200 flex items-center justify-center">
-                      <span className="text-gray-400 text-4xl">📷</span>
+          <div className="flex justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl">
+              {ads.map((ad) => (
+                <div key={ad.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                  <div className="h-48 relative">
+                    {ad.images && ad.images.length > 0 ? (
+                      <LazyImage
+                        src={ad.images[0]}
+                        alt={ad.title}
+                        className="w-full h-full object-cover"
+                        skeletonClassName="bg-gray-200 animate-pulse"
+                      />
+                    ) : (
+                      <div className="h-full bg-gray-200 flex items-center justify-center">
+                        <span className="text-gray-400 text-4xl">📷</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-semibold mb-2 truncate">{ad.title}</h3>
+                    <p className="text-gray-600 text-sm mb-2 line-clamp-2">{ad.description}</p>
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg font-bold text-blue-600">${ad.price}</span>
+                      <span className="text-sm text-gray-500">{ad.city}</span>
                     </div>
-                  )}
-                </div>
-                <div className="p-4">
-                  <h3 className="font-semibold mb-2 truncate">{ad.title}</h3>
-                  <p className="text-gray-600 text-sm mb-2 line-clamp-2">{ad.description}</p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-lg font-bold text-blue-600">${ad.price}</span>
-                    <span className="text-sm text-gray-500">{ad.city}</span>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
