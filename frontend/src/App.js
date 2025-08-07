@@ -184,13 +184,13 @@ const Header = () => {
   return (
     <header className={`bg-gradient-to-r from-slate-800 via-slate-700 to-slate-800 text-white shadow-lg border-b-2 border-yellow-500 ${language === 'ar' ? 'rtl' : 'ltr'}`}>
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center py-4">
-          <div className="flex items-center space-x-4">
-            <Link to="/" className="text-2xl font-bold hover:text-yellow-300 flex items-center transition-colors">
+        <div className="flex justify-between items-center py-4 px-2">
+          <div className="flex items-center space-x-6 pr-8">
+            <Link to="/" className="text-2xl font-bold hover:text-yellow-300 flex items-center transition-colors p-2">
               <img 
                 src={language === 'ar' ? '/logos/logo-arabic.svg' : '/logos/logo-english.svg'} 
                 alt={t('appName')} 
-                className="h-24 w-auto"
+                className="h-24 w-auto mx-4"
               />
             </Link>
           </div>
