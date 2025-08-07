@@ -16,8 +16,8 @@
   <!-- Simple 3D Shadow Base -->
   <rect x="3" y="3" width="314" height="94" rx="20" fill="rgba(0,0,0,0.2)"/>
   
-  <!-- Main Background -->
-  <rect x="0" y="0" width="314" height="94" rx="20" fill="url(#bgGradientEn)" stroke="#d4af37" stroke-width="2"/>
+  <!-- Main Background (removed outer gold stroke) -->
+  <rect x="0" y="0" width="314" height="94" rx="20" fill="url(#bgGradientEn)"/>
   
   <!-- Traditional Arch Icon -->
   <path d="M 18 12 Q 18 8, 25 8 Q 35 8, 50 8 Q 65 8, 75 8 Q 82 8, 82 12 L 82 68 Q 82 75, 75 75 L 25 75 Q 18 75, 18 68 Z" fill="url(#archGradient)" stroke="#b8860b" stroke-width="1"/>
@@ -34,8 +34,8 @@
   <path d="M 32 22 Q 50 18, 68 22" stroke="#d4af37" stroke-width="1.5" fill="none"/>
   <path d="M 34 42 Q 50 38, 66 42" stroke="#d4af37" stroke-width="1" fill="none"/>
   
-  <!-- Text Area with darker blue background -->
-  <rect x="102" y="28" width="205" height="44" rx="8" fill="#1a2d4a" stroke="#d4af37" stroke-width="1.5"/>
+  <!-- Text Area with darker blue background (removed outer gold stroke) -->
+  <rect x="102" y="28" width="205" height="44" rx="8" fill="#152238"/>
   
   <!-- English Text -->
   <text x="204.5" y="58" fill="white" font-family="Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" filter="url(#simpleShadow)">Haraj Syria</text>
