@@ -1,0 +1,21 @@
+<svg width="200" height="80" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3c72"/>
+      <stop offset="100%" style="stop-color:#2a5298"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect x="0" y="0" width="200" height="80" rx="15" fill="url(#bgGradient)" stroke="#d4af37" stroke-width="3"/>
+  
+  <!-- Traditional Arch Icon -->
+  <path d="M 25 20 Q 25 10, 35 10 Q 45 10, 45 20 L 45 50 Q 45 55, 40 55 L 30 55 Q 25 55, 25 50 Z" fill="#d4af37"/>
+  <path d="M 30 25 Q 30 20, 35 20 Q 40 20, 40 25 L 40 40 Q 40 42, 38 42 L 32 42 Q 30 42, 30 40 Z" fill="#1e3c72"/>
+  
+  <!-- Arabic Text -->
+  <text x="65" y="35" fill="white" font-family="serif" font-size="18" font-weight="bold">حراج سوريا</text>
+  
+  <!-- English Text -->
+  <text x="65" y="55" fill="white" font-family="Arial" font-size="12" opacity="0.9">Haraj Syria</text>
+</svg>
