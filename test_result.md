@@ -297,7 +297,7 @@ Complete deployment of Haraj Syria application to free hosting platforms (Vercel
         -comment: "User created GitHub repository: https://github.com/jehad-1993/syria-haraj-2025. User now wants to use project name 'Haraj-Syria' instead. Will help set up deployment with this preferred name."
         -working: "NA"
         -agent: "main"
-        -comment: "User provided MongoDB credentials: Password (ABOalabd2025), and identifier (Jehad-2025). Working to construct complete connection string."
+        -comment: "User provided MongoDB details: Password (ABOalabd2025), Cluster name (Cluster-1), User identifier (Jehad-2025). Need to get hostname suffix to complete connection string."
     implemented: true
     working: "NA"
     file: "/app/backend/.env"
