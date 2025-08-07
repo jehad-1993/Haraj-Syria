@@ -266,8 +266,34 @@ Complete deployment of Haraj Syria application to free hosting platforms (Vercel
   test_sequence: 1
   run_ui: false
 
+  - task: "Vercel frontend deployment"
+    implemented: false
+    working: "NA"
+    file: "/app/vercel.json"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        -working: "NA"
+        -agent: "main"
+        -comment: "User encountered 'Project haraj-syria already exists' error. Now attempting deployment with project name 'syrian-haraj'"
+
+  - task: "MongoDB Atlas database connection"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/.env"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        -working: "NA"
+        -agent: "main"
+        -comment: "User has MongoDB Atlas setup with password ABOalabd2025. Need to verify connection string format and test connectivity"
+
 ## test_plan:
-  current_focus: []
+  current_focus:
+    - "Vercel frontend deployment"
+    - "MongoDB Atlas database connection"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
