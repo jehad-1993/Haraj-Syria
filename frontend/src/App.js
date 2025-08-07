@@ -190,7 +190,7 @@ const Header = () => {
               <img 
                 src={language === 'ar' ? '/logos/logo-arabic.svg' : '/logos/logo-english.svg'} 
                 alt={t('appName')} 
-                className="h-8 w-auto"
+                className="h-16 w-auto"
               />
             </Link>
           </div>
