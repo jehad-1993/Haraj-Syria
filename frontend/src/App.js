@@ -288,7 +288,7 @@ const Home = () => {
       {/* Categories Section */}
       <section className="py-28 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16">{t('browseCategories')}</h2>
+          <h2 className="text-4xl font-bold text-center mb-20 mt-16">{t('browseCategories')}</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {categories.map((category) => (
               <Link
