@@ -195,20 +195,20 @@ const Header = () => {
             </Link>
           </div>
           
-          <nav className="hidden md:flex items-center space-x-6">
-            <Link to="/" className="hover:text-yellow-300 transition-colors">{t('home')}</Link>
-            <Link to="/ads" className="hover:text-yellow-300 transition-colors">{t('categories')}</Link>
+          <nav className="hidden md:flex items-center space-x-8 text-lg">
+            <Link to="/" className="hover:text-yellow-300 transition-colors font-medium">{t('home')}</Link>
+            <Link to="/ads" className="hover:text-yellow-300 transition-colors font-medium">{t('categories')}</Link>
             {isAuthenticated ? (
               <>
-                <Link to="/my-ads" className="hover:text-yellow-300 transition-colors">{t('myAds')}</Link>
-                <Link to="/post-ad" className="hover:text-yellow-300 transition-colors">{t('postAd')}</Link>
-                <span className="text-yellow-300">{t('welcomeUser')} {user?.name}</span>
-                <button onClick={logout} className="hover:text-yellow-300 transition-colors">{t('logout')}</button>
+                <Link to="/my-ads" className="hover:text-yellow-300 transition-colors font-medium">{t('myAds')}</Link>
+                <Link to="/post-ad" className="hover:text-yellow-300 transition-colors font-medium">{t('postAd')}</Link>
+                <span className="text-yellow-300 font-medium">{t('welcomeUser')} {user?.name}</span>
+                <button onClick={logout} className="hover:text-yellow-300 transition-colors font-medium">{t('logout')}</button>
               </>
             ) : (
               <>
-                <Link to="/login" className="hover:text-yellow-300 transition-colors">{t('login')}</Link>
-                <Link to="/register" className="hover:text-yellow-300 transition-colors">{t('register')}</Link>
+                <Link to="/login" className="hover:text-yellow-300 transition-colors font-medium">{t('login')}</Link>
+                <Link to="/register" className="hover:text-yellow-300 transition-colors font-medium">{t('register')}</Link>
               </>
             )}
           </nav>
