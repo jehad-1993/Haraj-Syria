@@ -335,7 +335,6 @@ Complete deployment of Haraj Syria application to free hosting platforms (Vercel
 ## test_plan:
   current_focus:
     - "Vercel frontend deployment"
-    - "MongoDB Atlas database connection"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
