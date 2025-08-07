@@ -295,9 +295,9 @@ Complete deployment of Haraj Syria application to free hosting platforms (Vercel
         -working: "NA"
         -agent: "main"
         -comment: "User created GitHub repository: https://github.com/jehad-1993/syria-haraj-2025. User now wants to use project name 'Haraj-Syria' instead. Will help set up deployment with this preferred name."
-        -working: false
+        -working: "NA"
         -agent: "main"
-        -comment: "MongoDB Atlas setup in progress. User reports connection string field is not editable/writable, preventing password replacement. Need to guide through alternative methods to get proper connection string."
+        -comment: "User provided MongoDB password (ABOalabd2025). Now helping locate cluster name and connection details from MongoDB Atlas interface."
     implemented: true
     working: "NA"
     file: "/app/backend/.env"
