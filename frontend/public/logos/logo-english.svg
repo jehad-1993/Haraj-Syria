@@ -40,6 +40,6 @@
   <!-- Text Area Frame - Simple -->
   <rect x="102" y="28" width="205" height="44" rx="8" fill="rgba(255, 255, 255, 0.1)" stroke="#d4af37" stroke-width="1.5"/>
   
-  <!-- English Text - Clean and Sharp -->
-  <text x="112" y="58" fill="white" font-family="Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="start" filter="url(#simpleShadow)">Haraj Syria</text>
+  <!-- English Text - Centered in Rectangle -->
+  <text x="204.5" y="58" fill="white" font-family="Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" filter="url(#simpleShadow)">Haraj Syria</text>
 </svg>
