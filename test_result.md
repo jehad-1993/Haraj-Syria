@@ -281,7 +281,17 @@ Complete deployment of Haraj Syria application to free hosting platforms (Vercel
         -agent: "main"
         -comment: "User deployed with name 'Syria-haraj' but getting error on redeploy: 'The provided GitHub repository does not contain the requested branch or commit reference. Please ensure the repository is not empty.' This indicates GitHub repository sync issue."
 
-  - task: "MongoDB Atlas database connection"
+  - task: "GitHub repository connection issue"
+    implemented: false
+    working: false
+    file: "GitHub repository"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        -working: false
+        -agent: "main"
+        -comment: "Vercel error: 'The provided GitHub repository does not contain the requested branch or commit reference. Please ensure the repository is not empty.' Need to verify GitHub repository status and branch configuration."
     implemented: true
     working: "NA"
     file: "/app/backend/.env"
