@@ -27,8 +27,5 @@
       "src": "/(.*)",
       "dest": "frontend/build/$1"
     }
-  ],
-  "env": {
-    "MONGO_URL": "@mongo_url"
-  }
+  ]
 }
