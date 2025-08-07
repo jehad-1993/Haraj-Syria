@@ -198,7 +198,16 @@ const Header = () => {
           
           <button
             onClick={toggleLanguage}
-            className="bg-gradient-to-r from-slate-800 to-slate-700 text-yellow-400 px-4 py-2 rounded-full font-semibold hover:from-slate-700 hover:to-slate-600 transition-all shadow-lg border-2 border-yellow-400"
+            className="px-4 py-2 rounded-full font-semibold transition-all shadow-lg border-2 border-yellow-400 text-yellow-400"
+            style={{
+              background: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.background = 'linear-gradient(135deg, #2a5298 0%, #1e3c72 100%)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.background = 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)';
+            }}
           >
             {language === 'ar' ? (
               <>🇺🇸 EN</>
