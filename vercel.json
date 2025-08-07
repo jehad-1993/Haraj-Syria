@@ -5,12 +5,17 @@
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "frontend/build"
+        "distDir": "frontend/build",
+        "installCommand": "cd frontend && yarn install",
+        "buildCommand": "cd frontend && yarn build"
       }
     },
     {
       "src": "backend/server.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": {
+        "runtime": "python3.9"
+      }
     }
   ],
   "routes": [
@@ -25,10 +30,5 @@
   ],
   "env": {
     "MONGO_URL": "@mongo_url"
-  },
-  "functions": {
-    "backend/server.py": {
-      "runtime": "python3.9"
-    }
   }
 }
