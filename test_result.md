@@ -103,7 +103,7 @@
 #====================================================================================================
 
 ## user_problem_statement: 
-Implement "Lazy Loading" for images and components to enhance the application's performance and loading speed for the "Haraj Syria" classifieds website.
+Logo refinement: Remove thin gold outer frames from logo while keeping internal gold decorative elements, and make blue color around text and language button slightly darker.
 
 ## backend:
   - task: "Backend API readiness for lazy loading"
