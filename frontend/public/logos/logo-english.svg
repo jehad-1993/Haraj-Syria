@@ -12,15 +12,21 @@
   <!-- Background with shadow -->
   <rect x="0" y="0" width="300" height="100" rx="20" fill="url(#bgGradientEn)" stroke="#d4af37" stroke-width="4" filter="url(#shadow)"/>
   
-  <!-- Traditional Arch Icon - Much Larger -->
-  <path d="M 30 15 Q 30 5, 45 5 Q 60 5, 60 15 L 60 65 Q 60 75, 50 75 L 40 75 Q 30 75, 30 65 Z" fill="#d4af37"/>
-  <path d="M 38 25 Q 38 15, 45 15 Q 52 15, 52 25 L 52 55 Q 52 58, 49 58 L 41 58 Q 38 58, 38 55 Z" fill="#1e3c72"/>
+  <!-- Traditional Arch Icon - Much Larger and More Detailed -->
+  <path d="M 20 10 Q 20 2, 35 2 Q 50 2, 65 2 Q 80 2, 80 10 L 80 70 Q 80 80, 70 80 L 30 80 Q 20 80, 20 70 Z" fill="#d4af37" stroke="#b8860b" stroke-width="2"/>
+  <path d="M 30 20 Q 30 10, 35 10 Q 50 10, 65 10 Q 70 10, 70 20 L 70 60 Q 70 65, 65 65 L 35 65 Q 30 65, 30 60 Z" fill="#1e3c72"/>
   
-  <!-- Decorative pattern in arch - larger -->
-  <circle cx="45" cy="30" r="3" fill="#d4af37"/>
-  <circle cx="45" cy="40" r="2" fill="#d4af37"/>
-  <circle cx="45" cy="48" r="2" fill="#d4af37"/>
+  <!-- Decorative Islamic pattern in arch -->
+  <circle cx="50" cy="25" r="4" fill="#d4af37"/>
+  <circle cx="42" cy="35" r="2.5" fill="#d4af37"/>
+  <circle cx="58" cy="35" r="2.5" fill="#d4af37"/>
+  <circle cx="50" cy="45" r="3" fill="#d4af37"/>
+  <circle cx="50" cy="55" r="2" fill="#d4af37"/>
   
-  <!-- English Text - Much Larger and bolder -->
-  <text x="80" y="60" fill="white" font-family="serif" font-size="32" font-weight="bold" text-anchor="start">Haraj Syria</text>
+  <!-- Traditional arch details -->
+  <path d="M 35 25 Q 50 20, 65 25" stroke="#d4af37" stroke-width="2" fill="none"/>
+  <path d="M 35 45 Q 50 40, 65 45" stroke="#d4af37" stroke-width="1.5" fill="none"/>
+  
+  <!-- English Text - Same size as before -->
+  <text x="95" y="60" fill="white" font-family="serif" font-size="32" font-weight="bold" text-anchor="start">Haraj Syria</text>
 </svg>
