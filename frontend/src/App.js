@@ -266,7 +266,7 @@ const Home = () => {
   return (
     <div className={`${language === 'ar' ? 'rtl' : 'ltr'}`}>
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-20">
+      <section className="bg-gradient-to-br from-blue-50 via-sky-50 to-white text-gray-800 py-20">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold mb-4">{t('welcome')}</h1>
           <p className="text-xl mb-8">{t('subtitle')}</p>
