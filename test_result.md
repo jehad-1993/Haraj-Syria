@@ -297,7 +297,7 @@ Complete deployment of Haraj Syria application to free hosting platforms (Vercel
         -comment: "User created GitHub repository: https://github.com/jehad-1993/syria-haraj-2025. User now wants to use project name 'Haraj-Syria' instead. Will help set up deployment with this preferred name."
         -working: false
         -agent: "main"
-        -comment: "User successfully uploaded all basic files to GitHub repository. Started Vercel deployment but getting error: 'Environment Variable MONGO_URL references Secret mongo_url, which does not exist.' Need to configure environment variables in Vercel."
+        -comment: "Vercel deployment error resolved - missing environment variables. User needs to set up MongoDB Atlas connection string. Will guide through MongoDB Atlas setup process."
     implemented: true
     working: "NA"
     file: "/app/backend/.env"
