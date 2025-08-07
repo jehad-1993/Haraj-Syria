@@ -209,10 +209,10 @@ const Header = () => {
         </div>
       </div>
       
-      {/* Navigation Row - Aligned with content */}
+      {/* Navigation Row - Centered */}
       <div className="border-t border-slate-600">
         <div className="container mx-auto px-4">
-          <nav className="flex items-center space-x-8 text-lg py-3">
+          <nav className="flex items-center justify-center space-x-8 text-lg py-3">
             <Link to="/" className="hover:text-yellow-300 transition-colors font-medium">{t('home')}</Link>
             <Link to="/ads" className="hover:text-yellow-300 transition-colors font-medium">{t('categories')}</Link>
             {isAuthenticated ? (
