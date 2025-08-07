@@ -295,9 +295,9 @@ Complete deployment of Haraj Syria application to free hosting platforms (Vercel
         -working: "NA"
         -agent: "main"
         -comment: "User created GitHub repository: https://github.com/jehad-1993/syria-haraj-2025. User now wants to use project name 'Haraj-Syria' instead. Will help set up deployment with this preferred name."
-        -working: true
+        -working: false
         -agent: "main"
-        -comment: "User successfully added environment variables to Vercel (MONGO_URL and REACT_APP_BACKEND_URL). Now guiding through redeploy process to complete deployment."
+        -comment: "User added environment variables but still getting error: 'Environment Variable MONGO_URL references Secret mongo_url, which does not exist.' Issue is in vercel.json file which references @mongo_url secret instead of direct environment variable. Need to fix vercel.json configuration."
     implemented: true
     working: "NA"
     file: "/app/backend/.env"
