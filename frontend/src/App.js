@@ -198,7 +198,7 @@ const Header = () => {
           
           <button
             onClick={toggleLanguage}
-            className="bg-gradient-to-r from-yellow-500 to-amber-600 text-slate-800 px-4 py-2 rounded-full font-semibold hover:from-yellow-400 hover:to-amber-500 transition-all shadow-lg border-2 border-yellow-400"
+            className="bg-gradient-to-r from-slate-800 to-slate-700 text-yellow-400 px-4 py-2 rounded-full font-semibold hover:from-slate-700 hover:to-slate-600 transition-all shadow-lg border-2 border-yellow-400"
           >
             {language === 'ar' ? (
               <>🇺🇸 EN</>
