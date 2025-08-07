@@ -182,11 +182,11 @@ const Header = () => {
   const { user, logout, isAuthenticated } = useContext(AuthContext);
   
   return (
-    <header className={`bg-blue-600 text-white shadow-lg ${language === 'ar' ? 'rtl' : 'ltr'}`}>
+    <header className={`bg-gradient-to-r from-slate-800 via-slate-700 to-slate-800 text-white shadow-lg border-b-2 border-yellow-500 ${language === 'ar' ? 'rtl' : 'ltr'}`}>
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center space-x-4">
-            <Link to="/" className="text-2xl font-bold hover:text-blue-200 flex items-center">
+            <Link to="/" className="text-2xl font-bold hover:text-yellow-300 flex items-center transition-colors">
               <img 
                 src={language === 'ar' ? '/logos/logo-arabic.svg' : '/logos/logo-english.svg'} 
                 alt={t('appName')} 
@@ -196,26 +196,26 @@ const Header = () => {
           </div>
           
           <nav className="hidden md:flex items-center space-x-6">
-            <Link to="/" className="hover:text-blue-200">{t('home')}</Link>
-            <Link to="/ads" className="hover:text-blue-200">{t('categories')}</Link>
+            <Link to="/" className="hover:text-yellow-300 transition-colors">{t('home')}</Link>
+            <Link to="/ads" className="hover:text-yellow-300 transition-colors">{t('categories')}</Link>
             {isAuthenticated ? (
               <>
-                <Link to="/my-ads" className="hover:text-blue-200">{t('myAds')}</Link>
-                <Link to="/post-ad" className="hover:text-blue-200">{t('postAd')}</Link>
-                <span className="text-blue-200">{t('welcomeUser')} {user?.name}</span>
-                <button onClick={logout} className="hover:text-blue-200">{t('logout')}</button>
+                <Link to="/my-ads" className="hover:text-yellow-300 transition-colors">{t('myAds')}</Link>
+                <Link to="/post-ad" className="hover:text-yellow-300 transition-colors">{t('postAd')}</Link>
+                <span className="text-yellow-300">{t('welcomeUser')} {user?.name}</span>
+                <button onClick={logout} className="hover:text-yellow-300 transition-colors">{t('logout')}</button>
               </>
             ) : (
               <>
-                <Link to="/login" className="hover:text-blue-200">{t('login')}</Link>
-                <Link to="/register" className="hover:text-blue-200">{t('register')}</Link>
+                <Link to="/login" className="hover:text-yellow-300 transition-colors">{t('login')}</Link>
+                <Link to="/register" className="hover:text-yellow-300 transition-colors">{t('register')}</Link>
               </>
             )}
           </nav>
           
           <button
             onClick={toggleLanguage}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 py-2 rounded-lg font-semibold shadow-md transition-all duration-200 flex items-center gap-2 border-2 border-white/20"
+            className="bg-gradient-to-r from-yellow-500 to-amber-600 text-slate-800 px-4 py-2 rounded-full font-semibold hover:from-yellow-400 hover:to-amber-500 transition-all shadow-lg border-2 border-yellow-400"
           >
             {language === 'ar' ? (
               <>🇺🇸 EN</>
