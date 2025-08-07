@@ -893,7 +893,7 @@ function App() {
   return (
     <LanguageProvider>
       <AuthProvider>
-        <div className="App min-h-screen bg-gray-100">
+        <div className="App min-h-screen bg-gradient-to-br from-blue-900 via-slate-800 to-indigo-900">
           <BrowserRouter>
             <Header />
             <main>
