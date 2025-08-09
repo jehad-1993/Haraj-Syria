@@ -198,16 +198,38 @@
         .form-group input, .form-group select, .form-group textarea {
             width: 100%;
             padding: 0.75rem;
-            border: 1px solid rgba(212, 175, 55, 0.5);
+            border: 2px solid rgba(212, 175, 55, 0.5);
             border-radius: 10px;
             background: rgba(255,255,255,0.1);
             color: white;
             outline: none;
             font-size: 1rem;
+            font-family: inherit;
+        }
+        
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: left 10px center;
+            background-size: 20px;
+            padding-left: 45px;
+        }
+        
+        .form-group select option {
+            background: #152238;
+            color: white;
+            padding: 0.5rem;
         }
         
         .form-group input::placeholder, .form-group textarea::placeholder {
             color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: #d4af37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
         }
         
         .phone-container {
@@ -218,7 +240,7 @@
         .phone-code {
             flex: 0 0 80px;
             background: rgba(212, 175, 55, 0.2);
-            border: 1px solid #d4af37;
+            border: 2px solid #d4af37 !important;
             text-align: center;
             font-weight: bold;
             color: #d4af37;
@@ -317,6 +339,13 @@
         .add-ad-btn:hover {
             transform: scale(1.1);
             background: #f4d03f;
+        }
+        
+        .error-message {
+            color: #ff6b6b;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
         }
         
         @media (max-width: 768px) {
@@ -439,10 +468,37 @@
                     <label id="adCategoryLabel">التصنيف *</label>
                     <select id="adCategory" required>
                         <option value="">اختر التصنيف</option>
-                        <option value="real-estate">عقارات</option>
-                        <option value="vehicles">مركبات</option>
-                        <option value="electronics">إلكترونيات</option>
-                        <option value="jobs">وظائف</option>
+                        <option value="real-estate">🏠 عقارات</option>
+                        <option value="vehicles">🚗 مركبات</option>
+                        <option value="electronics">📱 إلكترونيات</option>
+                        <option value="jobs">💼 وظائف</option>
+                        <option value="services">🔧 خدمات</option>
+                        <option value="fashion">👗 أزياء وملابس</option>
+                        <option value="furniture">🪑 أثاث ومفروشات</option>
+                        <option value="sports">⚽ رياضة ولياقة</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label id="adCountryLabel">الدولة *</label>
+                    <select id="adCountry" required onchange="updateAdCities()">
+                        <option value="">اختر الدولة</option>
+                        <option value="SY">🇸🇾 سوريا</option>
+                        <option value="SA">🇸🇦 السعودية</option>
+                        <option value="AE">🇦🇪 الإمارات</option>
+                        <option value="JO">🇯🇴 الأردن</option>
+                        <option value="LB">🇱🇧 لبنان</option>
+                        <option value="IQ">🇮🇶 العراق</option>
+                        <option value="EG">🇪🇬 مصر</option>
+                        <option value="KW">🇰🇼 الكويت</option>
+                        <option value="QA">🇶🇦 قطر</option>
+                        <option value="BH">🇧🇭 البحرين</option>
+                        <option value="OM">🇴🇲 عمان</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label id="adCityLabel">المدينة *</label>
+                    <select id="adCity" required disabled>
+                        <option value="">اختر الدولة أولاً</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -478,23 +534,23 @@
                     <label id="countryLabel">الدولة *</label>
                     <select id="registerCountry" required onchange="updatePhoneCode()">
                         <option value="">اختر الدولة</option>
-                        <option value="SY" data-code="+963">سوريا</option>
-                        <option value="SA" data-code="+966">السعودية</option>
-                        <option value="AE" data-code="+971">الإمارات</option>
-                        <option value="JO" data-code="+962">الأردن</option>
-                        <option value="LB" data-code="+961">لبنان</option>
-                        <option value="IQ" data-code="+964">العراق</option>
-                        <option value="EG" data-code="+20">مصر</option>
-                        <option value="KW" data-code="+965">الكويت</option>
-                        <option value="QA" data-code="+974">قطر</option>
-                        <option value="BH" data-code="+973">البحرين</option>
-                        <option value="OM" data-code="+968">عمان</option>
-                        <option value="MA" data-code="+212">المغرب</option>
-                        <option value="TN" data-code="+216">تونس</option>
-                        <option value="DZ" data-code="+213">الجزائر</option>
-                        <option value="LY" data-code="+218">ليبيا</option>
-                        <option value="YE" data-code="+967">اليمن</option>
-                        <option value="SD" data-code="+249">السودان</option>
+                        <option value="SY" data-code="+963">🇸🇾 سوريا</option>
+                        <option value="SA" data-code="+966">🇸🇦 السعودية</option>
+                        <option value="AE" data-code="+971">🇦🇪 الإمارات</option>
+                        <option value="JO" data-code="+962">🇯🇴 الأردن</option>
+                        <option value="LB" data-code="+961">🇱🇧 لبنان</option>
+                        <option value="IQ" data-code="+964">🇮🇶 العراق</option>
+                        <option value="EG" data-code="+20">🇪🇬 مصر</option>
+                        <option value="KW" data-code="+965">🇰🇼 الكويت</option>
+                        <option value="QA" data-code="+974">🇶🇦 قطر</option>
+                        <option value="BH" data-code="+973">🇧🇭 البحرين</option>
+                        <option value="OM" data-code="+968">🇴🇲 عمان</option>
+                        <option value="MA" data-code="+212">🇲🇦 المغرب</option>
+                        <option value="TN" data-code="+216">🇹🇳 تونس</option>
+                        <option value="DZ" data-code="+213">🇩🇿 الجزائر</option>
+                        <option value="LY" data-code="+218">🇱🇾 ليبيا</option>
+                        <option value="YE" data-code="+967">🇾🇪 اليمن</option>
+                        <option value="SD" data-code="+249">🇸🇩 السودان</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -507,6 +563,11 @@
                 <div class="form-group">
                     <label id="passwordLabel">كلمة المرور *</label>
                     <input type="password" id="registerPassword" required placeholder="أدخل كلمة مرور قوية">
+                </div>
+                <div class="form-group">
+                    <label id="confirmPasswordLabel">إعادة كتابة كلمة المرور *</label>
+                    <input type="password" id="confirmPassword" required placeholder="أعد كتابة كلمة المرور">
+                    <div class="error-message" id="passwordError">كلمات المرور غير متطابقة</div>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%;" id="registerBtn">إنشاء الحساب</button>
             </form>
@@ -538,6 +599,21 @@
         let isArabic = true;
         let currentPage = 'home';
         
+        // قوائم المدن لكل دولة
+        const cities = {
+            'SY': ['دمشق', 'حلب', 'حمص', 'حماة', 'اللاذقية', 'طرطوس', 'دير الزور', 'الرقة', 'السويداء', 'درعا'],
+            'SA': ['الرياض', 'جدة', 'مكة المكرمة', 'المدينة المنورة', 'الدمام', 'الخبر', 'تبوك', 'بريدة', 'خميس مشيط'],
+            'AE': ['دبي', 'أبوظبي', 'الشارقة', 'عجمان', 'الفجيرة', 'رأس الخيمة', 'أم القيوين'],
+            'JO': ['عمان', 'إربد', 'الزرقاء', 'الرصيفة', 'وادي السير', 'العقبة', 'الكرك', 'معان'],
+            'LB': ['بيروت', 'طرابلس', 'صيدا', 'صور', 'بعلبك', 'جونيه', 'النبطية', 'زحلة'],
+            'IQ': ['بغداد', 'البصرة', 'أربيل', 'الموصل', 'النجف', 'كربلاء', 'الحلة', 'الرمادي'],
+            'EG': ['القاهرة', 'الإسكندرية', 'الجيزة', 'شبرا الخيمة', 'بورسعيد', 'السويس', 'الأقصر', 'أسوان'],
+            'KW': ['مدينة الكويت', 'حولي', 'الفروانية', 'مبارك الكبير', 'الأحمدي', 'الجهراء'],
+            'QA': ['الدوحة', 'الريان', 'أم صلال', 'الوكرة', 'الخور', 'الدعاين'],
+            'BH': ['المنامة', 'المحرق', 'الحد', 'عيسى', 'الرفاع', 'جدحفص'],
+            'OM': ['مسقط', 'صلالة', 'نزوى', 'صحار', 'البريمي', 'بوشر']
+        };
+        
         const translations = {
             ar: {
                 logoText: "حراج سوريا",
@@ -567,12 +643,15 @@
                 countryLabel: "الدولة *",
                 phoneLabel: "رقم الهاتف *",
                 passwordLabel: "كلمة المرور *",
+                confirmPasswordLabel: "إعادة كتابة كلمة المرور *",
                 registerBtn: "إنشاء الحساب",
                 loginEmailLabel: "البريد الإلكتروني *",
                 loginPasswordLabel: "كلمة المرور *",
                 loginBtn: "دخول",
                 adTitleLabel: "عنوان الإعلان *",
                 adCategoryLabel: "التصنيف *",
+                adCountryLabel: "الدولة *",
+                adCityLabel: "المدينة *",
                 adPriceLabel: "السعر *",
                 adDescLabel: "الوصف *",
                 addAdBtn: "نشر الإعلان",
@@ -611,12 +690,15 @@
                 countryLabel: "Country *",
                 phoneLabel: "Phone Number *",
                 passwordLabel: "Password *",
+                confirmPasswordLabel: "Confirm Password *",
                 registerBtn: "Create Account",
                 loginEmailLabel: "Email *",
                 loginPasswordLabel: "Password *",
                 loginBtn: "Sign In",
                 adTitleLabel: "Ad Title *",
                 adCategoryLabel: "Category *",
+                adCountryLabel: "Country *",
+                adCityLabel: "City *",
                 adPriceLabel: "Price *",
                 adDescLabel: "Description *",
                 addAdBtn: "Post Ad",
@@ -672,7 +754,28 @@
             if (selectedOption.dataset.code) {
                 phoneCodeInput.value = selectedOption.dataset.code;
             } else {
-                phoneCodeInput.value = '+963'; // افتراضي سوريا
+                phoneCodeInput.value = '+963';
+            }
+        }
+        
+        function updateAdCities() {
+            const countrySelect = document.getElementById('adCountry');
+            const citySelect = document.getElementById('adCity');
+            const selectedCountry = countrySelect.value;
+            
+            citySelect.innerHTML = '<option value="">اختر المدينة</option>';
+            
+            if (selectedCountry && cities[selectedCountry]) {
+                citySelect.disabled = false;
+                cities[selectedCountry].forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                });
+            } else {
+                citySelect.disabled = true;
+                citySelect.innerHTML = '<option value="">اختر الدولة أولاً</option>';
             }
         }
         
@@ -696,12 +799,21 @@
             const phoneCode = document.getElementById('phoneCode').value;
             const phone = document.getElementById('registerPhone').value;
             const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
             
-            if (!name || !email || !country || !phone || !password) {
+            const errorDiv = document.getElementById('passwordError');
+            
+            if (!name || !email || !country || !phone || !password || !confirmPassword) {
                 alert('جميع الحقول مطلوبة!');
                 return;
             }
             
+            if (password !== confirmPassword) {
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            errorDiv.style.display = 'none';
             alert(`تم إنشاء حساب جديد باسم: ${name}\nرقم الهاتف: ${phoneCode} ${phone}`);
             showPage('home');
         }
@@ -719,10 +831,12 @@
             event.preventDefault();
             const title = document.getElementById('adTitle').value;
             const category = document.getElementById('adCategory').value;
+            const country = document.getElementById('adCountry').value;
+            const city = document.getElementById('adCity').value;
             const price = document.getElementById('adPrice').value;
             const description = document.getElementById('adDescription').value;
             
-            alert(`تم نشر الإعلان بنجاح!\nالعنوان: ${title}\nالسعر: ${price}`);
+            alert(`تم نشر الإعلان بنجاح!\nالعنوان: ${title}\nالموقع: ${city}, ${country}\nالسعر: ${price}`);
             showPage('categories');
         }
         
