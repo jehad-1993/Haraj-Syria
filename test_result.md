@@ -370,5 +370,22 @@ Complete deployment of Haraj Syria application to free hosting platforms (Vercel
     -message: "Completed comprehensive backend testing for Haraj Syria application after logo changes. All 24 backend API endpoints tested successfully with 100% pass rate. Verified: 1) Authentication system (register, login, forgot/reset password) with Syrian data (+963 phone codes, Damascus locations), 2) Ad management (CRUD operations, search/filtering with Arabic text support), 3) Category/location data endpoints with proper Arabic/English bilingual support, 4) Static file serving for logo files (both Arabic and English logos accessible). Backend infrastructure remains fully intact and operational after logo visual refinements."
     -agent: "testing"
     -message: "✅ BACKEND DEPLOYMENT READY: Completed comprehensive testing of all Haraj Syria backend APIs with MongoDB Atlas integration. Updated backend/.env with Atlas connection string and verified 100% functionality. All 24 API endpoints tested successfully including: health check, data endpoints (countries/cities/categories with Syrian data), authentication (register/login/password reset), ad management (CRUD with Arabic support), image upload, and admin features. MongoDB Atlas database 'haraj-syria' connected and operational. Backend is fully ready for deployment with all core features working perfectly."
+  - task: "Deploy navigation fix to production (Vercel)"
+    implemented: true
+    working: false
+    file: "/app/frontend/.env.production, /app/vercel.json"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        -working: false
+        -agent: "main"
+        -comment: "User reports live site (haraj-syria.vercel.app) still stuck on registration page while local preview works correctly. Need to deploy navigation fixes to production."
+        -working: false
+        -agent: "main"
+        -comment: "Prepared production deployment: 1) Created .env.production with correct backend URL, 2) Updated frontend to use https://haraj-syria.vercel.app as backend, 3) Built production version with fixes, 4) Created deployment instructions. Ready for Vercel deployment."
+
     -agent: "main"
     -message: "NAVIGATION ISSUE RESOLVED: Fixed the user-reported problem where the website was stuck on registration page with non-functional navigation. Root cause was API calls hanging indefinitely causing loading state to persist. Implemented proper error handling, timeout (1 second), and fallback mock data. Navigation between pages (Home, Register, Login, Categories) now works perfectly. Backend configured to use localhost:8001 for reliable connectivity."
+    -agent: "main"
+    -message: "PRODUCTION DEPLOYMENT PREPARED: User confirmed local preview works but live site (haraj-syria.vercel.app) still has navigation issue. Prepared production deployment with: 1) Production environment variables (.env.production), 2) Correct backend URL for Vercel (https://haraj-syria.vercel.app), 3) Production build with navigation fixes, 4) Deployment instructions for Vercel CLI or GitHub integration. All fixes are ready for deployment to resolve live site navigation issue."
