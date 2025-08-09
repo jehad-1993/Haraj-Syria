@@ -1,0 +1,11 @@
+node_modules
+__pycache__
+*.pyc
+.env
+.git
+backend/uploads
+frontend/build
+*.log
+test_*.py
+backend_test.py
+login_test.py
