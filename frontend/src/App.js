@@ -261,8 +261,8 @@ const Home = () => {
         });
         
         const [categoriesRes, adsRes] = await Promise.all([
-          axios.get(`${API}/categories-with-counts`, { timeout: 5000 }),
-          axios.get(`${API}/ads?limit=8`, { timeout: 5000 })
+          axios.get(`${API}/categories-with-counts`, { timeout: 1000 }),
+          axios.get(`${API}/ads?limit=8`, { timeout: 1000 })
         ]);
         
         console.log('API calls successful:', { categoriesRes: categoriesRes.data, adsRes: adsRes.data });
