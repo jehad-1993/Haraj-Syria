@@ -261,8 +261,8 @@ const Home = () => {
         });
         
         const [categoriesRes, adsRes] = await Promise.all([
-          axios.get(`${API}/categories-with-counts`, { timeout: 10000 }),
-          axios.get(`${API}/ads?limit=8`, { timeout: 10000 })
+          axios.get(`${API}/categories-with-counts`, { timeout: 5000 }),
+          axios.get(`${API}/ads?limit=8`, { timeout: 5000 })
         ]);
         
         console.log('API calls successful:', { categoriesRes: categoriesRes.data, adsRes: adsRes.data });
@@ -276,8 +276,19 @@ const Home = () => {
           status: error.response?.status,
           config: error.config
         });
-        // Set empty arrays as fallback so the app can still function
-        setCategories([]);
+        
+        // Set mock data as fallback so the app can still function
+        console.log('Setting mock data as fallback');
+        setCategories([
+          { id: '1', name_ar: 'سيارات', name_en: 'Cars', ads_count: 0 },
+          { id: '2', name_ar: 'عقارات', name_en: 'Real Estate', ads_count: 0 },
+          { id: '3', name_ar: 'إلكترونيات', name_en: 'Electronics', ads_count: 0 },
+          { id: '4', name_ar: 'وظائف', name_en: 'Jobs', ads_count: 0 },
+          { id: '5', name_ar: 'أثاث', name_en: 'Furniture', ads_count: 0 },
+          { id: '6', name_ar: 'ملابس', name_en: 'Clothing', ads_count: 0 },
+          { id: '7', name_ar: 'خدمات', name_en: 'Services', ads_count: 0 },
+          { id: '8', name_ar: 'أخرى', name_en: 'Others', ads_count: 0 }
+        ]);
         setAds([]);
       } finally {
         console.log('Setting loading to false');
