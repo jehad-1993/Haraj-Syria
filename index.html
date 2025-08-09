@@ -17,10 +17,14 @@
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
             padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            margin-bottom: 1rem;
         }
         
         .logo-container {
@@ -30,20 +34,20 @@
         }
         
         .logo {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             background: linear-gradient(45deg, #d4af37, #f4d03f);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: bold;
             color: #152238;
         }
         
         .logo-text {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: bold;
             background: linear-gradient(45deg, #d4af37, #f4d03f);
             -webkit-background-clip: text;
@@ -65,6 +69,31 @@
         .lang-btn:hover {
             background: #d4af37;
             color: #152238;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .nav-item {
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            text-decoration: none;
+            color: white;
+            border: 1px solid transparent;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: #d4af37;
+            color: #d4af37;
         }
         
         .search-section {
@@ -108,6 +137,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            color: #152238;
+            font-weight: bold;
         }
         
         .main {
@@ -136,15 +167,16 @@
         
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
             max-width: 1000px;
             margin: 0 auto;
+            margin-bottom: 2rem;
         }
         
         .category-card {
             background: rgba(255,255,255,0.05);
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 15px;
             border: 1px solid rgba(212, 175, 55, 0.3);
             text-align: center;
@@ -159,19 +191,19 @@
         }
         
         .category-icon {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
         }
         
         .category-title {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             margin-bottom: 0.5rem;
             color: #d4af37;
         }
         
         .category-subtitle {
             opacity: 0.8;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
         
         .status-banner {
@@ -184,6 +216,47 @@
             text-align: center;
         }
         
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            border: 2px solid;
+        }
+        
+        .btn-primary {
+            background: #d4af37;
+            color: #152238;
+            border-color: #d4af37;
+        }
+        
+        .btn-primary:hover {
+            background: #f4d03f;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #d4af37;
+            border-color: #d4af37;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+        
         .footer {
             text-align: center;
             padding: 2rem;
@@ -193,24 +266,36 @@
         
         @media (max-width: 768px) {
             .header { padding: 1rem; }
+            .top-bar { flex-direction: column; gap: 1rem; }
+            .nav-menu { gap: 1rem; }
             .welcome-title { font-size: 2rem; }
             .categories-grid { grid-template-columns: 1fr; }
+            .auth-buttons { flex-direction: column; align-items: center; }
             .search-input { padding: 0.8rem 2.5rem 0.8rem 1rem; }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="logo-container">
-            <div class="logo">🏛️</div>
-            <div class="logo-text" id="logoText">حراج سوريا</div>
+        <div class="top-bar">
+            <div class="logo-container">
+                <div class="logo">🇸🇾</div>
+                <div class="logo-text" id="logoText">حراج سوريا</div>
+            </div>
+            <button class="lang-btn" onclick="toggleLang()" id="langBtn">English</button>
         </div>
-        <button class="lang-btn" onclick="toggleLang()" id="langBtn">English</button>
+        
+        <nav class="nav-menu">
+            <a href="#home" class="nav-item active" id="navHome">الصفحة الرئيسية</a>
+            <a href="#categories" class="nav-item" id="navCategories">التصنيفات</a>
+            <a href="#about" class="nav-item" id="navAbout">حول الموقع</a>
+            <a href="#contact" class="nav-item" id="navContact">اتصل بنا</a>
+        </nav>
     </div>
     
     <div class="search-section">
         <div class="search-container">
-            <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن أي شيء...">
+            <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن أي شيء تريده...">
             <button class="search-btn">🔍</button>
         </div>
     </div>
@@ -226,29 +311,46 @@
             <p id="statusText">نحن نعمل بجد لإطلاق أفضل منصة إعلانات مبوبة في سوريا</p>
         </div>
         
+        <div class="auth-buttons">
+            <a href="#register" class="btn-primary" id="btnRegister">إنشاء حساب جديد</a>
+            <a href="#login" class="btn-secondary" id="btnLogin">تسجيل الدخول</a>
+        </div>
+        
         <div class="categories-grid">
             <div class="category-card">
                 <div class="category-icon">🏠</div>
                 <h3 class="category-title" id="realEstate">عقارات</h3>
-                <p class="category-subtitle" id="realEstateDesc">شقق وفلل ومحلات تجارية</p>
+                <p class="category-subtitle" id="realEstateDesc">شقق وفلل ومحلات</p>
             </div>
             
             <div class="category-card">
                 <div class="category-icon">🚗</div>
                 <h3 class="category-title" id="vehicles">مركبات</h3>
-                <p class="category-subtitle" id="vehiclesDesc">سيارات ودراجات نارية</p>
+                <p class="category-subtitle" id="vehiclesDesc">سيارات ودراجات</p>
             </div>
             
             <div class="category-card">
                 <div class="category-icon">📱</div>
                 <h3 class="category-title" id="electronics">إلكترونيات</h3>
-                <p class="category-subtitle" id="electronicsDesc">جوالات وأجهزة كمبيوتر</p>
+                <p class="category-subtitle" id="electronicsDesc">جوالات وكمبيوتر</p>
             </div>
             
             <div class="category-card">
                 <div class="category-icon">💼</div>
                 <h3 class="category-title" id="jobs">وظائف</h3>
-                <p class="category-subtitle" id="jobsDesc">فرص عمل متنوعة</p>
+                <p class="category-subtitle" id="jobsDesc">فرص عمل</p>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">🏪</div>
+                <h3 class="category-title" id="services">خدمات</h3>
+                <p class="category-subtitle" id="servicesDesc">خدمات متنوعة</p>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">👗</div>
+                <h3 class="category-title" id="fashion">أزياء</h3>
+                <p class="category-subtitle" id="fashionDesc">ملابس وأحذية</p>
             </div>
         </div>
     </div>
@@ -264,37 +366,57 @@
             ar: {
                 logoText: "حراج سوريا",
                 langBtn: "English",
-                searchInput: "ابحث عن أي شيء...",
+                navHome: "الصفحة الرئيسية",
+                navCategories: "التصنيفات", 
+                navAbout: "حول الموقع",
+                navContact: "اتصل بنا",
+                searchInput: "ابحث عن أي شيء تريده...",
                 welcomeTitle: "مرحباً بك في حراج سوريا",
                 welcomeSubtitle: "منصة الإعلانات المبوبة الأولى في سوريا بدعم كامل للغة العربية",
                 statusTitle: "🚀 المنصة قيد التطوير",
                 statusText: "نحن نعمل بجد لإطلاق أفضل منصة إعلانات مبوبة في سوريا",
+                btnRegister: "إنشاء حساب جديد",
+                btnLogin: "تسجيل الدخول",
                 realEstate: "عقارات",
-                realEstateDesc: "شقق وفلل ومحلات تجارية",
-                vehicles: "مركبات", 
-                vehiclesDesc: "سيارات ودراجات نارية",
+                realEstateDesc: "شقق وفلل ومحلات",
+                vehicles: "مركبات",
+                vehiclesDesc: "سيارات ودراجات",
                 electronics: "إلكترونيات",
-                electronicsDesc: "جوالات وأجهزة كمبيوتر",
+                electronicsDesc: "جوالات وكمبيوتر",
                 jobs: "وظائف",
-                jobsDesc: "فرص عمل متنوعة",
+                jobsDesc: "فرص عمل",
+                services: "خدمات",
+                servicesDesc: "خدمات متنوعة",
+                fashion: "أزياء",
+                fashionDesc: "ملابس وأحذية",
                 footerText: "🌟 مزايا حراج سوريا: دعم كامل للعربية • بحث متقدم • واجهة سهلة • مجاني تماماً"
             },
             en: {
                 logoText: "Haraj Syria",
                 langBtn: "العربية",
+                navHome: "Home",
+                navCategories: "Categories",
+                navAbout: "About",
+                navContact: "Contact",
                 searchInput: "Search for anything...",
                 welcomeTitle: "Welcome to Haraj Syria",
                 welcomeSubtitle: "Syria's first classified ads platform with full Arabic support",
                 statusTitle: "🚀 Platform Under Development",
                 statusText: "We're working hard to launch the best classified ads platform in Syria",
+                btnRegister: "Create New Account",
+                btnLogin: "Sign In",
                 realEstate: "Real Estate",
-                realEstateDesc: "Apartments, villas and commercial stores",
-                vehicles: "Vehicles",
-                vehiclesDesc: "Cars and motorcycles",
-                electronics: "Electronics", 
-                electronicsDesc: "Mobile phones and computers",
+                realEstateDesc: "Apartments & villas",
+                vehicles: "Vehicles", 
+                vehiclesDesc: "Cars & motorcycles",
+                electronics: "Electronics",
+                electronicsDesc: "Phones & computers",
                 jobs: "Jobs",
-                jobsDesc: "Various job opportunities",
+                jobsDesc: "Job opportunities",
+                services: "Services", 
+                servicesDesc: "Various services",
+                fashion: "Fashion",
+                fashionDesc: "Clothes & shoes",
                 footerText: "🌟 Haraj Syria Features: Full Arabic Support • Advanced Search • Easy Interface • Completely Free"
             }
         };
@@ -308,22 +430,12 @@
             document.documentElement.setAttribute('dir', isArabic ? 'rtl' : 'ltr');
             
             // Update all text elements
-            document.getElementById('logoText').textContent = t.logoText;
-            document.getElementById('langBtn').textContent = t.langBtn;
-            document.getElementById('searchInput').placeholder = t.searchInput;
-            document.getElementById('welcomeTitle').textContent = t.welcomeTitle;
-            document.getElementById('welcomeSubtitle').textContent = t.welcomeSubtitle;
-            document.getElementById('statusTitle').textContent = t.statusTitle;
-            document.getElementById('statusText').textContent = t.statusText;
-            document.getElementById('realEstate').textContent = t.realEstate;
-            document.getElementById('realEstateDesc').textContent = t.realEstateDesc;
-            document.getElementById('vehicles').textContent = t.vehicles;
-            document.getElementById('vehiclesDesc').textContent = t.vehiclesDesc;
-            document.getElementById('electronics').textContent = t.electronics;
-            document.getElementById('electronicsDesc').textContent = t.electronicsDesc;
-            document.getElementById('jobs').textContent = t.jobs;
-            document.getElementById('jobsDesc').textContent = t.jobsDesc;
-            document.getElementById('footerText').textContent = t.footerText;
+            Object.keys(t).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = t[key];
+                }
+            });
         }
     </script>
 </body>
