@@ -115,6 +115,11 @@
             background: rgba(252, 211, 77, 0.1);
         }
         
+        .nav-link.active {
+            color: #fcd34d;
+            background: rgba(252, 211, 77, 0.2);
+        }
+        
         .form-container {
             background: white;
             border-radius: 16px;
@@ -202,6 +207,12 @@
         .phone-number {
             flex: 1;
         }
+        
+        .user-menu {
+            background: rgba(252, 211, 77, 0.1);
+            border-radius: 6px;
+            padding: 8px 16px;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -257,11 +268,21 @@
         <div class="border-t border-slate-600">
             <div class="container mx-auto px-4">
                 <nav class="flex items-center justify-center space-x-8 text-lg py-3" id="navigation">
-                    <a href="#" onclick="showPage('home')" class="nav-link" id="navHome">الرئيسية</a>
+                    <a href="#" onclick="showPage('home')" class="nav-link active" id="navHome">الرئيسية</a>
                     <a href="#" onclick="showPage('categories')" class="nav-link" id="navCategories">التصنيفات</a>
                     <a href="#" onclick="showPage('post-ad')" class="nav-link" id="navPostAd">أضف إعلان</a>
-                    <a href="#" onclick="showPage('register')" class="nav-link" id="navRegister">تسجيل</a>
-                    <a href="#" onclick="showPage('login')" class="nav-link" id="navLogin">دخول</a>
+                    
+                    <!-- User Menu -->
+                    <div id="guestMenu">
+                        <a href="#" onclick="showPage('register')" class="nav-link" id="navRegister">تسجيل</a>
+                        <a href="#" onclick="showPage('login')" class="nav-link" id="navLogin">دخول</a>
+                    </div>
+                    
+                    <div id="userMenu" class="user-menu" style="display: none;">
+                        <span class="text-yellow-300 font-medium" id="welcomeUser">مرحباً</span>
+                        <a href="#" onclick="showPage('my-ads')" class="nav-link" id="navMyAds">إعلاناتي</a>
+                        <a href="#" onclick="logout()" class="nav-link" id="navLogout">خروج</a>
+                    </div>
                 </nav>
             </div>
         </div>
@@ -436,6 +457,19 @@
         </div>
     </div>
 
+    <!-- My Ads Page -->
+    <div id="my-ads" class="page">
+        <div class="container mx-auto px-4 py-8">
+            <h1 class="text-3xl font-bold mb-8" id="myAdsTitle">إعلاناتي</h1>
+            <div class="text-center py-16">
+                <div class="text-6xl mb-4">📋</div>
+                <h3 class="text-xl text-gray-600" id="noAdsMessage">لا توجد إعلانات بعد</h3>
+                <p class="text-gray-500 mt-2" id="addFirstAdMessage">أضف إعلانك الأول الآن!</p>
+                <button onclick="showPage('post-ad')" class="mt-4 bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600" id="addAdButton">أضف إعلان</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Register Page -->
     <div id="register" class="page">
         <div class="container mx-auto px-4 py-8">
@@ -454,11 +488,6 @@
                         <label class="block text-gray-700 text-sm font-bold mb-2" id="countryLabel">الدولة</label>
                         <select id="registerCountry" class="form-input" required onchange="updatePhoneCode()">
                             <option value="">اختر الدولة</option>
-                            <option value="SY" data-code="+963">🇸🇾 سوريا</option>
-                            <option value="SA" data-code="+966">🇸🇦 السعودية</option>
-                            <option value="AE" data-code="+971">🇦🇪 الإمارات</option>
-                            <option value="JO" data-code="+962">🇯🇴 الأردن</option>
-                            <option value="LB" data-code="+961">🇱🇧 لبنان</option>
                         </select>
                     </div>
                     <div class="mb-4">
@@ -513,6 +542,59 @@
     <script>
         let currentLanguage = 'ar';
         let currentPage = 'home';
+        let currentUser = null;
+        
+        // جميع الدول العربية مع أكواد الهاتف
+        const countries = {
+            ar: {
+                'SY': { name: '🇸🇾 سوريا', code: '+963' },
+                'SA': { name: '🇸🇦 السعودية', code: '+966' },
+                'AE': { name: '🇦🇪 الإمارات', code: '+971' },
+                'JO': { name: '🇯🇴 الأردن', code: '+962' },
+                'LB': { name: '🇱🇧 لبنان', code: '+961' },
+                'IQ': { name: '🇮🇶 العراق', code: '+964' },
+                'EG': { name: '🇪🇬 مصر', code: '+20' },
+                'KW': { name: '🇰🇼 الكويت', code: '+965' },
+                'QA': { name: '🇶🇦 قطر', code: '+974' },
+                'BH': { name: '🇧🇭 البحرين', code: '+973' },
+                'OM': { name: '🇴🇲 عمان', code: '+968' },
+                'MA': { name: '🇲🇦 المغرب', code: '+212' },
+                'TN': { name: '🇹🇳 تونس', code: '+216' },
+                'DZ': { name: '🇩🇿 الجزائر', code: '+213' },
+                'LY': { name: '🇱🇾 ليبيا', code: '+218' },
+                'YE': { name: '🇾🇪 اليمن', code: '+967' },
+                'SD': { name: '🇸🇩 السودان', code: '+249' },
+                'MR': { name: '🇲🇷 موريتانيا', code: '+222' },
+                'SO': { name: '🇸🇴 الصومال', code: '+252' },
+                'DJ': { name: '🇩🇯 جيبوتي', code: '+253' },
+                'KM': { name: '🇰🇲 جزر القمر', code: '+269' },
+                'PS': { name: '🇵🇸 فلسطين', code: '+970' }
+            },
+            en: {
+                'SY': { name: '🇸🇾 Syria', code: '+963' },
+                'SA': { name: '🇸🇦 Saudi Arabia', code: '+966' },
+                'AE': { name: '🇦🇪 UAE', code: '+971' },
+                'JO': { name: '🇯🇴 Jordan', code: '+962' },
+                'LB': { name: '🇱🇧 Lebanon', code: '+961' },
+                'IQ': { name: '🇮🇶 Iraq', code: '+964' },
+                'EG': { name: '🇪🇬 Egypt', code: '+20' },
+                'KW': { name: '🇰🇼 Kuwait', code: '+965' },
+                'QA': { name: '🇶🇦 Qatar', code: '+974' },
+                'BH': { name: '🇧🇭 Bahrain', code: '+973' },
+                'OM': { name: '🇴🇲 Oman', code: '+968' },
+                'MA': { name: '🇲🇦 Morocco', code: '+212' },
+                'TN': { name: '🇹🇳 Tunisia', code: '+216' },
+                'DZ': { name: '🇩🇿 Algeria', code: '+213' },
+                'LY': { name: '🇱🇾 Libya', code: '+218' },
+                'YE': { name: '🇾🇪 Yemen', code: '+967' },
+                'SD': { name: '🇸🇩 Sudan', code: '+249' },
+                'MR': { name: '🇲🇷 Mauritania', code: '+222' },
+                'SO': { name: '🇸🇴 Somalia', code: '+252' },
+                'DJ': { name: '🇩🇯 Djibouti', code: '+253' },
+                'KM': { name: '🇰🇲 Comoros', code: '+269' },
+                'PS': { name: '🇵🇸 Palestine', code: '+970' }
+            }
+        };
         
         const translations = {
             ar: {
@@ -523,6 +605,9 @@
                 navPostAd: 'أضف إعلان',
                 navRegister: 'تسجيل',
                 navLogin: 'دخول',
+                navMyAds: 'إعلاناتي',
+                navLogout: 'خروج',
+                welcomeUser: 'مرحباً',
                 heroTitle: 'مرحباً بك في حراج سوريا',
                 heroSubtitle: 'منصة الإعلانات المبوبة الأولى في المنطقة العربية',
                 searchInput: 'ابحث عن سيارات، عقارات، إلكترونيات، وظائف...',
@@ -539,6 +624,10 @@
                 latestAdsTitle: 'أحدث الإعلانات',
                 allCategoriesTitle: 'جميع التصنيفات',
                 postAdTitle: 'أضف إعلانك',
+                myAdsTitle: 'إعلاناتي',
+                noAdsMessage: 'لا توجد إعلانات بعد',
+                addFirstAdMessage: 'أضف إعلانك الأول الآن!',
+                addAdButton: 'أضف إعلان',
                 registerTitle: 'إنشاء حساب جديد',
                 loginTitle: 'تسجيل الدخول',
                 adTitleLabel: 'عنوان الإعلان',
@@ -570,6 +659,9 @@
                 navPostAd: 'Post Ad',
                 navRegister: 'Register',
                 navLogin: 'Login',
+                navMyAds: 'My Ads',
+                navLogout: 'Logout',
+                welcomeUser: 'Hello',
                 heroTitle: 'Welcome to Haraj Syria',
                 heroSubtitle: 'The premier classified ads platform in the Arab region',
                 searchInput: 'Search for cars, real estate, electronics, jobs...',
@@ -586,6 +678,10 @@
                 latestAdsTitle: 'Latest Ads',
                 allCategoriesTitle: 'All Categories',
                 postAdTitle: 'Post Your Ad',
+                myAdsTitle: 'My Ads',
+                noAdsMessage: 'No ads yet',
+                addFirstAdMessage: 'Add your first ad now!',
+                addAdButton: 'Add Ad',
                 registerTitle: 'Create New Account',
                 loginTitle: 'Sign In',
                 adTitleLabel: 'Ad Title',
@@ -611,6 +707,27 @@
             }
         };
         
+        function populateCountries() {
+            const countrySelect = document.getElementById('registerCountry');
+            const currentCountries = countries[currentLanguage];
+            
+            // Clear existing options except the first one
+            countrySelect.innerHTML = '<option value="">' + (currentLanguage === 'ar' ? 'اختر الدولة' : 'Choose Country') + '</option>';
+            
+            // Add all countries
+            Object.keys(currentCountries).forEach(code => {
+                const option = document.createElement('option');
+                option.value = code;
+                option.textContent = currentCountries[code].name;
+                option.setAttribute('data-code', currentCountries[code].code);
+                countrySelect.appendChild(option);
+            });
+            
+            // Set Syria as default
+            countrySelect.value = 'SY';
+            updatePhoneCode();
+        }
+        
         function toggleLanguage() {
             currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
             updateLanguage();
@@ -633,6 +750,9 @@
                     }
                 }
             });
+            
+            // Update countries list
+            populateCountries();
         }
         
         function showPage(pageId) {
@@ -646,7 +766,28 @@
             
             // Update navigation active state
             const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => link.classList.remove('text-yellow-300', 'bg-yellow-100'));
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            // Add active class to current nav item
+            const currentNavLink = document.querySelector(`[onclick="showPage('${pageId}')"]`);
+            if (currentNavLink) {
+                currentNavLink.classList.add('active');
+            }
+        }
+        
+        function updateUserInterface() {
+            const guestMenu = document.getElementById('guestMenu');
+            const userMenu = document.getElementById('userMenu');
+            const welcomeUser = document.getElementById('welcomeUser');
+            
+            if (currentUser) {
+                guestMenu.style.display = 'none';
+                userMenu.style.display = 'flex';
+                welcomeUser.textContent = (currentLanguage === 'ar' ? 'مرحباً ' : 'Hello ') + currentUser.name;
+            } else {
+                guestMenu.style.display = 'flex';
+                userMenu.style.display = 'none';
+            }
         }
         
         function performSearch() {
@@ -659,7 +800,6 @@
         
         function showCategoryAds(category) {
             showPage('categories');
-            // Here you would filter ads by category
         }
         
         function showAdDetails(adId) {
@@ -669,22 +809,43 @@
         function updatePhoneCode() {
             const countrySelect = document.getElementById('registerCountry');
             const phoneCodeInput = document.getElementById('phoneCode');
-            const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+            const selectedCode = countrySelect.value;
             
-            if (selectedOption.dataset.code) {
-                phoneCodeInput.value = selectedOption.dataset.code;
+            if (selectedCode && countries[currentLanguage][selectedCode]) {
+                phoneCodeInput.value = countries[currentLanguage][selectedCode].code;
+            } else {
+                phoneCodeInput.value = '+963'; // Default to Syria
             }
         }
         
         function handlePostAd(event) {
             event.preventDefault();
+            
+            if (!currentUser) {
+                alert(currentLanguage === 'ar' ? 'يجب تسجيل الدخول أولاً' : 'Please login first');
+                showPage('login');
+                return;
+            }
+            
             const title = document.getElementById('adTitle').value;
             const category = document.getElementById('adCategory').value;
             const price = document.getElementById('adPrice').value;
             const location = document.getElementById('adLocation').value;
             const description = document.getElementById('adDescription').value;
             
-            alert(`تم نشر الإعلان بنجاح!\nالعنوان: ${title}\nالسعر: ${price}$`);
+            // Simulate saving the ad
+            alert(currentLanguage === 'ar' ? 
+                `تم نشر الإعلان بنجاح!\nالعنوان: ${title}\nالسعر: ${price}$` :
+                `Ad posted successfully!\nTitle: ${title}\nPrice: ${price}$`
+            );
+            
+            // Clear form
+            document.getElementById('adTitle').value = '';
+            document.getElementById('adCategory').value = '';
+            document.getElementById('adPrice').value = '';
+            document.getElementById('adLocation').value = '';
+            document.getElementById('adDescription').value = '';
+            
             showPage('home');
         }
         
@@ -692,15 +853,33 @@
             event.preventDefault();
             const name = document.getElementById('registerName').value;
             const email = document.getElementById('registerEmail').value;
+            const country = document.getElementById('registerCountry').value;
+            const phone = document.getElementById('registerPhone').value;
             const password = document.getElementById('registerPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
             
             if (password !== confirmPassword) {
-                alert('كلمات المرور غير متطابقة!');
+                alert(currentLanguage === 'ar' ? 'كلمات المرور غير متطابقة!' : 'Passwords do not match!');
                 return;
             }
             
-            alert(`تم إنشاء الحساب بنجاح!\nمرحباً ${name}`);
+            // Simulate user registration
+            currentUser = {
+                name: name,
+                email: email,
+                country: country,
+                phone: phone
+            };
+            
+            // Save to localStorage
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            alert(currentLanguage === 'ar' ? 
+                `تم إنشاء الحساب بنجاح!\nمرحباً ${name}` :
+                `Account created successfully!\nWelcome ${name}`
+            );
+            
+            updateUserInterface();
             showPage('home');
         }
         
@@ -709,13 +888,42 @@
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
             
-            alert('تم تسجيل الدخول بنجاح!');
+            // Simulate successful login
+            currentUser = {
+                name: email.split('@')[0], // Use email prefix as name for demo
+                email: email
+            };
+            
+            // Save to localStorage
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            alert(currentLanguage === 'ar' ? 
+                'تم تسجيل الدخول بنجاح!' :
+                'Login successful!'
+            );
+            
+            updateUserInterface();
             showPage('home');
         }
         
-        // Initialize
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            updateUserInterface();
+            alert(currentLanguage === 'ar' ? 'تم تسجيل الخروج' : 'Logged out successfully');
+            showPage('home');
+        }
+        
+        // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is already logged in
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+            }
+            
             updateLanguage();
+            updateUserInterface();
             showPage('home');
         });
     </script>
