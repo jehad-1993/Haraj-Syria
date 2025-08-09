@@ -4,7 +4,7 @@ import json
 from datetime import datetime
 
 class ApprovalSystemTester:
-    def __init__(self, base_url="https://03d85582-b3fc-417e-8770-843cb9242a9b.preview.emergentagent.com"):
+    def __init__(self, base_url="https://036382c1-25df-47d0-aaa0-a75807568261.preview.emergentagent.com"):
         self.base_url = base_url
         self.api_url = f"{base_url}/api"
         self.token = None
