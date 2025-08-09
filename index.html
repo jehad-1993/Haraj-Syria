@@ -125,7 +125,7 @@
             border-radius: 16px;
             padding: 32px;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
+            max-width: 500px;
             margin: 0 auto;
         }
         
@@ -213,6 +213,36 @@
             border-radius: 6px;
             padding: 8px 16px;
         }
+        
+        .password-requirements {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 8px;
+            padding: 8px;
+            background: #f9fafb;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .requirement {
+            display: flex;
+            align-items: center;
+            margin: 4px 0;
+        }
+        
+        .requirement.valid {
+            color: #10b981;
+        }
+        
+        .requirement.invalid {
+            color: #ef4444;
+        }
+        
+        .requirement-icon {
+            margin-left: 8px;
+            width: 16px;
+            height: 16px;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -268,13 +298,13 @@
         <div class="border-t border-slate-600">
             <div class="container mx-auto px-4">
                 <nav class="flex items-center justify-center space-x-8 text-lg py-3" id="navigation">
-                    <a href="#" onclick="showPage('home')" class="nav-link active" id="navHome">الرئيسية</a>
+                    <a href="#" onclick="showPage('home')" class="nav-link" id="navHome">الرئيسية</a>
                     <a href="#" onclick="showPage('categories')" class="nav-link" id="navCategories">التصنيفات</a>
                     <a href="#" onclick="showPage('post-ad')" class="nav-link" id="navPostAd">أضف إعلان</a>
                     
                     <!-- User Menu -->
                     <div id="guestMenu">
-                        <a href="#" onclick="showPage('register')" class="nav-link" id="navRegister">تسجيل</a>
+                        <a href="#" onclick="showPage('register')" class="nav-link active" id="navRegister">تسجيل</a>
                         <a href="#" onclick="showPage('login')" class="nav-link" id="navLogin">دخول</a>
                     </div>
                     
@@ -288,311 +318,314 @@
         </div>
     </header>
 
-    <!-- Home Page -->
-    <div id="home" class="page active">
-        <!-- Hero Section -->
-        <section class="hero-gradient text-gray-800 py-20">
-            <div class="container mx-auto px-4 text-center">
-                <h1 class="text-5xl font-bold mb-4" id="heroTitle">مرحباً بك في حراج سوريا</h1>
-                <p class="text-xl mb-8" id="heroSubtitle">منصة الإعلانات المبوبة الأولى في المنطقة العربية</p>
-                <div class="max-w-2xl mx-auto">
-                    <div class="flex rounded-lg overflow-hidden shadow-lg">
-                        <input
-                            type="text"
-                            placeholder="ابحث عن سيارات، عقارات، إلكترونيات، وظائف..."
-                            class="search-input flex-1"
-                            id="searchInput"
-                        />
-                        <button class="search-btn flex items-center gap-2" onclick="performSearch()">
-                            🔍 <span id="searchButtonText">بحث</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Categories Section -->
-        <section class="py-16 bg-white">
-            <div class="container mx-auto px-4">
-                <h2 class="text-3xl font-bold text-center mb-12 text-gray-800" id="categoriesTitle">تصفح التصنيفات</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="category-card p-6 rounded-xl card-hover cursor-pointer" onclick="showCategoryAds('cars')">
-                        <div class="text-4xl mb-4 text-center">🚗</div>
-                        <h3 class="text-xl font-semibold text-center text-gray-800" id="carsCategory">سيارات</h3>
-                        <p class="text-gray-600 text-center mt-2" id="carsCount">أكثر من 1,200 إعلان</p>
-                    </div>
-                    <div class="category-card p-6 rounded-xl card-hover cursor-pointer" onclick="showCategoryAds('real-estate')">
-                        <div class="text-4xl mb-4 text-center">🏠</div>
-                        <h3 class="text-xl font-semibold text-center text-gray-800" id="realEstateCategory">عقارات</h3>
-                        <p class="text-gray-600 text-center mt-2" id="realEstateCount">أكثر من 800 إعلان</p>
-                    </div>
-                    <div class="category-card p-6 rounded-xl card-hover cursor-pointer" onclick="showCategoryAds('electronics')">
-                        <div class="text-4xl mb-4 text-center">📱</div>
-                        <h3 class="text-xl font-semibold text-center text-gray-800" id="electronicsCategory">إلكترونيات</h3>
-                        <p class="text-gray-600 text-center mt-2" id="electronicsCount">أكثر من 600 إعلان</p>
-                    </div>
-                    <div class="category-card p-6 rounded-xl card-hover cursor-pointer" onclick="showCategoryAds('jobs')">
-                        <div class="text-4xl mb-4 text-center">💼</div>
-                        <h3 class="text-xl font-semibold text-center text-gray-800" id="jobsCategory">وظائف</h3>
-                        <p class="text-gray-600 text-center mt-2" id="jobsCount">أكثر من 400 إعلان</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Latest Ads Section -->
-        <section class="py-16 bg-gray-50">
-            <div class="container mx-auto px-4">
-                <h2 class="text-3xl font-bold text-center mb-12 text-gray-800" id="latestAdsTitle">أحدث الإعلانات</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="latestAdsGrid">
-                    <!-- Sample Ads -->
-                    <div class="ad-card card-hover cursor-pointer" onclick="showAdDetails(1)">
-                        <div class="h-48 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                            <div class="text-6xl">🚗</div>
-                        </div>
-                        <div class="p-4">
-                            <h3 class="font-semibold text-lg mb-2">تويوتا كامري 2020</h3>
-                            <p class="text-gray-600 mb-3">سيارة بحالة ممتازة، قليلة الاستعمال</p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-xl font-bold text-green-600">45,000$</span>
-                                <span class="text-sm text-gray-500">دمشق</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="ad-card card-hover cursor-pointer" onclick="showAdDetails(2)">
-                        <div class="h-48 bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
-                            <div class="text-6xl">🏠</div>
-                        </div>
-                        <div class="p-4">
-                            <h3 class="font-semibold text-lg mb-2">شقة للبيع في المالكي</h3>
-                            <p class="text-gray-600 mb-3">3 غرف وصالة، مساحة 150 متر</p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-xl font-bold text-green-600">80,000$</span>
-                                <span class="text-sm text-gray-500">دمشق</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="ad-card card-hover cursor-pointer" onclick="showAdDetails(3)">
-                        <div class="h-48 bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
-                            <div class="text-6xl">📱</div>
-                        </div>
-                        <div class="p-4">
-                            <h3 class="font-semibold text-lg mb-2">iPhone 15 Pro Max</h3>
-                            <p class="text-gray-600 mb-3">جديد بالكرتونة، ضمان سنة</p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-xl font-bold text-green-600">1,200$</span>
-                                <span class="text-sm text-gray-500">حلب</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="ad-card card-hover cursor-pointer" onclick="showAdDetails(4)">
-                        <div class="h-48 bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center">
-                            <div class="text-6xl">💼</div>
-                        </div>
-                        <div class="p-4">
-                            <h3 class="font-semibold text-lg mb-2">مطلوب مطور ويب</h3>
-                            <p class="text-gray-600 mb-3">خبرة 3 سنوات، عمل عن بعد</p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-xl font-bold text-green-600">800$/شهر</span>
-                                <span class="text-sm text-gray-500">دمشق</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Categories Page -->
-    <div id="categories" class="page">
-        <div class="container mx-auto px-4 py-8">
-            <h1 class="text-3xl font-bold mb-8" id="allCategoriesTitle">جميع التصنيفات</h1>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="allAdsGrid">
-                <!-- This will be populated with all ads -->
-                <div class="loading">
-                    <div class="spinner"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Post Ad Page -->
-    <div id="post-ad" class="page">
-        <div class="container mx-auto px-4 py-8">
-            <h1 class="text-3xl font-bold text-center mb-8" id="postAdTitle">أضف إعلانك</h1>
-            <div class="form-container">
-                <form onsubmit="handlePostAd(event)">
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" id="adTitleLabel">عنوان الإعلان</label>
-                        <input type="text" id="adTitle" class="form-input" placeholder="مثال: تويوتا كامري 2020 للبيع" required>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" id="adCategoryLabel">التصنيف</label>
-                        <select id="adCategory" class="form-input" required>
-                            <option value="">اختر التصنيف</option>
-                            <option value="cars">🚗 سيارات</option>
-                            <option value="real-estate">🏠 عقارات</option>
-                            <option value="electronics">📱 إلكترونيات</option>
-                            <option value="jobs">💼 وظائف</option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" id="adPriceLabel">السعر</label>
-                        <input type="number" id="adPrice" class="form-input" placeholder="0" required>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" id="adLocationLabel">الموقع</label>
-                        <input type="text" id="adLocation" class="form-input" placeholder="مثال: دمشق" required>
-                    </div>
-                    <div class="mb-6">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" id="adDescriptionLabel">الوصف</label>
-                        <textarea id="adDescription" rows="4" class="form-input" placeholder="اكتب وصف مفصل للإعلان..." required></textarea>
-                    </div>
-                    <button type="submit" class="form-btn" id="postAdBtn">نشر الإعلان</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- My Ads Page -->
-    <div id="my-ads" class="page">
-        <div class="container mx-auto px-4 py-8">
-            <h1 class="text-3xl font-bold mb-8" id="myAdsTitle">إعلاناتي</h1>
-            <div class="text-center py-16">
-                <div class="text-6xl mb-4">📋</div>
-                <h3 class="text-xl text-gray-600" id="noAdsMessage">لا توجد إعلانات بعد</h3>
-                <p class="text-gray-500 mt-2" id="addFirstAdMessage">أضف إعلانك الأول الآن!</p>
-                <button onclick="showPage('post-ad')" class="mt-4 bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600" id="addAdButton">أضف إعلان</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Register Page -->
-    <div id="register" class="page">
+    <div id="register" class="page active">
         <div class="container mx-auto px-4 py-8">
-            <h1 class="text-3xl font-bold text-center mb-8" id="registerTitle">إنشاء حساب جديد</h1>
+            <h1 class="text-3xl font-bold text-center mb-8" id="registerTitle">تسجيل</h1>
             <div class="form-container">
                 <form onsubmit="handleRegister(event)">
                     <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" id="nameLabel">الاسم الكامل</label>
-                        <input type="text" id="registerName" class="form-input" placeholder="أدخل اسمك الكامل" required>
+                        <label class="block text-gray-700 text-sm font-bold mb-2" id="nameLabel">الاسم *</label>
+                        <input type="text" id="registerName" class="form-input" required>
                     </div>
+                    
                     <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" id="emailLabel">البريد الإلكتروني</label>
-                        <input type="email" id="registerEmail" class="form-input" placeholder="example@email.com" required>
+                        <label class="block text-gray-700 text-sm font-bold mb-2" id="emailLabel">البريد الإلكتروني *</label>
+                        <input type="email" id="registerEmail" class="form-input" required>
                     </div>
+                    
                     <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" id="countryLabel">الدولة</label>
-                        <select id="registerCountry" class="form-input" required onchange="updatePhoneCode()">
-                            <option value="">اختر الدولة</option>
+                        <label class="block text-gray-700 text-sm font-bold mb-2" id="countryLabel">الدولة *</label>
+                        <select id="registerCountry" class="form-input" required onchange="updateCitiesAndPhoneCode()">
+                            <option value="" id="chooseCountry">اختر الدولة...</option>
                         </select>
                     </div>
+                    
                     <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" id="phoneLabel">رقم الهاتف</label>
+                        <label class="block text-gray-700 text-sm font-bold mb-2" id="cityLabel">المدينة *</label>
+                        <select id="registerCity" class="form-input" required disabled>
+                            <option value="" id="chooseCity">اختر المدينة...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" id="phoneLabel">رقم الجوال *</label>
                         <div class="phone-container">
                             <input type="text" id="phoneCode" class="phone-code form-input" value="+963" readonly>
-                            <input type="tel" id="registerPhone" class="phone-number form-input" placeholder="123456789" required>
+                            <input type="tel" id="registerPhone" class="phone-number form-input" required>
                         </div>
                     </div>
+                    
                     <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" id="passwordLabel">كلمة المرور</label>
-                        <input type="password" id="registerPassword" class="form-input" placeholder="أدخل كلمة مرور قوية" required>
+                        <label class="block text-gray-700 text-sm font-bold mb-2" id="passwordLabel">كلمة المرور *</label>
+                        <input type="password" id="registerPassword" class="form-input" required oninput="checkPasswordRequirements()">
+                        <div class="password-requirements" id="passwordRequirements">
+                            <div class="requirement" id="req-length">
+                                <span class="requirement-icon">○</span>
+                                <span id="reqLengthText">على الأقل 8 أحرف</span>
+                            </div>
+                            <div class="requirement" id="req-uppercase">
+                                <span class="requirement-icon">○</span>
+                                <span id="reqUppercaseText">حرف كبير (A-Z)</span>
+                            </div>
+                            <div class="requirement" id="req-lowercase">
+                                <span class="requirement-icon">○</span>
+                                <span id="reqLowercaseText">حرف صغير (a-z)</span>
+                            </div>
+                            <div class="requirement" id="req-number">
+                                <span class="requirement-icon">○</span>
+                                <span id="reqNumberText">رقم (0-9)</span>
+                            </div>
+                            <div class="requirement" id="req-special">
+                                <span class="requirement-icon">○</span>
+                                <span id="reqSpecialText">رمز خاص (!@#$%...)</span>
+                            </div>
+                        </div>
                     </div>
+                    
                     <div class="mb-6">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" id="confirmPasswordLabel">تأكيد كلمة المرور</label>
-                        <input type="password" id="confirmPassword" class="form-input" placeholder="أعد كتابة كلمة المرور" required>
+                        <label class="block text-gray-700 text-sm font-bold mb-2" id="confirmPasswordLabel">تأكيد كلمة المرور *</label>
+                        <input type="password" id="confirmPassword" class="form-input" required>
                     </div>
-                    <button type="submit" class="form-btn" id="registerBtn">إنشاء الحساب</button>
-                    <p class="text-center mt-4">
-                        <span id="alreadyHaveAccount">لديك حساب؟</span>
-                        <a href="#" onclick="showPage('login')" class="text-blue-500 hover:text-blue-700" id="loginLink">دخول</a>
-                    </p>
+                    
+                    <button type="submit" class="form-btn" id="registerBtn">تسجيل</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Login Page -->
-    <div id="login" class="page">
-        <div class="container mx-auto px-4 py-8">
-            <h1 class="text-3xl font-bold text-center mb-8" id="loginTitle">تسجيل الدخول</h1>
-            <div class="form-container">
-                <form onsubmit="handleLogin(event)">
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" id="loginEmailLabel">البريد الإلكتروني</label>
-                        <input type="email" id="loginEmail" class="form-input" placeholder="example@email.com" required>
-                    </div>
-                    <div class="mb-6">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" id="loginPasswordLabel">كلمة المرور</label>
-                        <input type="password" id="loginPassword" class="form-input" placeholder="أدخل كلمة المرور" required>
-                    </div>
-                    <button type="submit" class="form-btn" id="loginBtn">دخول</button>
-                    <p class="text-center mt-4">
-                        <span id="dontHaveAccount">ليس لديك حساب؟</span>
-                        <a href="#" onclick="showPage('register')" class="text-blue-500 hover:text-blue-700" id="registerLink">إنشاء حساب</a>
-                    </p>
-                </form>
-            </div>
-        </div>
-    </div>
+    <!-- Other pages would be here... -->
 
     <script>
         let currentLanguage = 'ar';
-        let currentPage = 'home';
+        let currentPage = 'register';
         let currentUser = null;
         
-        // جميع الدول العربية مع أكواد الهاتف
+        // جميع الدول العربية مع أكواد الهاتف والمدن
         const countries = {
             ar: {
-                'SY': { name: '🇸🇾 سوريا', code: '+963' },
-                'SA': { name: '🇸🇦 السعودية', code: '+966' },
-                'AE': { name: '🇦🇪 الإمارات', code: '+971' },
-                'JO': { name: '🇯🇴 الأردن', code: '+962' },
-                'LB': { name: '🇱🇧 لبنان', code: '+961' },
-                'IQ': { name: '🇮🇶 العراق', code: '+964' },
-                'EG': { name: '🇪🇬 مصر', code: '+20' },
-                'KW': { name: '🇰🇼 الكويت', code: '+965' },
-                'QA': { name: '🇶🇦 قطر', code: '+974' },
-                'BH': { name: '🇧🇭 البحرين', code: '+973' },
-                'OM': { name: '🇴🇲 عمان', code: '+968' },
-                'MA': { name: '🇲🇦 المغرب', code: '+212' },
-                'TN': { name: '🇹🇳 تونس', code: '+216' },
-                'DZ': { name: '🇩🇿 الجزائر', code: '+213' },
-                'LY': { name: '🇱🇾 ليبيا', code: '+218' },
-                'YE': { name: '🇾🇪 اليمن', code: '+967' },
-                'SD': { name: '🇸🇩 السودان', code: '+249' },
-                'MR': { name: '🇲🇷 موريتانيا', code: '+222' },
-                'SO': { name: '🇸🇴 الصومال', code: '+252' },
-                'DJ': { name: '🇩🇯 جيبوتي', code: '+253' },
-                'KM': { name: '🇰🇲 جزر القمر', code: '+269' },
-                'PS': { name: '🇵🇸 فلسطين', code: '+970' }
+                'SY': { 
+                    name: '🇸🇾 سوريا', 
+                    code: '+963',
+                    cities: ['دمشق', 'حلب', 'حمص', 'حماة', 'اللاذقية', 'طرطوس', 'دير الزور', 'الرقة', 'السويداء', 'درعا', 'إدلب', 'القامشلي']
+                },
+                'SA': { 
+                    name: '🇸🇦 السعودية', 
+                    code: '+966',
+                    cities: ['الرياض', 'جدة', 'مكة المكرمة', 'المدينة المنورة', 'الدمام', 'الخبر', 'تبوك', 'بريدة', 'خميس مشيط', 'الطائف', 'حائل', 'الجبيل']
+                },
+                'AE': { 
+                    name: '🇦🇪 الإمارات', 
+                    code: '+971',
+                    cities: ['دبي', 'أبوظبي', 'الشارقة', 'عجمان', 'الفجيرة', 'رأس الخيمة', 'أم القيوين', 'العين', 'الفجيرة']
+                },
+                'JO': { 
+                    name: '🇯🇴 الأردن', 
+                    code: '+962',
+                    cities: ['عمان', 'إربد', 'الزرقاء', 'الرصيفة', 'وادي السير', 'العقبة', 'الكرك', 'معان', 'جرش', 'المفرق']
+                },
+                'LB': { 
+                    name: '🇱🇧 لبنان', 
+                    code: '+961',
+                    cities: ['بيروت', 'طرابلس', 'صيدا', 'صور', 'بعلبك', 'جونيه', 'النبطية', 'زحلة', 'جبيل', 'بشري']
+                },
+                'IQ': { 
+                    name: '🇮🇶 العراق', 
+                    code: '+964',
+                    cities: ['بغداد', 'البصرة', 'أربيل', 'الموصل', 'النجف', 'كربلاء', 'الحلة', 'الرمادي', 'السليمانية', 'دهوك']
+                },
+                'EG': { 
+                    name: '🇪🇬 مصر', 
+                    code: '+20',
+                    cities: ['القاهرة', 'الإسكندرية', 'الجيزة', 'شبرا الخيمة', 'بورسعيد', 'السويس', 'الأقصر', 'أسوان', 'المنصورة', 'طنطا']
+                },
+                'KW': { 
+                    name: '🇰🇼 الكويت', 
+                    code: '+965',
+                    cities: ['مدينة الكويت', 'حولي', 'الفروانية', 'مبارك الكبير', 'الأحمدي', 'الجهراء']
+                },
+                'QA': { 
+                    name: '🇶🇦 قطر', 
+                    code: '+974',
+                    cities: ['الدوحة', 'الريان', 'أم صلال', 'الوكرة', 'الخور', 'الدعاين']
+                },
+                'BH': { 
+                    name: '🇧🇭 البحرين', 
+                    code: '+973',
+                    cities: ['المنامة', 'المحرق', 'الحد', 'عيسى', 'الرفاع', 'جدحفص']
+                },
+                'OM': { 
+                    name: '🇴🇲 عمان', 
+                    code: '+968',
+                    cities: ['مسقط', 'صلالة', 'نزوى', 'صحار', 'البريمي', 'بوشر']
+                },
+                'MA': { 
+                    name: '🇲🇦 المغرب', 
+                    code: '+212',
+                    cities: ['الرباط', 'الدار البيضاء', 'فاس', 'مراكش', 'أكادير', 'طنجة', 'مكناس', 'وجدة']
+                },
+                'TN': { 
+                    name: '🇹🇳 تونس', 
+                    code: '+216',
+                    cities: ['تونس', 'صفاقس', 'سوسة', 'القيروان', 'بنزرت', 'قابس', 'باجة', 'جندوبة']
+                },
+                'DZ': { 
+                    name: '🇩🇿 الجزائر', 
+                    code: '+213',
+                    cities: ['الجزائر', 'وهران', 'قسنطينة', 'عنابة', 'بليدة', 'بجاية', 'سطيف', 'تلمسان']
+                },
+                'LY': { 
+                    name: '🇱🇾 ليبيا', 
+                    code: '+218',
+                    cities: ['طرابلس', 'بنغازي', 'مصراتة', 'الزاوية', 'بيضاء', 'سبها', 'طبرق', 'درنة']
+                },
+                'YE': { 
+                    name: '🇾🇪 اليمن', 
+                    code: '+967',
+                    cities: ['صنعاء', 'عدن', 'تعز', 'الحديدة', 'إب', 'ذمار', 'المكلا', 'مأرب']
+                },
+                'SD': { 
+                    name: '🇸🇩 السودان', 
+                    code: '+249',
+                    cities: ['الخرطوم', 'أم درمان', 'بحري', 'بورتسودان', 'كسلا', 'نيالا', 'الأبيض', 'سنار']
+                },
+                'MR': { 
+                    name: '🇲🇷 موريتانيا', 
+                    code: '+222',
+                    cities: ['نواكشوط', 'نواذيبو', 'كيفة', 'روصو', 'أطار', 'زويرات']
+                },
+                'SO': { 
+                    name: '🇸🇴 الصومال', 
+                    code: '+252',
+                    cities: ['مقديشو', 'هرجيسا', 'بوساسو', 'كيسمايو', 'بربرة', 'غالكعيو']
+                },
+                'DJ': { 
+                    name: '🇩🇯 جيبوتي', 
+                    code: '+253',
+                    cities: ['جيبوتي', 'علي صبيح', 'ديخيل', 'تاجورة', 'أوبوك']
+                },
+                'KM': { 
+                    name: '🇰🇲 جزر القمر', 
+                    code: '+269',
+                    cities: ['موروني', 'موتسامودو', 'دوموني', 'فومبوني']
+                },
+                'PS': { 
+                    name: '🇵🇸 فلسطين', 
+                    code: '+970',
+                    cities: ['القدس', 'غزة', 'رام الله', 'الخليل', 'نابلس', 'جنين', 'بيت لحم', 'رفح']
+                }
             },
             en: {
-                'SY': { name: '🇸🇾 Syria', code: '+963' },
-                'SA': { name: '🇸🇦 Saudi Arabia', code: '+966' },
-                'AE': { name: '🇦🇪 UAE', code: '+971' },
-                'JO': { name: '🇯🇴 Jordan', code: '+962' },
-                'LB': { name: '🇱🇧 Lebanon', code: '+961' },
-                'IQ': { name: '🇮🇶 Iraq', code: '+964' },
-                'EG': { name: '🇪🇬 Egypt', code: '+20' },
-                'KW': { name: '🇰🇼 Kuwait', code: '+965' },
-                'QA': { name: '🇶🇦 Qatar', code: '+974' },
-                'BH': { name: '🇧🇭 Bahrain', code: '+973' },
-                'OM': { name: '🇴🇲 Oman', code: '+968' },
-                'MA': { name: '🇲🇦 Morocco', code: '+212' },
-                'TN': { name: '🇹🇳 Tunisia', code: '+216' },
-                'DZ': { name: '🇩🇿 Algeria', code: '+213' },
-                'LY': { name: '🇱🇾 Libya', code: '+218' },
-                'YE': { name: '🇾🇪 Yemen', code: '+967' },
-                'SD': { name: '🇸🇩 Sudan', code: '+249' },
-                'MR': { name: '🇲🇷 Mauritania', code: '+222' },
-                'SO': { name: '🇸🇴 Somalia', code: '+252' },
-                'DJ': { name: '🇩🇯 Djibouti', code: '+253' },
-                'KM': { name: '🇰🇲 Comoros', code: '+269' },
-                'PS': { name: '🇵🇸 Palestine', code: '+970' }
+                'SY': { 
+                    name: '🇸🇾 Syria', 
+                    code: '+963',
+                    cities: ['Damascus', 'Aleppo', 'Homs', 'Hama', 'Latakia', 'Tartus', 'Deir ez-Zor', 'Raqqa', 'As-Suwayda', 'Daraa', 'Idlib', 'Qamishli']
+                },
+                'SA': { 
+                    name: '🇸🇦 Saudi Arabia', 
+                    code: '+966',
+                    cities: ['Riyadh', 'Jeddah', 'Mecca', 'Medina', 'Dammam', 'Khobar', 'Tabuk', 'Buraydah', 'Khamis Mushait', 'Taif', 'Hail', 'Jubail']
+                },
+                'AE': { 
+                    name: '🇦🇪 UAE', 
+                    code: '+971',
+                    cities: ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Fujairah', 'Ras Al Khaimah', 'Umm Al Quwain', 'Al Ain']
+                },
+                'JO': { 
+                    name: '🇯🇴 Jordan', 
+                    code: '+962',
+                    cities: ['Amman', 'Irbid', 'Zarqa', 'Russeifa', 'Wadi as-Sir', 'Aqaba', 'Karak', 'Maan', 'Jerash', 'Mafraq']
+                },
+                'LB': { 
+                    name: '🇱🇧 Lebanon', 
+                    code: '+961',
+                    cities: ['Beirut', 'Tripoli', 'Sidon', 'Tyre', 'Baalbek', 'Jounieh', 'Nabatieh', 'Zahlé', 'Byblos', 'Bcharre']
+                },
+                'IQ': { 
+                    name: '🇮🇶 Iraq', 
+                    code: '+964',
+                    cities: ['Baghdad', 'Basra', 'Erbil', 'Mosul', 'Najaf', 'Karbala', 'Hillah', 'Ramadi', 'Sulaymaniyah', 'Duhok']
+                },
+                'EG': { 
+                    name: '🇪🇬 Egypt', 
+                    code: '+20',
+                    cities: ['Cairo', 'Alexandria', 'Giza', 'Shubra El Kheima', 'Port Said', 'Suez', 'Luxor', 'Aswan', 'Mansoura', 'Tanta']
+                },
+                'KW': { 
+                    name: '🇰🇼 Kuwait', 
+                    code: '+965',
+                    cities: ['Kuwait City', 'Hawalli', 'Farwaniya', 'Mubarak Al-Kabeer', 'Ahmadi', 'Jahra']
+                },
+                'QA': { 
+                    name: '🇶🇦 Qatar', 
+                    code: '+974',
+                    cities: ['Doha', 'Al Rayyan', 'Umm Salal', 'Al Wakrah', 'Al Khor', 'Al Daayen']
+                },
+                'BH': { 
+                    name: '🇧🇭 Bahrain', 
+                    code: '+973',
+                    cities: ['Manama', 'Muharraq', 'Hadd', 'Isa Town', 'Riffa', 'Jidhafs']
+                },
+                'OM': { 
+                    name: '🇴🇲 Oman', 
+                    code: '+968',
+                    cities: ['Muscat', 'Salalah', 'Nizwa', 'Sohar', 'Al Buraimi', 'Bawshar']
+                },
+                'MA': { 
+                    name: '🇲🇦 Morocco', 
+                    code: '+212',
+                    cities: ['Rabat', 'Casablanca', 'Fez', 'Marrakech', 'Agadir', 'Tangier', 'Meknes', 'Oujda']
+                },
+                'TN': { 
+                    name: '🇹🇳 Tunisia', 
+                    code: '+216',
+                    cities: ['Tunis', 'Sfax', 'Sousse', 'Kairouan', 'Bizerte', 'Gabès', 'Béja', 'Jendouba']
+                },
+                'DZ': { 
+                    name: '🇩🇿 Algeria', 
+                    code: '+213',
+                    cities: ['Algiers', 'Oran', 'Constantine', 'Annaba', 'Blida', 'Béjaïa', 'Sétif', 'Tlemcen']
+                },
+                'LY': { 
+                    name: '🇱🇾 Libya', 
+                    code: '+218',
+                    cities: ['Tripoli', 'Benghazi', 'Misrata', 'Zawiya', 'Bayda', 'Sabha', 'Tobruk', 'Derna']
+                },
+                'YE': { 
+                    name: '🇾🇪 Yemen', 
+                    code: '+967',
+                    cities: ['Sanaa', 'Aden', 'Taiz', 'Hodeidah', 'Ibb', 'Dhamar', 'Mukalla', 'Marib']
+                },
+                'SD': { 
+                    name: '🇸🇩 Sudan', 
+                    code: '+249',
+                    cities: ['Khartoum', 'Omdurman', 'Bahri', 'Port Sudan', 'Kassala', 'Nyala', 'El Obeid', 'Sennar']
+                },
+                'MR': { 
+                    name: '🇲🇷 Mauritania', 
+                    code: '+222',
+                    cities: ['Nouakchott', 'Nouadhibou', 'Kiffa', 'Rosso', 'Atar', 'Zouérat']
+                },
+                'SO': { 
+                    name: '🇸🇴 Somalia', 
+                    code: '+252',
+                    cities: ['Mogadishu', 'Hargeisa', 'Bosaso', 'Kismayo', 'Berbera', 'Galkayo']
+                },
+                'DJ': { 
+                    name: '🇩🇯 Djibouti', 
+                    code: '+253',
+                    cities: ['Djibouti', 'Ali Sabieh', 'Dikhil', 'Tadjourah', 'Obock']
+                },
+                'KM': { 
+                    name: '🇰🇲 Comoros', 
+                    code: '+269',
+                    cities: ['Moroni', 'Mutsamudu', 'Domoni', 'Fomboni']
+                },
+                'PS': { 
+                    name: '🇵🇸 Palestine', 
+                    code: '+970',
+                    cities: ['Jerusalem', 'Gaza', 'Ramallah', 'Hebron', 'Nablus', 'Jenin', 'Bethlehem', 'Rafah']
+                }
             }
         };
         
@@ -605,51 +638,22 @@
                 navPostAd: 'أضف إعلان',
                 navRegister: 'تسجيل',
                 navLogin: 'دخول',
-                navMyAds: 'إعلاناتي',
-                navLogout: 'خروج',
-                welcomeUser: 'مرحباً',
-                heroTitle: 'مرحباً بك في حراج سوريا',
-                heroSubtitle: 'منصة الإعلانات المبوبة الأولى في المنطقة العربية',
-                searchInput: 'ابحث عن سيارات، عقارات، إلكترونيات، وظائف...',
-                searchButtonText: 'بحث',
-                categoriesTitle: 'تصفح التصنيفات',
-                carsCategory: 'سيارات',
-                carsCount: 'أكثر من 1,200 إعلان',
-                realEstateCategory: 'عقارات',
-                realEstateCount: 'أكثر من 800 إعلان',
-                electronicsCategory: 'إلكترونيات',
-                electronicsCount: 'أكثر من 600 إعلان',
-                jobsCategory: 'وظائف',
-                jobsCount: 'أكثر من 400 إعلان',
-                latestAdsTitle: 'أحدث الإعلانات',
-                allCategoriesTitle: 'جميع التصنيفات',
-                postAdTitle: 'أضف إعلانك',
-                myAdsTitle: 'إعلاناتي',
-                noAdsMessage: 'لا توجد إعلانات بعد',
-                addFirstAdMessage: 'أضف إعلانك الأول الآن!',
-                addAdButton: 'أضف إعلان',
-                registerTitle: 'إنشاء حساب جديد',
-                loginTitle: 'تسجيل الدخول',
-                adTitleLabel: 'عنوان الإعلان',
-                adCategoryLabel: 'التصنيف',
-                adPriceLabel: 'السعر',
-                adLocationLabel: 'الموقع',
-                adDescriptionLabel: 'الوصف',
-                postAdBtn: 'نشر الإعلان',
-                nameLabel: 'الاسم الكامل',
-                emailLabel: 'البريد الإلكتروني',
-                countryLabel: 'الدولة',
-                phoneLabel: 'رقم الهاتف',
-                passwordLabel: 'كلمة المرور',
-                confirmPasswordLabel: 'تأكيد كلمة المرور',
-                registerBtn: 'إنشاء الحساب',
-                loginEmailLabel: 'البريد الإلكتروني',
-                loginPasswordLabel: 'كلمة المرور',
-                loginBtn: 'دخول',
-                alreadyHaveAccount: 'لديك حساب؟',
-                loginLink: 'دخول',
-                dontHaveAccount: 'ليس لديك حساب؟',
-                registerLink: 'إنشاء حساب'
+                registerTitle: 'تسجيل',
+                nameLabel: 'الاسم *',
+                emailLabel: 'البريد الإلكتروني *',
+                countryLabel: 'الدولة *',
+                cityLabel: 'المدينة *',
+                phoneLabel: 'رقم الجوال *',
+                passwordLabel: 'كلمة المرور *',
+                confirmPasswordLabel: 'تأكيد كلمة المرور *',
+                registerBtn: 'تسجيل',
+                chooseCountry: 'اختر الدولة...',
+                chooseCity: 'اختر المدينة...',
+                reqLengthText: 'على الأقل 8 أحرف',
+                reqUppercaseText: 'حرف كبير (A-Z)',
+                reqLowercaseText: 'حرف صغير (a-z)',
+                reqNumberText: 'رقم (0-9)',
+                reqSpecialText: 'رمز خاص (!@#$%...)'
             },
             en: {
                 logoText: 'Haraj Syria',
@@ -659,51 +663,22 @@
                 navPostAd: 'Post Ad',
                 navRegister: 'Register',
                 navLogin: 'Login',
-                navMyAds: 'My Ads',
-                navLogout: 'Logout',
-                welcomeUser: 'Hello',
-                heroTitle: 'Welcome to Haraj Syria',
-                heroSubtitle: 'The premier classified ads platform in the Arab region',
-                searchInput: 'Search for cars, real estate, electronics, jobs...',
-                searchButtonText: 'Search',
-                categoriesTitle: 'Browse Categories',
-                carsCategory: 'Cars',
-                carsCount: 'Over 1,200 ads',
-                realEstateCategory: 'Real Estate',
-                realEstateCount: 'Over 800 ads',
-                electronicsCategory: 'Electronics',
-                electronicsCount: 'Over 600 ads',
-                jobsCategory: 'Jobs',
-                jobsCount: 'Over 400 ads',
-                latestAdsTitle: 'Latest Ads',
-                allCategoriesTitle: 'All Categories',
-                postAdTitle: 'Post Your Ad',
-                myAdsTitle: 'My Ads',
-                noAdsMessage: 'No ads yet',
-                addFirstAdMessage: 'Add your first ad now!',
-                addAdButton: 'Add Ad',
-                registerTitle: 'Create New Account',
-                loginTitle: 'Sign In',
-                adTitleLabel: 'Ad Title',
-                adCategoryLabel: 'Category',
-                adPriceLabel: 'Price',
-                adLocationLabel: 'Location',
-                adDescriptionLabel: 'Description',
-                postAdBtn: 'Post Ad',
-                nameLabel: 'Full Name',
-                emailLabel: 'Email',
-                countryLabel: 'Country',
-                phoneLabel: 'Phone Number',
-                passwordLabel: 'Password',
-                confirmPasswordLabel: 'Confirm Password',
-                registerBtn: 'Create Account',
-                loginEmailLabel: 'Email',
-                loginPasswordLabel: 'Password',
-                loginBtn: 'Sign In',
-                alreadyHaveAccount: 'Already have account?',
-                loginLink: 'Login',
-                dontHaveAccount: "Don't have account?",
-                registerLink: 'Register'
+                registerTitle: 'Register',
+                nameLabel: 'Name *',
+                emailLabel: 'Email *',
+                countryLabel: 'Country *',
+                cityLabel: 'City *',
+                phoneLabel: 'Mobile Number *',
+                passwordLabel: 'Password *',
+                confirmPasswordLabel: 'Confirm Password *',
+                registerBtn: 'Register',
+                chooseCountry: 'Choose Country...',
+                chooseCity: 'Choose City...',
+                reqLengthText: 'At least 8 characters',
+                reqUppercaseText: 'Uppercase letter (A-Z)',
+                reqLowercaseText: 'Lowercase letter (a-z)',
+                reqNumberText: 'Number (0-9)',
+                reqSpecialText: 'Special character (!@#$%...)'
             }
         };
         
@@ -712,7 +687,7 @@
             const currentCountries = countries[currentLanguage];
             
             // Clear existing options except the first one
-            countrySelect.innerHTML = '<option value="">' + (currentLanguage === 'ar' ? 'اختر الدولة' : 'Choose Country') + '</option>';
+            countrySelect.innerHTML = '<option value="">' + translations[currentLanguage].chooseCountry + '</option>';
             
             // Add all countries
             Object.keys(currentCountries).forEach(code => {
@@ -725,7 +700,66 @@
             
             // Set Syria as default
             countrySelect.value = 'SY';
-            updatePhoneCode();
+            updateCitiesAndPhoneCode();
+        }
+        
+        function updateCitiesAndPhoneCode() {
+            const countrySelect = document.getElementById('registerCountry');
+            const citySelect = document.getElementById('registerCity');
+            const phoneCodeInput = document.getElementById('phoneCode');
+            const selectedCode = countrySelect.value;
+            
+            // Update phone code
+            if (selectedCode && countries[currentLanguage][selectedCode]) {
+                phoneCodeInput.value = countries[currentLanguage][selectedCode].code;
+            } else {
+                phoneCodeInput.value = '+963'; // Default to Syria
+            }
+            
+            // Update cities
+            citySelect.innerHTML = '<option value="">' + translations[currentLanguage].chooseCity + '</option>';
+            
+            if (selectedCode && countries[currentLanguage][selectedCode]) {
+                citySelect.disabled = false;
+                const cities = countries[currentLanguage][selectedCode].cities;
+                cities.forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                });
+            } else {
+                citySelect.disabled = true;
+            }
+        }
+        
+        function checkPasswordRequirements() {
+            const password = document.getElementById('registerPassword').value;
+            
+            // Check each requirement
+            const requirements = {
+                length: password.length >= 8,
+                uppercase: /[A-Z]/.test(password),
+                lowercase: /[a-z]/.test(password),
+                number: /[0-9]/.test(password),
+                special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
+            };
+            
+            // Update UI for each requirement
+            Object.keys(requirements).forEach(req => {
+                const element = document.getElementById(`req-${req}`);
+                const icon = element.querySelector('.requirement-icon');
+                
+                if (requirements[req]) {
+                    element.classList.add('valid');
+                    element.classList.remove('invalid');
+                    icon.textContent = '✓';
+                } else {
+                    element.classList.add('invalid');
+                    element.classList.remove('valid');
+                    icon.textContent = '○';
+                }
+            });
         }
         
         function toggleLanguage() {
@@ -743,110 +777,23 @@
             Object.keys(translations[currentLanguage]).forEach(key => {
                 const element = document.getElementById(key);
                 if (element) {
-                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                        element.placeholder = translations[currentLanguage][key];
-                    } else {
-                        element.textContent = translations[currentLanguage][key];
-                    }
+                    element.textContent = translations[currentLanguage][key];
                 }
             });
             
-            // Update countries list
+            // Update countries and cities list
             populateCountries();
+            
+            // Update password requirements if password field has content
+            const passwordField = document.getElementById('registerPassword');
+            if (passwordField.value) {
+                checkPasswordRequirements();
+            }
         }
         
         function showPage(pageId) {
-            // Hide all pages
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-            
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
+            // For this example, we're only showing the register page
             currentPage = pageId;
-            
-            // Update navigation active state
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => link.classList.remove('active'));
-            
-            // Add active class to current nav item
-            const currentNavLink = document.querySelector(`[onclick="showPage('${pageId}')"]`);
-            if (currentNavLink) {
-                currentNavLink.classList.add('active');
-            }
-        }
-        
-        function updateUserInterface() {
-            const guestMenu = document.getElementById('guestMenu');
-            const userMenu = document.getElementById('userMenu');
-            const welcomeUser = document.getElementById('welcomeUser');
-            
-            if (currentUser) {
-                guestMenu.style.display = 'none';
-                userMenu.style.display = 'flex';
-                welcomeUser.textContent = (currentLanguage === 'ar' ? 'مرحباً ' : 'Hello ') + currentUser.name;
-            } else {
-                guestMenu.style.display = 'flex';
-                userMenu.style.display = 'none';
-            }
-        }
-        
-        function performSearch() {
-            const searchTerm = document.getElementById('searchInput').value;
-            if (searchTerm.trim()) {
-                showPage('categories');
-                alert(`البحث عن: ${searchTerm}`);
-            }
-        }
-        
-        function showCategoryAds(category) {
-            showPage('categories');
-        }
-        
-        function showAdDetails(adId) {
-            alert(`عرض تفاصيل الإعلان رقم: ${adId}`);
-        }
-        
-        function updatePhoneCode() {
-            const countrySelect = document.getElementById('registerCountry');
-            const phoneCodeInput = document.getElementById('phoneCode');
-            const selectedCode = countrySelect.value;
-            
-            if (selectedCode && countries[currentLanguage][selectedCode]) {
-                phoneCodeInput.value = countries[currentLanguage][selectedCode].code;
-            } else {
-                phoneCodeInput.value = '+963'; // Default to Syria
-            }
-        }
-        
-        function handlePostAd(event) {
-            event.preventDefault();
-            
-            if (!currentUser) {
-                alert(currentLanguage === 'ar' ? 'يجب تسجيل الدخول أولاً' : 'Please login first');
-                showPage('login');
-                return;
-            }
-            
-            const title = document.getElementById('adTitle').value;
-            const category = document.getElementById('adCategory').value;
-            const price = document.getElementById('adPrice').value;
-            const location = document.getElementById('adLocation').value;
-            const description = document.getElementById('adDescription').value;
-            
-            // Simulate saving the ad
-            alert(currentLanguage === 'ar' ? 
-                `تم نشر الإعلان بنجاح!\nالعنوان: ${title}\nالسعر: ${price}$` :
-                `Ad posted successfully!\nTitle: ${title}\nPrice: ${price}$`
-            );
-            
-            // Clear form
-            document.getElementById('adTitle').value = '';
-            document.getElementById('adCategory').value = '';
-            document.getElementById('adPrice').value = '';
-            document.getElementById('adLocation').value = '';
-            document.getElementById('adDescription').value = '';
-            
-            showPage('home');
         }
         
         function handleRegister(event) {
@@ -854,6 +801,7 @@
             const name = document.getElementById('registerName').value;
             const email = document.getElementById('registerEmail').value;
             const country = document.getElementById('registerCountry').value;
+            const city = document.getElementById('registerCity').value;
             const phone = document.getElementById('registerPhone').value;
             const password = document.getElementById('registerPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
@@ -863,68 +811,32 @@
                 return;
             }
             
+            // Check password requirements
+            const requirements = {
+                length: password.length >= 8,
+                uppercase: /[A-Z]/.test(password),
+                lowercase: /[a-z]/.test(password),
+                number: /[0-9]/.test(password),
+                special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
+            };
+            
+            const allRequirementsMet = Object.values(requirements).every(req => req);
+            
+            if (!allRequirementsMet) {
+                alert(currentLanguage === 'ar' ? 'كلمة المرور لا تستوفي جميع المتطلبات!' : 'Password does not meet all requirements!');
+                return;
+            }
+            
             // Simulate user registration
-            currentUser = {
-                name: name,
-                email: email,
-                country: country,
-                phone: phone
-            };
-            
-            // Save to localStorage
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            
             alert(currentLanguage === 'ar' ? 
-                `تم إنشاء الحساب بنجاح!\nمرحباً ${name}` :
-                `Account created successfully!\nWelcome ${name}`
+                `تم إنشاء الحساب بنجاح!\nالاسم: ${name}\nالمدينة: ${city}\nالدولة: ${countries[currentLanguage][country].name}` :
+                `Account created successfully!\nName: ${name}\nCity: ${city}\nCountry: ${countries[currentLanguage][country].name}`
             );
-            
-            updateUserInterface();
-            showPage('home');
-        }
-        
-        function handleLogin(event) {
-            event.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            // Simulate successful login
-            currentUser = {
-                name: email.split('@')[0], // Use email prefix as name for demo
-                email: email
-            };
-            
-            // Save to localStorage
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            
-            alert(currentLanguage === 'ar' ? 
-                'تم تسجيل الدخول بنجاح!' :
-                'Login successful!'
-            );
-            
-            updateUserInterface();
-            showPage('home');
-        }
-        
-        function logout() {
-            currentUser = null;
-            localStorage.removeItem('currentUser');
-            updateUserInterface();
-            alert(currentLanguage === 'ar' ? 'تم تسجيل الخروج' : 'Logged out successfully');
-            showPage('home');
         }
         
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
-            // Check if user is already logged in
-            const savedUser = localStorage.getItem('currentUser');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-            }
-            
             updateLanguage();
-            updateUserInterface();
-            showPage('home');
         });
     </script>
 </body>
