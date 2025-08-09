@@ -317,7 +317,165 @@
             </div>
         </div>
     </header>
+<!-- Main Content Pages -->
+<main>
+  <!-- Home Page -->
+  <div id="home" class="page">
+    <div class="hero-gradient py-20">
+      <div class="container mx-auto px-4 text-center">
+        <h1 class="text-5xl font-bold mb-4 text-gray-800">مرحباً بك في حراج سوريا</h1>
+        <p class="text-xl mb-8 text-gray-600">منصة الإعلانات المبوبة الأولى في المنطقة العربية</p>
+        
+        <!-- Search Section -->
+        <div class="max-w-4xl mx-auto mb-16">
+          <div class="flex flex-col md:flex-row gap-4">
+            <input type="text" class="search-input" placeholder="ابحث عن أي شيء...">
+            <button class="search-btn">بحث</button>
+          </div>
+        </div>
+        
+        <!-- Quick Categories -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+            <div class="text-4xl mb-3">🚗</div>
+            <h3 class="font-semibold text-lg">سيارات</h3>
+            <p class="text-sm text-gray-500 mt-1">0 إعلان</p>
+          </div>
+          <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+            <div class="text-4xl mb-3">🏠</div>
+            <h3 class="font-semibold text-lg">عقارات</h3>
+            <p class="text-sm text-gray-500 mt-1">0 إعلان</p>
+          </div>
+          <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+            <div class="text-4xl mb-3">📱</div>
+            <h3 class="font-semibold text-lg">إلكترونيات</h3>
+            <p class="text-sm text-gray-500 mt-1">0 إعلان</p>
+          </div>
+          <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+            <div class="text-4xl mb-3">💼</div>
+            <h3 class="font-semibold text-lg">وظائف</h3>
+            <p class="text-sm text-gray-500 mt-1">0 إعلان</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- Categories Page -->
+  <div id="categories" class="page">
+    <div class="container mx-auto px-4 py-8">
+      <h1 class="text-3xl font-bold text-center mb-8">التصنيفات</h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+          <div class="text-5xl mb-4">🚗</div>
+          <h3 class="font-semibold text-lg mb-2">سيارات</h3>
+          <p class="text-sm text-gray-500">0 إعلان</p>
+        </div>
+        <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+          <div class="text-5xl mb-4">🏠</div>
+          <h3 class="font-semibold text-lg mb-2">عقارات</h3>
+          <p class="text-sm text-gray-500">0 إعلان</p>
+        </div>
+        <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+          <div class="text-5xl mb-4">📱</div>
+          <h3 class="font-semibold text-lg mb-2">إلكترونيات</h3>
+          <p class="text-sm text-gray-500">0 إعلان</p>
+        </div>
+        <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+          <div class="text-5xl mb-4">💼</div>
+          <h3 class="font-semibold text-lg mb-2">وظائف</h3>
+          <p class="text-sm text-gray-500">0 إعلان</p>
+        </div>
+        <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+          <div class="text-5xl mb-4">🪑</div>
+          <h3 class="font-semibold text-lg mb-2">أثاث</h3>
+          <p class="text-sm text-gray-500">0 إعلان</p>
+        </div>
+        <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+          <div class="text-5xl mb-4">👕</div>
+          <h3 class="font-semibold text-lg mb-2">ملابس</h3>
+          <p class="text-sm text-gray-500">0 إعلان</p>
+        </div>
+        <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+          <div class="text-5xl mb-4">🛠️</div>
+          <h3 class="font-semibold text-lg mb-2">خدمات</h3>
+          <p class="text-sm text-gray-500">0 إعلان</p>
+        </div>
+        <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+          <div class="text-5xl mb-4">📦</div>
+          <h3 class="font-semibold text-lg mb-2">أخرى</h3>
+          <p class="text-sm text-gray-500">0 إعلان</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login Page -->
+  <div id="login" class="page">
+    <div class="container mx-auto px-4 py-8">
+      <h1 class="text-3xl font-bold text-center mb-8">دخول</h1>
+      <div class="form-container">
+        <form onsubmit="handleLogin(event)">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">البريد الإلكتروني *</label>
+            <input type="email" id="loginEmail" class="form-input" required>
+          </div>
+          <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2">كلمة المرور *</label>
+            <input type="password" class="form-input" required>
+          </div>
+          <button type="submit" class="form-btn">دخول</button>
+          <div class="text-center mt-4">
+            <a href="#" onclick="showPage('register')" class="text-blue-600 hover:text-blue-800">ليس لديك حساب؟ سجل الآن</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post Ad Page -->
+  <div id="post-ad" class="page">
+    <div class="container mx-auto px-4 py-8">
+      <h1 class="text-3xl font-bold text-center mb-8">أضف إعلان</h1>
+      <div class="form-container">
+        <form onsubmit="handlePostAd(event)">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">عنوان الإعلان *</label>
+            <input type="text" id="adTitle" class="form-input" required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">التصنيف *</label>
+            <select class="form-input" required>
+              <option value="">اختر التصنيف...</option>
+              <option value="cars">سيارات</option>
+              <option value="real-estate">عقارات</option>
+              <option value="electronics">إلكترونيات</option>
+              <option value="jobs">وظائف</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">الوصف *</label>
+            <textarea class="form-input" rows="4" required></textarea>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">السعر (ل.س) *</label>
+            <input type="number" class="form-input" required>
+          </div>
+          <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2">المدينة *</label>
+            <select class="form-input" required>
+              <option value="">اختر المدينة...</option>
+              <option value="damascus">دمشق</option>
+              <option value="aleppo">حلب</option>
+              <option value="homs">حمص</option>
+            </select>
+          </div>
+          <button type="submit" class="form-btn">نشر الإعلان</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
     <!-- Register Page -->
     <div id="register" class="page active">
         <div class="container mx-auto px-4 py-8">
@@ -866,10 +1024,21 @@
                 `Account created successfully!\nName: ${name}\nCity: ${city}\nCountry: ${countries[currentLanguage][country].name}`
             );
         }
-        
+        function handleLogin(event) {
+  event.preventDefault();
+  const email = document.getElementById('loginEmail').value;
+  alert('مرحباً بعودتك!\nالبريد الإلكتروني: ' + email);
+}
+
+function handlePostAd(event) {
+  event.preventDefault();
+  const title = document.getElementById('adTitle').value;
+  alert('تم نشر الإعلان بنجاح!\nالعنوان: ' + title);
+}
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
-            updateLanguage();
+  updateLanguage();
+  showPage('home'); // Show home page by default
         });
     </script>
 </body>
