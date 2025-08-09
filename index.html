@@ -70,11 +70,6 @@
             transition: all 0.3s;
         }
         
-        .lang-btn:hover {
-            background: #d4af37;
-            color: #152238;
-        }
-        
         .nav-menu {
             display: flex;
             gap: 1rem;
@@ -137,21 +132,6 @@
             color: rgba(255, 255, 255, 0.7);
         }
         
-        .search-btn {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #d4af37;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            color: #152238;
-            font-weight: bold;
-        }
-        
         .welcome-text {
             text-align: center;
             margin-bottom: 3rem;
@@ -195,12 +175,57 @@
             margin-bottom: 1rem;
         }
         
-        .auth-buttons {
+        .form-container {
+            max-width: 500px;
+            margin: 2rem auto;
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #d4af37;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            outline: none;
+            font-size: 1rem;
+        }
+        
+        .form-group input::placeholder, .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .phone-container {
             display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 2rem;
-            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .phone-code {
+            flex: 0 0 80px;
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid #d4af37;
+            text-align: center;
+            font-weight: bold;
+            color: #d4af37;
+        }
+        
+        .phone-number {
+            flex: 1;
         }
         
         .btn {
@@ -212,6 +237,7 @@
             border: 2px solid;
             background: transparent;
             color: white;
+            font-size: 1rem;
         }
         
         .btn-primary {
@@ -220,38 +246,8 @@
             border-color: #d4af37;
         }
         
-        .btn-secondary {
-            border-color: #d4af37;
-            color: #d4af37;
-        }
-        
-        .form-container {
-            max-width: 400px;
-            margin: 2rem auto;
-            background: rgba(255,255,255,0.05);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-        }
-        
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #d4af37;
-        }
-        
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid rgba(212, 175, 55, 0.5);
-            border-radius: 10px;
-            background: rgba(255,255,255,0.1);
-            color: white;
-            outline: none;
+        .btn-primary:hover {
+            background: #f4d03f;
         }
         
         .ads-grid {
@@ -301,16 +297,42 @@
             margin-bottom: 0.5rem;
         }
         
+        .add-ad-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #d4af37;
+            border: none;
+            border-radius: 50%;
+            font-size: 2rem;
+            color: #152238;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .add-ad-btn:hover {
+            transform: scale(1.1);
+            background: #f4d03f;
+        }
+        
         @media (max-width: 768px) {
             .header { padding: 1rem; }
             .top-bar { flex-direction: column; gap: 1rem; }
             .nav-menu { gap: 0.5rem; }
             .nav-item { padding: 0.5rem 1rem; font-size: 0.9rem; }
             .welcome-title { font-size: 2rem; }
+            .add-ad-btn { bottom: 20px; right: 20px; }
         }
     </style>
 </head>
 <body>
+    <!-- زر إضافة إعلان عائم -->
+    <button class="add-ad-btn" onclick="showPage('add-ad')" title="أضف إعلان">+</button>
+    
     <div class="header">
         <div class="top-bar">
             <div class="logo-container" onclick="showPage('home')">
@@ -323,6 +345,7 @@
         <nav class="nav-menu">
             <button class="nav-item active" onclick="showPage('home')" id="navHome">الصفحة الرئيسية</button>
             <button class="nav-item" onclick="showPage('categories')" id="navCategories">التصنيفات</button>
+            <button class="nav-item" onclick="showPage('add-ad')" id="navAddAd">أضف إعلان</button>
             <button class="nav-item" onclick="showPage('register')" id="navRegister">التسجيل</button>
             <button class="nav-item" onclick="showPage('login')" id="navLogin">الدخول</button>
         </nav>
@@ -342,7 +365,7 @@
             <p id="welcomeSubtitle">منصة الإعلانات المبوبة الأولى في سوريا</p>
         </div>
         
-        <div class="categories-grid" id="categoriesGrid">
+        <div class="categories-grid">
             <div class="category-card" onclick="showCategoryAds('real-estate')">
                 <div class="category-icon">🏠</div>
                 <h3 id="realEstate">عقارات</h3>
@@ -372,7 +395,7 @@
             <h1 class="welcome-title" id="categoriesTitle">جميع التصنيفات</h1>
         </div>
         
-        <div class="ads-grid" id="adsGrid">
+        <div class="ads-grid">
             <div class="ad-card">
                 <div class="ad-image">🏠</div>
                 <div class="ad-content">
@@ -400,6 +423,41 @@
         </div>
     </div>
     
+    <!-- صفحة إضافة إعلان -->
+    <div id="add-ad" class="page">
+        <div class="welcome-text">
+            <h1 class="welcome-title" id="addAdTitle">أضف إعلانك</h1>
+        </div>
+        
+        <div class="form-container">
+            <form onsubmit="handleAddAd(event)">
+                <div class="form-group">
+                    <label id="adTitleLabel">عنوان الإعلان *</label>
+                    <input type="text" id="adTitle" required placeholder="مثال: شقة للبيع في دمشق">
+                </div>
+                <div class="form-group">
+                    <label id="adCategoryLabel">التصنيف *</label>
+                    <select id="adCategory" required>
+                        <option value="">اختر التصنيف</option>
+                        <option value="real-estate">عقارات</option>
+                        <option value="vehicles">مركبات</option>
+                        <option value="electronics">إلكترونيات</option>
+                        <option value="jobs">وظائف</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label id="adPriceLabel">السعر *</label>
+                    <input type="number" id="adPrice" required placeholder="0">
+                </div>
+                <div class="form-group">
+                    <label id="adDescLabel">الوصف *</label>
+                    <textarea id="adDescription" rows="4" required placeholder="اكتب وصف مفصل للإعلان..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;" id="addAdBtn">نشر الإعلان</button>
+            </form>
+        </div>
+    </div>
+    
     <!-- صفحة التسجيل -->
     <div id="register" class="page">
         <div class="welcome-text">
@@ -409,20 +467,46 @@
         <div class="form-container">
             <form onsubmit="handleRegister(event)">
                 <div class="form-group">
-                    <label id="nameLabel">الاسم الكامل</label>
-                    <input type="text" id="registerName" required>
+                    <label id="nameLabel">الاسم الكامل *</label>
+                    <input type="text" id="registerName" required placeholder="أدخل اسمك الكامل">
                 </div>
                 <div class="form-group">
-                    <label id="emailLabel">البريد الإلكتروني</label>
-                    <input type="email" id="registerEmail" required>
+                    <label id="emailLabel">البريد الإلكتروني *</label>
+                    <input type="email" id="registerEmail" required placeholder="example@email.com">
                 </div>
                 <div class="form-group">
-                    <label id="phoneLabel">رقم الهاتف</label>
-                    <input type="tel" id="registerPhone" required>
+                    <label id="countryLabel">الدولة *</label>
+                    <select id="registerCountry" required onchange="updatePhoneCode()">
+                        <option value="">اختر الدولة</option>
+                        <option value="SY" data-code="+963">سوريا</option>
+                        <option value="SA" data-code="+966">السعودية</option>
+                        <option value="AE" data-code="+971">الإمارات</option>
+                        <option value="JO" data-code="+962">الأردن</option>
+                        <option value="LB" data-code="+961">لبنان</option>
+                        <option value="IQ" data-code="+964">العراق</option>
+                        <option value="EG" data-code="+20">مصر</option>
+                        <option value="KW" data-code="+965">الكويت</option>
+                        <option value="QA" data-code="+974">قطر</option>
+                        <option value="BH" data-code="+973">البحرين</option>
+                        <option value="OM" data-code="+968">عمان</option>
+                        <option value="MA" data-code="+212">المغرب</option>
+                        <option value="TN" data-code="+216">تونس</option>
+                        <option value="DZ" data-code="+213">الجزائر</option>
+                        <option value="LY" data-code="+218">ليبيا</option>
+                        <option value="YE" data-code="+967">اليمن</option>
+                        <option value="SD" data-code="+249">السودان</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label id="passwordLabel">كلمة المرور</label>
-                    <input type="password" id="registerPassword" required>
+                    <label id="phoneLabel">رقم الهاتف *</label>
+                    <div class="phone-container">
+                        <input type="text" id="phoneCode" class="phone-code" value="+963" readonly>
+                        <input type="tel" id="registerPhone" class="phone-number" required placeholder="123456789">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="passwordLabel">كلمة المرور *</label>
+                    <input type="password" id="registerPassword" required placeholder="أدخل كلمة مرور قوية">
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%;" id="registerBtn">إنشاء الحساب</button>
             </form>
@@ -438,12 +522,12 @@
         <div class="form-container">
             <form onsubmit="handleLogin(event)">
                 <div class="form-group">
-                    <label id="loginEmailLabel">البريد الإلكتروني</label>
-                    <input type="email" id="loginEmail" required>
+                    <label id="loginEmailLabel">البريد الإلكتروني *</label>
+                    <input type="email" id="loginEmail" required placeholder="example@email.com">
                 </div>
                 <div class="form-group">
-                    <label id="loginPasswordLabel">كلمة المرور</label>
-                    <input type="password" id="loginPassword" required>
+                    <label id="loginPasswordLabel">كلمة المرور *</label>
+                    <input type="password" id="loginPassword" required placeholder="أدخل كلمة المرور">
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%;" id="loginBtn">دخول</button>
             </form>
@@ -460,12 +544,14 @@
                 langBtn: "English",
                 navHome: "الصفحة الرئيسية",
                 navCategories: "التصنيفات",
+                navAddAd: "أضف إعلان",
                 navRegister: "التسجيل",
                 navLogin: "الدخول",
                 searchInput: "ابحث عن أي شيء تريده...",
                 welcomeTitle: "مرحباً بك في حراج سوريا",
                 welcomeSubtitle: "منصة الإعلانات المبوبة الأولى في سوريا",
                 categoriesTitle: "جميع التصنيفات",
+                addAdTitle: "أضف إعلانك",
                 registerTitle: "إنشاء حساب جديد",
                 loginTitle: "تسجيل الدخول",
                 realEstate: "عقارات",
@@ -476,14 +562,20 @@
                 electronicsDesc: "جوالات وكمبيوتر",
                 jobs: "وظائف",
                 jobsDesc: "فرص عمل",
-                nameLabel: "الاسم الكامل",
-                emailLabel: "البريد الإلكتروني",
-                phoneLabel: "رقم الهاتف",
-                passwordLabel: "كلمة المرور",
+                nameLabel: "الاسم الكامل *",
+                emailLabel: "البريد الإلكتروني *",
+                countryLabel: "الدولة *",
+                phoneLabel: "رقم الهاتف *",
+                passwordLabel: "كلمة المرور *",
                 registerBtn: "إنشاء الحساب",
-                loginEmailLabel: "البريد الإلكتروني",
-                loginPasswordLabel: "كلمة المرور",
+                loginEmailLabel: "البريد الإلكتروني *",
+                loginPasswordLabel: "كلمة المرور *",
                 loginBtn: "دخول",
+                adTitleLabel: "عنوان الإعلان *",
+                adCategoryLabel: "التصنيف *",
+                adPriceLabel: "السعر *",
+                adDescLabel: "الوصف *",
+                addAdBtn: "نشر الإعلان",
                 sampleAd1: "شقة للبيع في دمشق",
                 sampleAd1Desc: "شقة جميلة 3 غرف وصالة في منطقة راقية",
                 sampleAd2: "سيارة تويوتا 2020",
@@ -496,12 +588,14 @@
                 langBtn: "العربية",
                 navHome: "Home",
                 navCategories: "Categories",
+                navAddAd: "Add Ad",
                 navRegister: "Register",
                 navLogin: "Login",
                 searchInput: "Search for anything...",
                 welcomeTitle: "Welcome to Haraj Syria",
                 welcomeSubtitle: "Syria's first classified ads platform",
                 categoriesTitle: "All Categories",
+                addAdTitle: "Post Your Ad",
                 registerTitle: "Create New Account",
                 loginTitle: "Sign In",
                 realEstate: "Real Estate",
@@ -512,14 +606,20 @@
                 electronicsDesc: "Phones & computers",
                 jobs: "Jobs",
                 jobsDesc: "Job opportunities",
-                nameLabel: "Full Name",
-                emailLabel: "Email",
-                phoneLabel: "Phone Number",
-                passwordLabel: "Password",
+                nameLabel: "Full Name *",
+                emailLabel: "Email *",
+                countryLabel: "Country *",
+                phoneLabel: "Phone Number *",
+                passwordLabel: "Password *",
                 registerBtn: "Create Account",
-                loginEmailLabel: "Email",
-                loginPasswordLabel: "Password",
+                loginEmailLabel: "Email *",
+                loginPasswordLabel: "Password *",
                 loginBtn: "Sign In",
+                adTitleLabel: "Ad Title *",
+                adCategoryLabel: "Category *",
+                adPriceLabel: "Price *",
+                adDescLabel: "Description *",
+                addAdBtn: "Post Ad",
                 sampleAd1: "Apartment for Sale in Damascus",
                 sampleAd1Desc: "Beautiful 3-bedroom apartment in upscale area",
                 sampleAd2: "Toyota Car 2020",
@@ -530,18 +630,14 @@
         };
         
         function showPage(pageId) {
-            // Hide all pages
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => page.classList.remove('active'));
             
-            // Show selected page
             document.getElementById(pageId).classList.add('active');
             
-            // Update navigation
             const navItems = document.querySelectorAll('.nav-item');
             navItems.forEach(item => item.classList.remove('active'));
             
-            // Find and activate current nav item
             const activeNav = document.querySelector(`[onclick="showPage('${pageId}')"]`);
             if (activeNav) activeNav.classList.add('active');
             
@@ -556,17 +652,28 @@
             document.documentElement.setAttribute('lang', lang);
             document.documentElement.setAttribute('dir', isArabic ? 'rtl' : 'ltr');
             
-            // Update all text elements
             Object.keys(t).forEach(key => {
                 const element = document.getElementById(key);
                 if (element) {
-                    if (element.tagName === 'INPUT') {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                         element.placeholder = t[key];
                     } else {
                         element.textContent = t[key];
                     }
                 }
             });
+        }
+        
+        function updatePhoneCode() {
+            const countrySelect = document.getElementById('registerCountry');
+            const phoneCodeInput = document.getElementById('phoneCode');
+            const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+            
+            if (selectedOption.dataset.code) {
+                phoneCodeInput.value = selectedOption.dataset.code;
+            } else {
+                phoneCodeInput.value = '+963'; // افتراضي سوريا
+            }
         }
         
         function searchAds() {
@@ -579,17 +686,23 @@
         
         function showCategoryAds(category) {
             showPage('categories');
-            // يمكن إضافة فلترة حسب الفئة هنا
         }
         
         function handleRegister(event) {
             event.preventDefault();
             const name = document.getElementById('registerName').value;
             const email = document.getElementById('registerEmail').value;
+            const country = document.getElementById('registerCountry').value;
+            const phoneCode = document.getElementById('phoneCode').value;
             const phone = document.getElementById('registerPhone').value;
             const password = document.getElementById('registerPassword').value;
             
-            alert(`تم إنشاء حساب جديد باسم: ${name}`);
+            if (!name || !email || !country || !phone || !password) {
+                alert('جميع الحقول مطلوبة!');
+                return;
+            }
+            
+            alert(`تم إنشاء حساب جديد باسم: ${name}\nرقم الهاتف: ${phoneCode} ${phone}`);
             showPage('home');
         }
         
@@ -601,6 +714,23 @@
             alert(`أهلاً وسهلاً! تم تسجيل الدخول بنجاح`);
             showPage('home');
         }
+        
+        function handleAddAd(event) {
+            event.preventDefault();
+            const title = document.getElementById('adTitle').value;
+            const category = document.getElementById('adCategory').value;
+            const price = document.getElementById('adPrice').value;
+            const description = document.getElementById('adDescription').value;
+            
+            alert(`تم نشر الإعلان بنجاح!\nالعنوان: ${title}\nالسعر: ${price}`);
+            showPage('categories');
+        }
+        
+        // تحديد سوريا كدولة افتراضية عند تحميل الصفحة
+        window.addEventListener('load', function() {
+            document.getElementById('registerCountry').value = 'SY';
+            updatePhoneCode();
+        });
     </script>
 </body>
 </html>
