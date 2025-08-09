@@ -323,14 +323,14 @@
   <div id="home" class="page">
     <div class="hero-gradient py-20">
       <div class="container mx-auto px-4 text-center">
-        <h1 class="text-5xl font-bold mb-4 text-gray-800">مرحباً بك في حراج سوريا</h1>
-        <p class="text-xl mb-8 text-gray-600">منصة الإعلانات المبوبة الأولى في المنطقة العربية</p>
+        <h1 class="text-5xl font-bold mb-4 text-gray-800" id="homeTitle">مرحباً بك في حراج سوريا</h1>
+        <p class="text-xl mb-8 text-gray-600" id="homeSubtitle">منصة الإعلانات المبوبة الأولى في المنطقة العربية</p>
         
         <!-- Search Section -->
         <div class="max-w-4xl mx-auto mb-16">
           <div class="flex flex-col md:flex-row gap-4">
-            <input type="text" class="search-input" placeholder="ابحث عن أي شيء...">
-            <button class="search-btn">بحث</button>
+            <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن أي شيء...">
+             <button class="search-btn" id="searchBtn">بحث</button>
           </div>
         </div>
         
@@ -364,7 +364,7 @@
   <!-- Categories Page -->
   <div id="categories" class="page">
     <div class="container mx-auto px-4 py-8">
-      <h1 class="text-3xl font-bold text-center mb-8">التصنيفات</h1>
+      <h1 class="text-3xl font-bold text-center mb-8" id="categoriesTitle">التصنيفات</h1>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
         <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
           <div class="text-5xl mb-4">🚗</div>
@@ -413,20 +413,11 @@
   <!-- Login Page -->
   <div id="login" class="page">
     <div class="container mx-auto px-4 py-8">
-      <h1 class="text-3xl font-bold text-center mb-8">دخول</h1>
-      <div class="form-container">
-        <form onsubmit="handleLogin(event)">
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">البريد الإلكتروني *</label>
-            <input type="email" id="loginEmail" class="form-input" required>
-          </div>
-          <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2">كلمة المرور *</label>
-            <input type="password" class="form-input" required>
-          </div>
-          <button type="submit" class="form-btn">دخول</button>
-          <div class="text-center mt-4">
-            <a href="#" onclick="showPage('register')" class="text-blue-600 hover:text-blue-800">ليس لديك حساب؟ سجل الآن</a>
+      <h1 class="text-3xl font-bold text-center mb-8" id="loginTitle">دخول</h1>
+<label class="block text-gray-700 text-sm font-bold mb-2" id="loginEmailLabel">البريد الإلكتروني *</label>
+<label class="block text-gray-700 text-sm font-bold mb-2" id="loginPasswordLabel">كلمة المرور *</label>
+<button type="submit" class="form-btn" id="loginBtn">دخول</button>
+<a href="#" onclick="showPage('register')" class="text-blue-600 hover:text-blue-800" id="registerLink">ليس لديك حساب؟ سجل الآن</a>
           </div>
         </form>
       </div>
@@ -436,41 +427,13 @@
   <!-- Post Ad Page -->
   <div id="post-ad" class="page">
     <div class="container mx-auto px-4 py-8">
-      <h1 class="text-3xl font-bold text-center mb-8">أضف إعلان</h1>
-      <div class="form-container">
-        <form onsubmit="handlePostAd(event)">
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">عنوان الإعلان *</label>
-            <input type="text" id="adTitle" class="form-input" required>
-          </div>
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">التصنيف *</label>
-            <select class="form-input" required>
-              <option value="">اختر التصنيف...</option>
-              <option value="cars">سيارات</option>
-              <option value="real-estate">عقارات</option>
-              <option value="electronics">إلكترونيات</option>
-              <option value="jobs">وظائف</option>
-            </select>
-          </div>
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">الوصف *</label>
-            <textarea class="form-input" rows="4" required></textarea>
-          </div>
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">السعر (ل.س) *</label>
-            <input type="number" class="form-input" required>
-          </div>
-          <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2">المدينة *</label>
-            <select class="form-input" required>
-              <option value="">اختر المدينة...</option>
-              <option value="damascus">دمشق</option>
-              <option value="aleppo">حلب</option>
-              <option value="homs">حمص</option>
-            </select>
-          </div>
-          <button type="submit" class="form-btn">نشر الإعلان</button>
+      <h1 class="text-3xl font-bold text-center mb-8" id="postAdTitle">أضف إعلان</h1>
+<label class="block text-gray-700 text-sm font-bold mb-2" id="adTitleLabel">عنوان الإعلان *</label>
+<label class="block text-gray-700 text-sm font-bold mb-2" id="adCategoryLabel">التصنيف *</label>
+<label class="block text-gray-700 text-sm font-bold mb-2" id="adDescriptionLabel">الوصف *</label>
+<label class="block text-gray-700 text-sm font-bold mb-2" id="adPriceLabel">السعر (ل.س) *</label>
+<label class="block text-gray-700 text-sm font-bold mb-2" id="adLocationLabel">المدينة *</label>
+<button type="submit" class="form-btn" id="postAdBtn">نشر الإعلان</button>
         </form>
       </div>
     </div>
@@ -789,54 +752,56 @@
         
         const translations = {
             ar: {
-                logoText: 'حراج سوريا',
-                langButton: '🇺🇸 EN',
-                navHome: 'الرئيسية',
-                navCategories: 'التصنيفات',
-                navPostAd: 'أضف إعلان',
-                navRegister: 'تسجيل',
-                navLogin: 'دخول',
-                registerTitle: 'تسجيل',
-                nameLabel: 'الاسم *',
-                emailLabel: 'البريد الإلكتروني *',
-                countryLabel: 'الدولة *',
-                cityLabel: 'المدينة *',
-                phoneLabel: 'رقم الجوال *',
-                passwordLabel: 'كلمة المرور *',
-                confirmPasswordLabel: 'تأكيد كلمة المرور *',
-                registerBtn: 'تسجيل',
-                chooseCountry: 'اختر الدولة...',
-                chooseCity: 'اختر المدينة...',
-                reqLengthText: 'على الأقل 8 أحرف',
-                reqUppercaseText: 'حرف كبير (A-Z)',
-                reqLowercaseText: 'حرف صغير (a-z)',
-                reqNumberText: 'رقم (0-9)',
-                reqSpecialText: 'رمز خاص (!@#$%...)'
+                // Home page
+homeTitle: 'مرحباً بك في حراج سوريا',
+homeSubtitle: 'منصة الإعلانات المبوبة الأولى في المنطقة العربية',
+searchBtn: 'بحث',
+
+// Categories page  
+categoriesTitle: 'التصنيفات',
+
+// Login page
+loginTitle: 'دخول',
+loginEmailLabel: 'البريد الإلكتروني *',
+loginPasswordLabel: 'كلمة المرور *',
+loginBtn: 'دخول',
+registerLink: 'ليس لديك حساب؟ سجل الآن',
+
+// Post Ad page
+postAdTitle: 'أضف إعلان',
+adTitleLabel: 'عنوان الإعلان *',
+adCategoryLabel: 'التصنيف *',
+adDescriptionLabel: 'الوصف *',
+adPriceLabel: 'السعر (ل.س) *',
+adLocationLabel: 'المدينة *',
+postAdBtn: 'نشر الإعلان'
             },
+            searchPlaceholder: 'ابحث عن أي شيء
             en: {
-                logoText: 'Haraj Syria',
-                langButton: '🇸🇦 ع',
-                navHome: 'Home',
-                navCategories: 'Categories',
-                navPostAd: 'Post Ad',
-                navRegister: 'Register',
-                navLogin: 'Login',
-                registerTitle: 'Register',
-                nameLabel: 'Name *',
-                emailLabel: 'Email *',
-                countryLabel: 'Country *',
-                cityLabel: 'City *',
-                phoneLabel: 'Mobile Number *',
-                passwordLabel: 'Password *',
-                confirmPasswordLabel: 'Confirm Password *',
-                registerBtn: 'Register',
-                chooseCountry: 'Choose Country...',
-                chooseCity: 'Choose City...',
-                reqLengthText: 'At least 8 characters',
-                reqUppercaseText: 'Uppercase letter (A-Z)',
-                reqLowercaseText: 'Lowercase letter (a-z)',
-                reqNumberText: 'Number (0-9)',
-                reqSpecialText: 'Special character (!@#$%...)'
+                // Home page
+homeTitle: 'Welcome to Haraj Syria',
+homeSubtitle: 'The Leading Classified Ads Platform in the Arab Region',
+searchBtn: 'Search',
+
+// Categories page
+categoriesTitle: 'Categories',
+
+// Login page
+loginTitle: 'Login',
+loginEmailLabel: 'Email *',
+loginPasswordLabel: 'Password *', 
+loginBtn: 'Login',
+registerLink: 'Don\'t have an account? Register now',
+
+// Post Ad page
+postAdTitle: 'Post Ad',
+adTitleLabel: 'Ad Title *',
+adCategoryLabel: 'Category *',
+adDescriptionLabel: 'Description *',
+adPriceLabel: 'Price (SYP) *',
+adLocationLabel: 'City *',
+postAdBtn: 'Post Ad'
+            searchPlaceholder: 'Search for anything
             }
         };
         
