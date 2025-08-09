@@ -288,7 +288,7 @@ Complete deployment of Haraj Syria application to free hosting platforms (Vercel
         -comment: "DEPLOYMENT ISSUE: While Vercel shows 'Ready' status, user reports 404 NOT_FOUND error when accessing https://haraj-syria.vercel.app. Problem appears to be missing source code in GitHub repository - only configuration files were uploaded, not frontend/ and backend/ folders."
         -working: false
         -agent: "main"
-        -comment: "PERSISTENT ISSUE: After updates to requirements.txt and vercel.json, site still shows 404 NOT_FOUND. Issue may be with frontend build configuration or routing. Need fundamental restructure of deployment approach."
+        -comment: "ROOT CAUSE IDENTIFIED: User reported Vercel warning 'Due to builds existing in your configuration file, the Build and Development Settings defined in your Project Settings will not apply.' This indicates vercel.json builds configuration is overriding Vercel's auto-detection and causing deployment failure."
 
   - task: "GitHub repository connection issue"
     implemented: false
