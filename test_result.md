@@ -286,9 +286,9 @@ Complete deployment of Haraj Syria application to free hosting platforms (Vercel
         -working: false
         -agent: "main"
         -comment: "DEPLOYMENT ISSUE: While Vercel shows 'Ready' status, user reports 404 NOT_FOUND error when accessing https://haraj-syria.vercel.app. Problem appears to be missing source code in GitHub repository - only configuration files were uploaded, not frontend/ and backend/ folders."
-        -working: true
+        -working: false
         -agent: "main"
-        -comment: "SUCCESS! Created index.html in root directory. User confirmed website is working perfectly with beautiful design, bilingual support, and professional layout. Site accessible at https://haraj-syria.vercel.app"
+        -comment: "Multiple UI issues reported: 1) Logo not displaying, 2) Mixed languages in interface, 3) Missing search bar, 4) Incorrect language button labels, 5) Site appearance regression. Need to fix index.html with proper logo, complete translations, search functionality, and consistent UI."
 
   - task: "GitHub repository connection issue"
     implemented: false
