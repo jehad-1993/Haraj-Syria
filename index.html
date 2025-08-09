@@ -11,122 +11,250 @@
             background: linear-gradient(135deg, #152238 0%, #1e2e47 100%);
             min-height: 100vh;
             color: white;
-            display: flex;
-            flex-direction: column;
         }
+        
         .header {
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
-            padding: 1rem;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
         }
-        .logo { font-size: 1.5rem; font-weight: bold; }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #d4af37, #f4d03f);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #152238;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #d4af37, #f4d03f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
         .lang-btn {
             background: linear-gradient(135deg, #152238 0%, #1e2e47 100%);
             border: 2px solid #d4af37;
-            color: white;
+            color: #d4af37;
             padding: 0.5rem 1rem;
             border-radius: 25px;
             cursor: pointer;
             font-weight: bold;
+            transition: all 0.3s;
         }
-        .main {
-            flex: 1;
+        
+        .lang-btn:hover {
+            background: #d4af37;
+            color: #152238;
+        }
+        
+        .search-section {
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1rem;
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 1.1rem;
+            outline: none;
+        }
+        
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #d4af37;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
+        }
+        
+        .main {
             padding: 2rem;
         }
-        .container {
-            max-width: 600px;
-            background: rgba(255,255,255,0.05);
-            padding: 3rem 2rem;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
+        
+        .welcome-text {
+            text-align: center;
+            margin-bottom: 3rem;
         }
-        h1 { 
-            font-size: 3rem; 
+        
+        .welcome-title {
+            font-size: 2.5rem;
             margin-bottom: 1rem;
             background: linear-gradient(45deg, #d4af37, #f4d03f);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .subtitle { 
-            font-size: 1.3rem; 
-            margin-bottom: 2rem;
+        
+        .welcome-subtitle {
+            font-size: 1.2rem;
             opacity: 0.9;
             line-height: 1.6;
         }
-        .status {
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .category-card {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            background: rgba(212, 175, 55, 0.1);
+            border-color: #d4af37;
+        }
+        
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .category-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #d4af37;
+        }
+        
+        .category-subtitle {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        .status-banner {
             background: rgba(76, 175, 80, 0.2);
-            padding: 1.5rem;
+            padding: 1rem;
             border-radius: 15px;
             border: 1px solid #4CAF50;
-            margin: 2rem 0;
+            margin: 2rem auto;
+            max-width: 600px;
+            text-align: center;
         }
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
+        
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0,0,0,0.2);
+            margin-top: 3rem;
         }
-        .feature {
-            background: rgba(255,255,255,0.05);
-            padding: 1rem;
-            border-radius: 10px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-        }
+        
         @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            .container { padding: 2rem 1rem; }
+            .header { padding: 1rem; }
+            .welcome-title { font-size: 2rem; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .search-input { padding: 0.8rem 2.5rem 0.8rem 1rem; }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="logo">🇸🇾 حراج سوريا</div>
-        <button class="lang-btn" onclick="toggleLang()">ع</button>
+        <div class="logo-container">
+            <div class="logo">🏛️</div>
+            <div class="logo-text" id="logoText">حراج سوريا</div>
+        </div>
+        <button class="lang-btn" onclick="toggleLang()" id="langBtn">English</button>
+    </div>
+    
+    <div class="search-section">
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن أي شيء...">
+            <button class="search-btn">🔍</button>
+        </div>
     </div>
     
     <div class="main">
-        <div class="container">
-            <h1 id="title">حراج سوريا</h1>
-            <p class="subtitle" id="subtitle">منصة الإعلانات المبوبة الأولى في سوريا<br>بدعم كامل للغة العربية</p>
-            
-            <div class="status">
-                <h3 id="status-title">🚀 المنصة قيد التطوير</h3>
-                <p id="status-text">نحن نعمل بجد لإطلاق أفضل منصة إعلانات مبوبة في سوريا</p>
+        <div class="welcome-text">
+            <h1 class="welcome-title" id="welcomeTitle">مرحباً بك في حراج سوريا</h1>
+            <p class="welcome-subtitle" id="welcomeSubtitle">منصة الإعلانات المبوبة الأولى في سوريا بدعم كامل للغة العربية</p>
+        </div>
+        
+        <div class="status-banner">
+            <h3 id="statusTitle">🚀 المنصة قيد التطوير</h3>
+            <p id="statusText">نحن نعمل بجد لإطلاق أفضل منصة إعلانات مبوبة في سوريا</p>
+        </div>
+        
+        <div class="categories-grid">
+            <div class="category-card">
+                <div class="category-icon">🏠</div>
+                <h3 class="category-title" id="realEstate">عقارات</h3>
+                <p class="category-subtitle" id="realEstateDesc">شقق وفلل ومحلات تجارية</p>
             </div>
             
-            <div class="features">
-                <div class="feature">
-                    <h4>🏠 عقارات</h4>
-                    <p>شقق وفلل ومحلات</p>
-                </div>
-                <div class="feature">
-                    <h4>🚗 مركبات</h4>
-                    <p>سيارات ودراجات</p>
-                </div>
-                <div class="feature">
-                    <h4>📱 إلكترونيات</h4>
-                    <p>جوالات وكمبيوتر</p>
-                </div>
-                <div class="feature">
-                    <h4>💼 وظائف</h4>
-                    <p>فرص عمل متنوعة</p>
-                </div>
+            <div class="category-card">
+                <div class="category-icon">🚗</div>
+                <h3 class="category-title" id="vehicles">مركبات</h3>
+                <p class="category-subtitle" id="vehiclesDesc">سيارات ودراجات نارية</p>
             </div>
             
-            <div style="margin-top: 2rem; padding: 1rem; background: rgba(212, 175, 55, 0.1); border-radius: 10px;">
-                <p><strong>🌟 مزايا حراج سوريا:</strong></p>
-                <p>✅ دعم كامل للعربية • ✅ بحث متقدم • ✅ واجهة سهلة • ✅ مجاني تماماً</p>
+            <div class="category-card">
+                <div class="category-icon">📱</div>
+                <h3 class="category-title" id="electronics">إلكترونيات</h3>
+                <p class="category-subtitle" id="electronicsDesc">جوالات وأجهزة كمبيوتر</p>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon">💼</div>
+                <h3 class="category-title" id="jobs">وظائف</h3>
+                <p class="category-subtitle" id="jobsDesc">فرص عمل متنوعة</p>
             </div>
         </div>
+    </div>
+    
+    <div class="footer">
+        <p id="footerText">🌟 مزايا حراج سوريا: دعم كامل للعربية • بحث متقدم • واجهة سهلة • مجاني تماماً</p>
     </div>
 
     <script>
@@ -134,33 +262,68 @@
         
         const translations = {
             ar: {
-                title: "حراج سوريا",
-                subtitle: "منصة الإعلانات المبوبة الأولى في سوريا<br>بدعم كامل للغة العربية",
+                logoText: "حراج سوريا",
+                langBtn: "English",
+                searchInput: "ابحث عن أي شيء...",
+                welcomeTitle: "مرحباً بك في حراج سوريا",
+                welcomeSubtitle: "منصة الإعلانات المبوبة الأولى في سوريا بدعم كامل للغة العربية",
                 statusTitle: "🚀 المنصة قيد التطوير",
                 statusText: "نحن نعمل بجد لإطلاق أفضل منصة إعلانات مبوبة في سوريا",
-                langBtn: "ع"
+                realEstate: "عقارات",
+                realEstateDesc: "شقق وفلل ومحلات تجارية",
+                vehicles: "مركبات", 
+                vehiclesDesc: "سيارات ودراجات نارية",
+                electronics: "إلكترونيات",
+                electronicsDesc: "جوالات وأجهزة كمبيوتر",
+                jobs: "وظائف",
+                jobsDesc: "فرص عمل متنوعة",
+                footerText: "🌟 مزايا حراج سوريا: دعم كامل للعربية • بحث متقدم • واجهة سهلة • مجاني تماماً"
             },
             en: {
-                title: "Haraj Syria",
-                subtitle: "Syria's First Classified Ads Platform<br>with Full Arabic Support",
+                logoText: "Haraj Syria",
+                langBtn: "العربية",
+                searchInput: "Search for anything...",
+                welcomeTitle: "Welcome to Haraj Syria",
+                welcomeSubtitle: "Syria's first classified ads platform with full Arabic support",
                 statusTitle: "🚀 Platform Under Development",
                 statusText: "We're working hard to launch the best classified ads platform in Syria",
-                langBtn: "EN"
+                realEstate: "Real Estate",
+                realEstateDesc: "Apartments, villas and commercial stores",
+                vehicles: "Vehicles",
+                vehiclesDesc: "Cars and motorcycles",
+                electronics: "Electronics", 
+                electronicsDesc: "Mobile phones and computers",
+                jobs: "Jobs",
+                jobsDesc: "Various job opportunities",
+                footerText: "🌟 Haraj Syria Features: Full Arabic Support • Advanced Search • Easy Interface • Completely Free"
             }
         };
         
         function toggleLang() {
             isArabic = !isArabic;
             const lang = isArabic ? 'ar' : 'en';
+            const t = translations[lang];
             
             document.documentElement.setAttribute('lang', lang);
             document.documentElement.setAttribute('dir', isArabic ? 'rtl' : 'ltr');
             
-            document.getElementById('title').textContent = translations[lang].title;
-            document.getElementById('subtitle').innerHTML = translations[lang].subtitle;
-            document.getElementById('status-title').textContent = translations[lang].statusTitle;
-            document.getElementById('status-text').textContent = translations[lang].statusText;
-            document.querySelector('.lang-btn').textContent = translations[lang].langBtn;
+            // Update all text elements
+            document.getElementById('logoText').textContent = t.logoText;
+            document.getElementById('langBtn').textContent = t.langBtn;
+            document.getElementById('searchInput').placeholder = t.searchInput;
+            document.getElementById('welcomeTitle').textContent = t.welcomeTitle;
+            document.getElementById('welcomeSubtitle').textContent = t.welcomeSubtitle;
+            document.getElementById('statusTitle').textContent = t.statusTitle;
+            document.getElementById('statusText').textContent = t.statusText;
+            document.getElementById('realEstate').textContent = t.realEstate;
+            document.getElementById('realEstateDesc').textContent = t.realEstateDesc;
+            document.getElementById('vehicles').textContent = t.vehicles;
+            document.getElementById('vehiclesDesc').textContent = t.vehiclesDesc;
+            document.getElementById('electronics').textContent = t.electronics;
+            document.getElementById('electronicsDesc').textContent = t.electronicsDesc;
+            document.getElementById('jobs').textContent = t.jobs;
+            document.getElementById('jobsDesc').textContent = t.jobsDesc;
+            document.getElementById('footerText').textContent = t.footerText;
         }
     </script>
 </body>
