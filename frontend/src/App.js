@@ -253,16 +253,34 @@ const Home = () => {
   
   useEffect(() => {
     const fetchData = async () => {
+      console.log('Starting to fetch data...', { API, BACKEND_URL });
       try {
+        console.log('Making API calls to:', {
+          categories: `${API}/categories-with-counts`,
+          ads: `${API}/ads?limit=8`
+        });
+        
         const [categoriesRes, adsRes] = await Promise.all([
-          axios.get(`${API}/categories-with-counts`),
-          axios.get(`${API}/ads?limit=8`)
+          axios.get(`${API}/categories-with-counts`, { timeout: 10000 }),
+          axios.get(`${API}/ads?limit=8`, { timeout: 10000 })
         ]);
+        
+        console.log('API calls successful:', { categoriesRes: categoriesRes.data, adsRes: adsRes.data });
         setCategories(categoriesRes.data);
         setAds(adsRes.data);
       } catch (error) {
         console.error('Error fetching data:', error);
+        console.error('Error details:', {
+          message: error.message,
+          response: error.response?.data,
+          status: error.response?.status,
+          config: error.config
+        });
+        // Set empty arrays as fallback so the app can still function
+        setCategories([]);
+        setAds([]);
       } finally {
+        console.log('Setting loading to false');
         setLoading(false);
       }
     };
