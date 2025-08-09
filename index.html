@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🇸🇾 حراج سوريا - منصة الإعلانات المبوبة</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #152238 0%, #1e2e47 100%);
+            min-height: 100vh;
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.5rem; font-weight: bold; }
+        .lang-btn {
+            background: linear-gradient(135deg, #152238 0%, #1e2e47 100%);
+            border: 2px solid #d4af37;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 600px;
+            background: rgba(255,255,255,0.05);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        h1 { 
+            font-size: 3rem; 
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #d4af37, #f4d03f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle { 
+            font-size: 1.3rem; 
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        .status {
+            background: rgba(76, 175, 80, 0.2);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid #4CAF50;
+            margin: 2rem 0;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .feature {
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .container { padding: 2rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">🇸🇾 حراج سوريا</div>
+        <button class="lang-btn" onclick="toggleLang()">ع</button>
+    </div>
+    
+    <div class="main">
+        <div class="container">
+            <h1 id="title">حراج سوريا</h1>
+            <p class="subtitle" id="subtitle">منصة الإعلانات المبوبة الأولى في سوريا<br>بدعم كامل للغة العربية</p>
+            
+            <div class="status">
+                <h3 id="status-title">🚀 المنصة قيد التطوير</h3>
+                <p id="status-text">نحن نعمل بجد لإطلاق أفضل منصة إعلانات مبوبة في سوريا</p>
+            </div>
+            
+            <div class="features">
+                <div class="feature">
+                    <h4>🏠 عقارات</h4>
+                    <p>شقق وفلل ومحلات</p>
+                </div>
+                <div class="feature">
+                    <h4>🚗 مركبات</h4>
+                    <p>سيارات ودراجات</p>
+                </div>
+                <div class="feature">
+                    <h4>📱 إلكترونيات</h4>
+                    <p>جوالات وكمبيوتر</p>
+                </div>
+                <div class="feature">
+                    <h4>💼 وظائف</h4>
+                    <p>فرص عمل متنوعة</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 2rem; padding: 1rem; background: rgba(212, 175, 55, 0.1); border-radius: 10px;">
+                <p><strong>🌟 مزايا حراج سوريا:</strong></p>
+                <p>✅ دعم كامل للعربية • ✅ بحث متقدم • ✅ واجهة سهلة • ✅ مجاني تماماً</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isArabic = true;
+        
+        const translations = {
+            ar: {
+                title: "حراج سوريا",
+                subtitle: "منصة الإعلانات المبوبة الأولى في سوريا<br>بدعم كامل للغة العربية",
+                statusTitle: "🚀 المنصة قيد التطوير",
+                statusText: "نحن نعمل بجد لإطلاق أفضل منصة إعلانات مبوبة في سوريا",
+                langBtn: "ع"
+            },
+            en: {
+                title: "Haraj Syria",
+                subtitle: "Syria's First Classified Ads Platform<br>with Full Arabic Support",
+                statusTitle: "🚀 Platform Under Development",
+                statusText: "We're working hard to launch the best classified ads platform in Syria",
+                langBtn: "EN"
+            }
+        };
+        
+        function toggleLang() {
+            isArabic = !isArabic;
+            const lang = isArabic ? 'ar' : 'en';
+            
+            document.documentElement.setAttribute('lang', lang);
+            document.documentElement.setAttribute('dir', isArabic ? 'rtl' : 'ltr');
+            
+            document.getElementById('title').textContent = translations[lang].title;
+            document.getElementById('subtitle').innerHTML = translations[lang].subtitle;
+            document.getElementById('status-title').textContent = translations[lang].statusTitle;
+            document.getElementById('status-text').textContent = translations[lang].statusText;
+            document.querySelector('.lang-btn').textContent = translations[lang].langBtn;
+        }
+    </script>
+</body>
+</html>
