@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تصاميم شعار حراج سوريا</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 40px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+        }
+        
+        .logo-section {
+            margin-bottom: 60px;
+            text-align: center;
+            padding: 30px;
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            background: #fafafa;
+        }
+        
+        .logo-title {
+            font-size: 1.5em;
+            color: #34495e;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .logo-description {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        /* Logo 1: Traditional Enhanced */
+        .logo-1 {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            border: 3px solid #d4af37;
+            border-radius: 15px;
+            padding: 20px 30px;
+            color: white;
+            font-family: 'Times New Roman', serif;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .logo-1 .arch-icon {
+            width: 50px;
+            height: 50px;
+            margin-left: 15px;
+            background: #d4af37;
+            border-radius: 50% 50% 0 0;
+            position: relative;
+            margin-top: 10px;
+        }
+        
+        .logo-1 .arch-icon::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 10px;
+            width: 30px;
+            height: 15px;
+            background: #1e3c72;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .logo-1 .text-content .arabic {
+            font-size: 2.2em;
+            font-weight: bold;
+            display: block;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .logo-1 .text-content .english {
+            font-size: 1.2em;
+            opacity: 0.9;
+            font-weight: normal;
+        }
+
+        /* Logo 2: Modern Minimalist */
+        .logo-2 {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50px;
+            padding: 15px 25px;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .logo-2 .circle-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            margin-left: 15px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-2 .circle-icon::before {
+            content: '📱';
+            font-size: 20px;
+        }
+        
+        .logo-2 .text-content .arabic {
+            font-size: 1.8em;
+            font-weight: 600;
+            display: block;
+        }
+        
+        .logo-2 .text-content .english {
+            font-size: 1em;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        /* Logo 3: Composite Icon */
+        .logo-3 {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border-radius: 10px;
+            padding: 18px 25px;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+        }
+        
+        .logo-3 .composite-icon {
+            width: 45px;
+            height: 45px;
+            margin-left: 15px;
+            position: relative;
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .logo-3 .composite-icon::before {
+            content: '🏪';
+        }
+        
+        .logo-3 .composite-icon::after {
+            content: '🌐';
+            position: absolute;
+            right: -5px;
+            bottom: -5px;
+            font-size: 12px;
+            background: #fff;
+            border-radius: 50%;
+            padding: 2px;
+        }
+        
+        .logo-3 .text-content .arabic {
+            font-size: 1.9em;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .logo-3 .text-content .english {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+        
+        .logo-preview {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .choose-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        
+        .choose-btn:hover {
+            background: #219a52;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 تصاميم شعار حراج سوريا</h1>
+        
+        <!-- Logo 1: Traditional Enhanced -->
+        <div class="logo-section">
+            <div class="logo-title">النموذج الأول: التقليدي المطور 🏺</div>
+            <div class="logo-description">يدمج التراث السوري مع التصميم العصري - مثالي للثقة والأصالة</div>
+            <div class="logo-preview">
+                <div class="logo-1">
+                    <div class="arch-icon"></div>
+                    <div class="text-content">
+                        <span class="arabic">حراج سوريا</span>
+                        <span class="english">Haraj Syria</span>
+                    </div>
+                </div>
+            </div>
+            <button class="choose-btn" onclick="alert('تم اختيار النموذج التقليدي المطور!')">اختيار هذا النموذج</button>
+        </div>
+        
+        <!-- Logo 2: Modern Minimalist -->
+        <div class="logo-section">
+            <div class="logo-title">النموذج الثاني: الحديث المبسط 📱</div>
+            <div class="logo-description">تصميم عصري ونظيف - مثالي للشباب والتقنية</div>
+            <div class="logo-preview">
+                <div class="logo-2">
+                    <div class="circle-icon"></div>
+                    <div class="text-content">
+                        <span class="arabic">حراج سوريا</span>
+                        <span class="english">Haraj Syria</span>
+                    </div>
+                </div>
+            </div>
+            <button class="choose-btn" onclick="alert('تم اختيار النموذج الحديث المبسط!')">اختيار هذا النموذج</button>
+        </div>
+        
+        <!-- Logo 3: Composite Icon -->
+        <div class="logo-section">
+            <div class="logo-title">النموذج الثالث: الأيقونة المركبة 🏪</div>
+            <div class="logo-description">يجمع عدة عناصر (متجر + شبكة) - يوضح تنوع الخدمات</div>
+            <div class="logo-preview">
+                <div class="logo-3">
+                    <div class="composite-icon"></div>
+                    <div class="text-content">
+                        <span class="arabic">حراج سوريا</span>
+                        <span class="english">Haraj Syria</span>
+                    </div>
+                </div>
+            </div>
+            <button class="choose-btn" onclick="alert('تم اختيار النموذج المركب!')">اختيار هذا النموذج</button>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px; color: #7f8c8d;">
+            <p>📧 أي من هذه النماذج يعجبك أكثر؟</p>
+            <p>سأقوم بتطبيق النموذج المختار على الموقع مباشرة!</p>
+        </div>
+    </div>
+</body>
+</html>
