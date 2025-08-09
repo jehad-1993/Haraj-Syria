@@ -751,59 +751,91 @@
         };
         
         const translations = {
-            ar: {
-                // Home page
-homeTitle: 'مرحباً بك في حراج سوريا',
-homeSubtitle: 'منصة الإعلانات المبوبة الأولى في المنطقة العربية',
-searchBtn: 'بحث',
-
-// Categories page  
-categoriesTitle: 'التصنيفات',
-
-// Login page
-loginTitle: 'دخول',
-loginEmailLabel: 'البريد الإلكتروني *',
-loginPasswordLabel: 'كلمة المرور *',
-loginBtn: 'دخول',
-registerLink: 'ليس لديك حساب؟ سجل الآن',
-
-// Post Ad page
-postAdTitle: 'أضف إعلان',
-adTitleLabel: 'عنوان الإعلان *',
-adCategoryLabel: 'التصنيف *',
-adDescriptionLabel: 'الوصف *',
-adPriceLabel: 'السعر (ل.س) *',
-adLocationLabel: 'المدينة *',
-postAdBtn: 'نشر الإعلان'
-            },
-            searchPlaceholder: 'ابحث عن أي شيء
-            en: {
-                // Home page
-homeTitle: 'Welcome to Haraj Syria',
-homeSubtitle: 'The Leading Classified Ads Platform in the Arab Region',
-searchBtn: 'Search',
-
-// Categories page
-categoriesTitle: 'Categories',
-
-// Login page
-loginTitle: 'Login',
-loginEmailLabel: 'Email *',
-loginPasswordLabel: 'Password *', 
-loginBtn: 'Login',
-registerLink: 'Don\'t have an account? Register now',
-
-// Post Ad page
-postAdTitle: 'Post Ad',
-adTitleLabel: 'Ad Title *',
-adCategoryLabel: 'Category *',
-adDescriptionLabel: 'Description *',
-adPriceLabel: 'Price (SYP) *',
-adLocationLabel: 'City *',
-postAdBtn: 'Post Ad'
-            searchPlaceholder: 'Search for anything
-            }
-        };
+  ar: {
+    logoText: 'حراج سوريا',
+    langButton: '🇺🇸 EN',
+    navHome: 'الرئيسية',
+    navCategories: 'التصنيفات',
+    navPostAd: 'أضف إعلان',
+    navRegister: 'تسجيل',
+    navLogin: 'دخول',
+    registerTitle: 'تسجيل',
+    nameLabel: 'الاسم *',
+    emailLabel: 'البريد الإلكتروني *',
+    countryLabel: 'الدولة *',
+    cityLabel: 'المدينة *',
+    phoneLabel: 'رقم الجوال *',
+    passwordLabel: 'كلمة المرور *',
+    confirmPasswordLabel: 'تأكيد كلمة المرور *',
+    registerBtn: 'تسجيل',
+    chooseCountry: 'اختر الدولة...',
+    chooseCity: 'اختر المدينة...',
+    reqLengthText: 'على الأقل 8 أحرف',
+    reqUppercaseText: 'حرف كبير (A-Z)',
+    reqLowercaseText: 'حرف صغير (a-z)',
+    reqNumberText: 'رقم (0-9)',
+    reqSpecialText: 'رمز خاص (!@#$%...)',
+    homeTitle: 'مرحباً بك في حراج سوريا',
+    homeSubtitle: 'منصة الإعلانات المبوبة الأولى في المنطقة العربية',
+    searchBtn: 'بحث',
+    searchPlaceholder: 'ابحث عن أي شيء...',
+    categoriesTitle: 'التصنيفات',
+    loginTitle: 'دخول',
+    loginEmailLabel: 'البريد الإلكتروني *',
+    loginPasswordLabel: 'كلمة المرور *',
+    loginBtn: 'دخول',
+    registerLink: 'ليس لديك حساب؟ سجل الآن',
+    postAdTitle: 'أضف إعلان',
+    adTitleLabel: 'عنوان الإعلان *',
+    adCategoryLabel: 'التصنيف *',
+    adDescriptionLabel: 'الوصف *',
+    adPriceLabel: 'السعر (ل.س) *',
+    adLocationLabel: 'المدينة *',
+    postAdBtn: 'نشر الإعلان'
+  },
+  en: {
+    logoText: 'Haraj Syria',
+    langButton: '🇸🇦 ع',
+    navHome: 'Home',
+    navCategories: 'Categories',
+    navPostAd: 'Post Ad',
+    navRegister: 'Register',
+    navLogin: 'Login',
+    registerTitle: 'Register',
+    nameLabel: 'Name *',
+    emailLabel: 'Email *',
+    countryLabel: 'Country *',
+    cityLabel: 'City *',
+    phoneLabel: 'Mobile Number *',
+    passwordLabel: 'Password *',
+    confirmPasswordLabel: 'Confirm Password *',
+    registerBtn: 'Register',
+    chooseCountry: 'Choose Country...',
+    chooseCity: 'Choose City...',
+    reqLengthText: 'At least 8 characters',
+    reqUppercaseText: 'Uppercase letter (A-Z)',
+    reqLowercaseText: 'Lowercase letter (a-z)',
+    reqNumberText: 'Number (0-9)',
+    reqSpecialText: 'Special character (!@#$%...)',
+    homeTitle: 'Welcome to Haraj Syria',
+    homeSubtitle: 'The Leading Classified Ads Platform in the Arab Region',
+    searchBtn: 'Search',
+    searchPlaceholder: 'Search for anything...',
+    categoriesTitle: 'Categories',
+    loginTitle: 'Login',
+    loginEmailLabel: 'Email *',
+    loginPasswordLabel: 'Password *',
+    loginBtn: 'Login',
+    registerLink: 'Don\'t have an account? Register now',
+    postAdTitle: 'Post Ad',
+    adTitleLabel: 'Ad Title *',
+    adCategoryLabel: 'Category *',
+    adDescriptionLabel: 'Description *',
+    adPriceLabel: 'Price (SYP) *',
+    adLocationLabel: 'City *',
+    postAdBtn: 'Post Ad'
+  }
+};
         
         function populateCountries() {
             const countrySelect = document.getElementById('registerCountry');
