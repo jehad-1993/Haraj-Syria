@@ -288,7 +288,7 @@ Complete deployment of Haraj Syria application to free hosting platforms (Vercel
         -comment: "DEPLOYMENT ISSUE: While Vercel shows 'Ready' status, user reports 404 NOT_FOUND error when accessing https://haraj-syria.vercel.app. Problem appears to be missing source code in GitHub repository - only configuration files were uploaded, not frontend/ and backend/ folders."
         -working: false
         -agent: "main"
-        -comment: "NEW ERROR: User uploaded source code but now getting 'Serverless Function has exceeded the unzipped maximum size of 250 MB' error. Backend dependencies in requirements.txt are too heavy for Vercel serverless function limits. Need to optimize dependencies and deployment configuration."
+        -comment: "PERSISTENT ISSUE: After updates to requirements.txt and vercel.json, site still shows 404 NOT_FOUND. Issue may be with frontend build configuration or routing. Need fundamental restructure of deployment approach."
 
   - task: "GitHub repository connection issue"
     implemented: false
