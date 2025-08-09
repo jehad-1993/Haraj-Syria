@@ -6,7 +6,7 @@
       "use": "@vercel/static-build",
       "config": {
         "distDir": "frontend/build",
-        "installCommand": "cd frontend && yarn install",
+        "installCommand": "cd frontend && yarn install --frozen-lockfile",
         "buildCommand": "cd frontend && yarn build"
       }
     },
@@ -14,7 +14,8 @@
       "src": "backend/server.py",
       "use": "@vercel/python",
       "config": {
-        "runtime": "python3.9"
+        "runtime": "python3.9",
+        "maxLambdaSize": "50mb"
       }
     }
   ],
