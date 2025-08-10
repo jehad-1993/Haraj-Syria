@@ -219,14 +219,10 @@
   <div class="container mx-auto px-4">
     <div class="flex justify-between items-center py-4">
       <div class="flex items-center space-x-4 pl-1">
-        <a href="#" onclick="showPage('home')" class="text-2xl font-bold hover:text-yellow-300 flex items-center transition-colors">
-          <svg id="logoSvg" class="logo-container" viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
+        <a href="javascript:void(0)" onclick="showPage('home')" class="text-2xl font-bold hover:text-yellow-300 flex items-center transition-colors">
+          <svg class="logo-container" viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="bgGradientAr" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#152238"/>
-                <stop offset="100%" style="stop-color:#1e2e47"/>
-              </linearGradient>
-              <linearGradient id="archGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" style="stop-color:#152238"/>
                 <stop offset="100%" style="stop-color:#1e2e47"/>
               </linearGradient>
@@ -234,23 +230,10 @@
                 <stop offset="0%" style="stop-color:#d4af37"/>
                 <stop offset="100%" style="stop-color:#b8860b"/>
               </linearGradient>
-              <filter id="simpleShadow">
-                <feDropShadow dx="2" dy="2" stdDeviation="2" flood-opacity="0.5"/>
-              </filter>
             </defs>
-            <rect x="3" y="3" width="314" height="94" rx="20" fill="rgba(0,0,0,0.2)"/>
             <rect x="0" y="0" width="314" height="94" rx="20" fill="url(#bgGradientAr)" stroke="#d4af37" stroke-width="2"/>
-            <path d="M 18 12 Q 18 8, 25 8 Q 35 8, 50 8 Q 65 8, 75 8 Q 82 8, 82 12 L 82 68 Q 82 75, 75 75 L 25 75 Q 18 75, 18 68 Z" fill="url(#archGradient)" stroke="#d4af37" stroke-width="2"/>
-            <path d="M 26 18 Q 26 12, 30 12 Q 40 12, 50 12 Q 60 12, 70 12 Q 74 12, 74 18 L 74 62 Q 74 66, 70 66 L 30 66 Q 26 66, 26 62 Z" fill="#2c4f85"/>
-            <circle cx="50" cy="22" r="3" fill="#d4af37"/>
-            <circle cx="42" cy="32" r="2" fill="#d4af37"/>
-            <circle cx="58" cy="32" r="2" fill="#d4af37"/>
-            <circle cx="50" cy="42" r="2.5" fill="#d4af37"/>
-            <circle cx="50" cy="52" r="2" fill="#d4af37"/>
-            <path d="M 32 22 Q 50 18, 68 22" stroke="#d4af37" stroke-width="1.5" fill="none"/>
-            <path d="M 34 42 Q 50 38, 66 42" stroke="#d4af37" stroke-width="1" fill="none"/>
             <rect x="102" y="28" width="205" height="44" rx="8" fill="url(#textGradient)" stroke="#d4af37" stroke-width="1.5"/>
-            <text id="logoText" x="204.5" y="58" fill="#152238" font-family="Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" filter="url(#simpleShadow)">حراج سوريا</text>
+            <text id="logoText" x="204.5" y="58" fill="#152238" font-family="Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle">حراج سوريا</text>
           </svg>
         </a>
       </div>
@@ -262,26 +245,18 @@
   <!-- Navigation Row -->
   <div class="border-t border-slate-600">
     <div class="container mx-auto px-4">
-      <nav class="flex items-center justify-center space-x-8 text-lg py-3" id="navigation">
-        <a href="#" onclick="showPage('home')" class="nav-link" id="navHome">الرئيسية</a>
-        <a href="#" onclick="showPage('categories')" class="nav-link" id="navCategories">التصنيفات</a>
-        <a href="#" onclick="showPage('post-ad')" class="nav-link" id="navPostAd">أضف إعلان</a>
-        <!-- User Menu -->
-        <div id="guestMenu">
-          <a href="#" onclick="showPage('register')" class="nav-link" id="navRegister">تسجيل</a>
-          <a href="#" onclick="showPage('login')" class="nav-link" id="navLogin">دخول</a>
-        </div>
-        <div id="userMenu" class="user-menu" style="display: none;">
-          <span class="text-yellow-300 font-medium" id="welcomeUser">مرحباً</span>
-          <a href="#" onclick="showPage('my-ads')" class="nav-link" id="navMyAds">إعلاناتي</a>
-          <a href="#" onclick="logout()" class="nav-link" id="navLogout">خروج</a>
-        </div>
+      <nav class="flex items-center justify-center space-x-8 text-lg py-3">
+        <a href="javascript:void(0)" onclick="showPage('home')" class="nav-link" id="navHome">الرئيسية</a>
+        <a href="javascript:void(0)" onclick="showPage('categories')" class="nav-link" id="navCategories">التصنيفات</a>
+        <a href="javascript:void(0)" onclick="showPage('post-ad')" class="nav-link" id="navPostAd">أضف إعلان</a>
+        <a href="javascript:void(0)" onclick="showPage('register')" class="nav-link" id="navRegister">تسجيل</a>
+        <a href="javascript:void(0)" onclick="showPage('login')" class="nav-link" id="navLogin">دخول</a>
       </nav>
     </div>
   </div>
 </header>
 
-<!-- Main Content Pages -->
+<!-- Main Content -->
 <main>
   <!-- Home Page -->
   <div id="home" class="page active">
@@ -290,7 +265,6 @@
         <h1 class="text-5xl font-bold mb-4 text-gray-800" id="homeTitle">مرحباً بك في حراج سوريا</h1>
         <p class="text-xl mb-8 text-gray-600" id="homeSubtitle">منصة الإعلانات المبوبة الأولى في المنطقة العربية</p>
         
-        <!-- Search Section -->
         <div class="max-w-4xl mx-auto mb-16">
           <div class="flex flex-col md:flex-row gap-4">
             <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن أي شيء...">
@@ -298,27 +272,26 @@
           </div>
         </div>
         
-        <!-- Quick Categories -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
           <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
             <div class="text-4xl mb-3">🚗</div>
             <h3 class="font-semibold text-lg" id="catCars">سيارات</h3>
-            <p class="text-sm text-gray-500 mt-1"><span id="adsCount">0</span> <span id="adsText">إعلان</span></p>
+            <p class="text-sm text-gray-500 mt-1">0 <span id="adsText">إعلان</span></p>
           </div>
           <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
             <div class="text-4xl mb-3">🏠</div>
             <h3 class="font-semibold text-lg" id="catRealEstate">عقارات</h3>
-            <p class="text-sm text-gray-500 mt-1"><span id="adsCount2">0</span> <span id="adsText2">إعلان</span></p>
+            <p class="text-sm text-gray-500 mt-1">0 <span id="adsText2">إعلان</span></p>
           </div>
           <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
             <div class="text-4xl mb-3">📱</div>
             <h3 class="font-semibold text-lg" id="catElectronics">إلكترونيات</h3>
-            <p class="text-sm text-gray-500 mt-1"><span id="adsCount3">0</span> <span id="adsText3">إعلان</span></p>
+            <p class="text-sm text-gray-500 mt-1">0 <span id="adsText3">إعلان</span></p>
           </div>
           <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
             <div class="text-4xl mb-3">💼</div>
             <h3 class="font-semibold text-lg" id="catJobs">وظائف</h3>
-            <p class="text-sm text-gray-500 mt-1"><span id="adsCount4">0</span> <span id="adsText4">إعلان</span></p>
+            <p class="text-sm text-gray-500 mt-1">0 <span id="adsText4">إعلان</span></p>
           </div>
         </div>
       </div>
@@ -333,42 +306,42 @@
         <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
           <div class="text-5xl mb-4">🚗</div>
           <h3 class="font-semibold text-lg mb-2" id="catPageCars">سيارات</h3>
-          <p class="text-sm text-gray-500"><span>0</span> <span id="adsTextPage">إعلان</span></p>
+          <p class="text-sm text-gray-500">0 <span id="adsTextPage">إعلان</span></p>
         </div>
         <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
           <div class="text-5xl mb-4">🏠</div>
           <h3 class="font-semibold text-lg mb-2" id="catPageRealEstate">عقارات</h3>
-          <p class="text-sm text-gray-500"><span>0</span> <span id="adsTextPage2">إعلان</span></p>
+          <p class="text-sm text-gray-500">0 <span id="adsTextPage2">إعلان</span></p>
         </div>
         <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
           <div class="text-5xl mb-4">📱</div>
           <h3 class="font-semibold text-lg mb-2" id="catPageElectronics">إلكترونيات</h3>
-          <p class="text-sm text-gray-500"><span>0</span> <span id="adsTextPage3">إعلان</span></p>
+          <p class="text-sm text-gray-500">0 <span id="adsTextPage3">إعلان</span></p>
         </div>
         <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
           <div class="text-5xl mb-4">💼</div>
           <h3 class="font-semibold text-lg mb-2" id="catPageJobs">وظائف</h3>
-          <p class="text-sm text-gray-500"><span>0</span> <span id="adsTextPage4">إعلان</span></p>
+          <p class="text-sm text-gray-500">0 <span id="adsTextPage4">إعلان</span></p>
         </div>
         <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
           <div class="text-5xl mb-4">🪑</div>
           <h3 class="font-semibold text-lg mb-2" id="catPageFurniture">أثاث</h3>
-          <p class="text-sm text-gray-500"><span>0</span> <span id="adsTextPage5">إعلان</span></p>
+          <p class="text-sm text-gray-500">0 <span id="adsTextPage5">إعلان</span></p>
         </div>
         <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
           <div class="text-5xl mb-4">👕</div>
           <h3 class="font-semibold text-lg mb-2" id="catPageClothing">ملابس</h3>
-          <p class="text-sm text-gray-500"><span>0</span> <span id="adsTextPage6">إعلان</span></p>
+          <p class="text-sm text-gray-500">0 <span id="adsTextPage6">إعلان</span></p>
         </div>
         <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
           <div class="text-5xl mb-4">🛠️</div>
           <h3 class="font-semibold text-lg mb-2" id="catPageServices">خدمات</h3>
-          <p class="text-sm text-gray-500"><span>0</span> <span id="adsTextPage7">إعلان</span></p>
+          <p class="text-sm text-gray-500">0 <span id="adsTextPage7">إعلان</span></p>
         </div>
         <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
           <div class="text-5xl mb-4">📦</div>
           <h3 class="font-semibold text-lg mb-2" id="catPageOthers">أخرى</h3>
-          <p class="text-sm text-gray-500"><span>0</span> <span id="adsTextPage8">إعلان</span></p>
+          <p class="text-sm text-gray-500">0 <span id="adsTextPage8">إعلان</span></p>
         </div>
       </div>
     </div>
@@ -386,11 +359,11 @@
           </div>
           <div class="mb-6">
             <label class="block text-gray-700 text-sm font-bold mb-2" id="loginPasswordLabel">كلمة المرور *</label>
-            <input type="password" class="form-input" required>
+            <input type="password" id="loginPassword" class="form-input" required>
           </div>
           <button type="submit" class="form-btn" id="loginBtn">دخول</button>
           <div class="text-center mt-4">
-            <a href="#" onclick="showPage('register')" class="text-blue-600 hover:text-blue-800" id="registerLink">ليس لديك حساب؟ سجل الآن</a>
+            <a href="javascript:void(0)" onclick="showPage('register')" class="text-blue-600 hover:text-blue-800" id="registerLink">ليس لديك حساب؟ سجل الآن</a>
           </div>
         </form>
       </div>
@@ -511,239 +484,39 @@
 </main>
 
 <script>
-let currentLanguage = 'ar';
-let currentPage = 'home';
-let currentUser = null;
+var currentLanguage = 'ar';
+var currentPage = 'home';
 
-// جميع الدول العربية مع أكواد الهاتف والمدن
-const countries = {
+// Countries data
+var countries = {
   ar: {
     'SY': {
       name: '🇸🇾 سوريا',
       code: '+963',
-      cities: ['دمشق','حلب','حمص','حماة','اللاذقية','طرطوس','دير الزور','الرقة','السويداء','درعا','إدلب','القامشلي']
+      cities: ['دمشق','حلب','حمص','حماة','اللاذقية','طرطوس']
     },
     'SA': {
       name: '🇸🇦 السعودية',
       code: '+966',
-      cities: ['الرياض','جدة','مكة المكرمة','المدينة المنورة','الدمام','الخبر','تبوك','بريدة','خميس مشيط','الطائف','حائل','الجبيل']
-    },
-    'AE': {
-      name: '🇦🇪 الإمارات',
-      code: '+971',
-      cities: ['دبي','أبوظبي','الشارقة','عجمان','الفجيرة','رأس الخيمة','أم القيوين','العين','الفجيرة']
-    },
-    'JO': {
-      name: '🇯🇴 الأردن',
-      code: '+962',
-      cities: ['عمان','إربد','الزرقاء','الرصيفة','وادي السير','العقبة','الكرك','معان','جرش','المفرق']
-    },
-    'LB': {
-      name: '🇱🇧 لبنان',
-      code: '+961',
-      cities: ['بيروت','طرابلس','صيدا','صور','بعلبك','جونيه','النبطية','زحلة','جبيل','بشري']
-    },
-    'IQ': {
-      name: '🇮🇶 العراق',
-      code: '+964',
-      cities: ['بغداد','البصرة','أربيل','الموصل','النجف','كربلاء','الحلة','الرمادي','السليمانية','دهوك']
-    },
-    'EG': {
-      name: '🇪🇬 مصر',
-      code: '+20',
-      cities: ['القاهرة','الإسكندرية','الجيزة','شبرا الخيمة','بورسعيد','السويس','الأقصر','أسوان','المنصورة','طنطا']
-    },
-    'KW': {
-      name: '🇰🇼 الكويت',
-      code: '+965',
-      cities: ['مدينة الكويت','حولي','الفروانية','مبارك الكبير','الأحمدي','الجهراء']
-    },
-    'QA': {
-      name: '🇶🇦 قطر',
-      code: '+974',
-      cities: ['الدوحة','الريان','أم صلال','الوكرة','الخور','الدعاين']
-    },
-    'BH': {
-      name: '🇧🇭 البحرين',
-      code: '+973',
-      cities: ['المنامة','المحرق','الحد','عيسى','الرفاع','جدحفص']
-    },
-    'OM': {
-      name: '🇴🇲 عمان',
-      code: '+968',
-      cities: ['مسقط','صلالة','نزوى','صحار','البريمي','بوشر']
-    },
-    'MA': {
-      name: '🇲🇦 المغرب',
-      code: '+212',
-      cities: ['الرباط','الدار البيضاء','فاس','مراكش','أكادير','طنجة','مكناس','وجدة']
-    },
-    'TN': {
-      name: '🇹🇳 تونس',
-      code: '+216',
-      cities: ['تونس','صفاقس','سوسة','القيروان','بنزرت','قابس','باجة','جندوبة']
-    },
-    'DZ': {
-      name: '🇩🇿 الجزائر',
-      code: '+213',
-      cities: ['الجزائر','وهران','قسنطينة','عنابة','بليدة','بجاية','سطيف','تلمسان']
-    },
-    'LY': {
-      name: '🇱🇾 ليبيا',
-      code: '+218',
-      cities: ['طرابلس','بنغازي','مصراتة','الزاوية','بيضاء','سبها','طبرق','درنة']
-    },
-    'YE': {
-      name: '🇾🇪 اليمن',
-      code: '+967',
-      cities: ['صنعاء','عدن','تعز','الحديدة','إب','ذمار','المكلا','مأرب']
-    },
-    'SD': {
-      name: '🇸🇩 السودان',
-      code: '+249',
-      cities: ['الخرطوم','أم درمان','بحري','بورتسودان','كسلا','نيالا','الأبيض','سنار']
-    },
-    'MR': {
-      name: '🇲🇷 موريتانيا',
-      code: '+222',
-      cities: ['نواكشوط','نواذيبو','كيفة','روصو','أطار','زويرات']
-    },
-    'SO': {
-      name: '🇸🇴 الصومال',
-      code: '+252',
-      cities: ['مقديشو','هرجيسا','بوساسو','كيسمايو','بربرة','غالكعيو']
-    },
-    'DJ': {
-      name: '🇩🇯 جيبوتي',
-      code: '+253',
-      cities: ['جيبوتي','علي صبيح','ديخيل','تاجورة','أوبوك']
-    },
-    'KM': {
-      name: '🇰🇲 جزر القمر',
-      code: '+269',
-      cities: ['موروني','موتسامودو','دوموني','فومبوني']
-    },
-    'PS': {
-      name: '🇵🇸 فلسطين',
-      code: '+970',
-      cities: ['القدس','غزة','رام الله','الخليل','نابلس','جنين','بيت لحم','رفح']
+      cities: ['الرياض','جدة','مكة المكرمة','المدينة المنورة']
     }
   },
   en: {
     'SY': {
       name: '🇸🇾 Syria',
       code: '+963',
-      cities: ['Damascus','Aleppo','Homs','Hama','Latakia','Tartus','Deir ez-Zor','Raqqa','As-Suwayda','Daraa','Idlib','Qamishli']
+      cities: ['Damascus','Aleppo','Homs','Hama','Latakia','Tartus']
     },
     'SA': {
       name: '🇸🇦 Saudi Arabia',
       code: '+966',
-      cities: ['Riyadh','Jeddah','Mecca','Medina','Dammam','Khobar','Tabuk','Buraydah','Khamis Mushait','Taif','Hail','Jubail']
-    },
-    'AE': {
-      name: '🇦🇪 UAE',
-      code: '+971',
-      cities: ['Dubai','Abu Dhabi','Sharjah','Ajman','Fujairah','Ras Al Khaimah','Umm Al Quwain','Al Ain']
-    },
-    'JO': {
-      name: '🇯🇴 Jordan',
-      code: '+962',
-      cities: ['Amman','Irbid','Zarqa','Russeifa','Wadi as-Sir','Aqaba','Karak','Maan','Jerash','Mafraq']
-    },
-    'LB': {
-      name: '🇱🇧 Lebanon',
-      code: '+961',
-      cities: ['Beirut','Tripoli','Sidon','Tyre','Baalbek','Jounieh','Nabatieh','Zahlé','Byblos','Bcharre']
-    },
-    'IQ': {
-      name: '🇮🇶 Iraq',
-      code: '+964',
-      cities: ['Baghdad','Basra','Erbil','Mosul','Najaf','Karbala','Hillah','Ramadi','Sulaymaniyah','Duhok']
-    },
-    'EG': {
-      name: '🇪🇬 Egypt',
-      code: '+20',
-      cities: ['Cairo','Alexandria','Giza','Shubra El Kheima','Port Said','Suez','Luxor','Aswan','Mansoura','Tanta']
-    },
-    'KW': {
-      name: '🇰🇼 Kuwait',
-      code: '+965',
-      cities: ['Kuwait City','Hawalli','Farwaniya','Mubarak Al-Kabeer','Ahmadi','Jahra']
-    },
-    'QA': {
-      name: '🇶🇦 Qatar',
-      code: '+974',
-      cities: ['Doha','Al Rayyan','Umm Salal','Al Wakrah','Al Khor','Al Daayen']
-    },
-    'BH': {
-      name: '🇧🇭 Bahrain',
-      code: '+973',
-      cities: ['Manama','Muharraq','Hadd','Isa Town','Riffa','Jidhafs']
-    },
-    'OM': {
-      name: '🇴🇲 Oman',
-      code: '+968',
-      cities: ['Muscat','Salalah','Nizwa','Sohar','Al Buraimi','Bawshar']
-    },
-    'MA': {
-      name: '🇲🇦 Morocco',
-      code: '+212',
-      cities: ['Rabat','Casablanca','Fez','Marrakech','Agadir','Tangier','Meknes','Oujda']
-    },
-    'TN': {
-      name: '🇹🇳 Tunisia',
-      code: '+216',
-      cities: ['Tunis','Sfax','Sousse','Kairouan','Bizerte','Gabès','Béja','Jendouba']
-    },
-    'DZ': {
-      name: '🇩🇿 Algeria',
-      code: '+213',
-      cities: ['Algiers','Oran','Constantine','Annaba','Blida','Béjaïa','Sétif','Tlemcen']
-    },
-    'LY': {
-      name: '🇱🇾 Libya',
-      code: '+218',
-      cities: ['Tripoli','Benghazi','Misrata','Zawiya','Bayda','Sabha','Tobruk','Derna']
-    },
-    'YE': {
-      name: '🇾🇪 Yemen',
-      code: '+967',
-      cities: ['Sanaa','Aden','Taiz','Hodeidah','Ibb','Dhamar','Mukalla','Marib']
-    },
-    'SD': {
-      name: '🇸🇩 Sudan',
-      code: '+249',
-      cities: ['Khartoum','Omdurman','Bahri','Port Sudan','Kassala','Nyala','El Obeid','Sennar']
-    },
-    'MR': {
-      name: '🇲🇷 Mauritania',
-      code: '+222',
-      cities: ['Nouakchott','Nouadhibou','Kiffa','Rosso','Atar','Zouérat']
-    },
-    'SO': {
-      name: '🇸🇴 Somalia',
-      code: '+252',
-      cities: ['Mogadishu','Hargeisa','Bosaso','Kismayo','Berbera','Galkayo']
-    },
-    'DJ': {
-      name: '🇩🇯 Djibouti',
-      code: '+253',
-      cities: ['Djibouti','Ali Sabieh','Dikhil','Tadjourah','Obock']
-    },
-    'KM': {
-      name: '🇰🇲 Comoros',
-      code: '+269',
-      cities: ['Moroni','Mutsamudu','Domoni','Fomboni']
-    },
-    'PS': {
-      name: '🇵🇸 Palestine',
-      code: '+970',
-      cities: ['Jerusalem','Gaza','Ramallah','Hebron','Nablus','Jenin','Bethlehem','Rafah']
+      cities: ['Riyadh','Jeddah','Mecca','Medina']
     }
   }
 };
 
-const translations = {
+// Translations
+var translations = {
   ar: {
     logoText: 'حراج سوريا',
     langButton: '🇺🇸 EN',
@@ -785,7 +558,6 @@ const translations = {
     adPriceLabel: 'السعر (ل.س) *',
     adLocationLabel: 'المدينة *',
     postAdBtn: 'نشر الإعلان',
-    // Categories
     catCars: 'سيارات',
     catRealEstate: 'عقارات',
     catElectronics: 'إلكترونيات',
@@ -798,7 +570,6 @@ const translations = {
     catPageClothing: 'ملابس',
     catPageServices: 'خدمات',
     catPageOthers: 'أخرى',
-    // Form options
     chooseCategoryOption: 'اختر التصنيف...',
     optionCars: 'سيارات',
     optionRealEstate: 'عقارات',
@@ -808,7 +579,6 @@ const translations = {
     optionDamascus: 'دمشق',
     optionAleppo: 'حلب',
     optionHoms: 'حمص',
-    // Ads text
     adsText: 'إعلان',
     adsText2: 'إعلان',
     adsText3: 'إعلان',
@@ -863,7 +633,6 @@ const translations = {
     adPriceLabel: 'Price (SYP) *',
     adLocationLabel: 'City *',
     postAdBtn: 'Post Ad',
-    // Categories
     catCars: 'Cars',
     catRealEstate: 'Real Estate',
     catElectronics: 'Electronics',
@@ -876,7 +645,6 @@ const translations = {
     catPageClothing: 'Clothing',
     catPageServices: 'Services',
     catPageOthers: 'Others',
-    // Form options
     chooseCategoryOption: 'Choose Category...',
     optionCars: 'Cars',
     optionRealEstate: 'Real Estate',
@@ -886,7 +654,6 @@ const translations = {
     optionDamascus: 'Damascus',
     optionAleppo: 'Aleppo',
     optionHoms: 'Homs',
-    // Ads text
     adsText: 'ads',
     adsText2: 'ads',
     adsText3: 'ads',
@@ -903,61 +670,57 @@ const translations = {
 };
 
 function populateCountries() {
-  const countrySelect = document.getElementById('registerCountry');
-  const currentCountries = countries[currentLanguage];
+  var countrySelect = document.getElementById('registerCountry');
+  if (!countrySelect) return;
   
-  // Clear existing options except the first one
+  var currentCountries = countries[currentLanguage];
   countrySelect.innerHTML = '<option value="">' + translations[currentLanguage].chooseCountry + '</option>';
   
-  // Add all countries
-  Object.keys(currentCountries).forEach(code => {
-    const option = document.createElement('option');
+  Object.keys(currentCountries).forEach(function(code) {
+    var option = document.createElement('option');
     option.value = code;
     option.textContent = currentCountries[code].name;
-    option.setAttribute('data-code', currentCountries[code].code);
     countrySelect.appendChild(option);
   });
   
-  // Set Syria as default
   countrySelect.value = 'SY';
   updateCitiesAndPhoneCode();
 }
 
 function updateCitiesAndPhoneCode() {
-  const countrySelect = document.getElementById('registerCountry');
-  const citySelect = document.getElementById('registerCity');
-  const phoneCodeInput = document.getElementById('phoneCode');
-  const selectedCode = countrySelect.value;
+  var countrySelect = document.getElementById('registerCountry');
+  var citySelect = document.getElementById('registerCity');
+  var phoneCodeInput = document.getElementById('phoneCode');
   
-  // Update phone code
+  if (!countrySelect || !citySelect || !phoneCodeInput) return;
+  
+  var selectedCode = countrySelect.value;
+  
   if (selectedCode && countries[currentLanguage][selectedCode]) {
     phoneCodeInput.value = countries[currentLanguage][selectedCode].code;
-  } else {
-    phoneCodeInput.value = '+963'; // Default to Syria
-  }
-  
-  // Update cities
-  citySelect.innerHTML = '<option value="">' + translations[currentLanguage].chooseCity + '</option>';
-  
-  if (selectedCode && countries[currentLanguage][selectedCode]) {
     citySelect.disabled = false;
-    const cities = countries[currentLanguage][selectedCode].cities;
-    cities.forEach(city => {
-      const option = document.createElement('option');
+    
+    citySelect.innerHTML = '<option value="">' + translations[currentLanguage].chooseCity + '</option>';
+    var cities = countries[currentLanguage][selectedCode].cities;
+    cities.forEach(function(city) {
+      var option = document.createElement('option');
       option.value = city;
       option.textContent = city;
       citySelect.appendChild(option);
     });
   } else {
+    phoneCodeInput.value = '+963';
     citySelect.disabled = true;
+    citySelect.innerHTML = '<option value="">' + translations[currentLanguage].chooseCity + '</option>';
   }
 }
 
 function checkPasswordRequirements() {
-  const password = document.getElementById('registerPassword').value;
+  var passwordField = document.getElementById('registerPassword');
+  if (!passwordField) return;
   
-  // Check each requirement
-  const requirements = {
+  var password = passwordField.value;
+  var requirements = {
     length: password.length >= 8,
     uppercase: /[A-Z]/.test(password),
     lowercase: /[a-z]/.test(password),
@@ -965,10 +728,9 @@ function checkPasswordRequirements() {
     special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
   };
   
-  // Update UI for each requirement
-  Object.keys(requirements).forEach(req => {
-    const element = document.getElementById(`req-${req}`);
-    const icon = element.querySelector('.requirement-icon');
+  Object.keys(requirements).forEach(function(req) {
+    var element = document.getElementById('req-' + req);
+    var icon = element.querySelector('.requirement-icon');
     if (requirements[req]) {
       element.classList.add('valid');
       element.classList.remove('invalid');
@@ -987,31 +749,27 @@ function toggleLanguage() {
 }
 
 function updateLanguage() {
-  const isArabic = currentLanguage === 'ar';
+  var isArabic = currentLanguage === 'ar';
   
   document.documentElement.setAttribute('lang', currentLanguage);
   document.documentElement.setAttribute('dir', isArabic ? 'rtl' : 'ltr');
   document.body.className = isArabic ? 'rtl bg-gray-50' : 'ltr bg-gray-50';
   
-  // Update all text elements
-  Object.keys(translations[currentLanguage]).forEach(key => {
-    const element = document.getElementById(key);
+  Object.keys(translations[currentLanguage]).forEach(function(key) {
+    var element = document.getElementById(key);
     if (element) {
       element.textContent = translations[currentLanguage][key];
     }
   });
   
-  // Update search input placeholder
-  const searchInput = document.getElementById('searchInput');
+  var searchInput = document.getElementById('searchInput');
   if (searchInput) {
     searchInput.placeholder = translations[currentLanguage].searchPlaceholder;
   }
   
-  // Update countries and cities list
   populateCountries();
   
-  // Update password requirements if password field has content
-  const passwordField = document.getElementById('registerPassword');
+  var passwordField = document.getElementById('registerPassword');
   if (passwordField && passwordField.value) {
     checkPasswordRequirements();
   }
@@ -1020,23 +778,22 @@ function updateLanguage() {
 function showPage(pageId) {
   currentPage = pageId;
   
-  // Hide all pages
-  const pages = document.querySelectorAll('.page');
-  pages.forEach(page => {
+  var pages = document.querySelectorAll('.page');
+  pages.forEach(function(page) {
     page.classList.remove('active');
   });
   
-  // Show the selected page
-  const targetPage = document.getElementById(pageId);
+  var targetPage = document.getElementById(pageId);
   if (targetPage) {
     targetPage.classList.add('active');
   }
   
-  // Update navigation active states
-  const navLinks = document.querySelectorAll('.nav-link');
-  navLinks.forEach(link => link.classList.remove('active'));
+  var navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(function(link) {
+    link.classList.remove('active');
+  });
   
-  const navMapping = {
+  var navMapping = {
     'home': 'navHome',
     'categories': 'navCategories',
     'register': 'navRegister', 
@@ -1044,9 +801,9 @@ function showPage(pageId) {
     'post-ad': 'navPostAd'
   };
   
-  const activeNavId = navMapping[pageId];
+  var activeNavId = navMapping[pageId];
   if (activeNavId) {
-    const activeNavLink = document.getElementById(activeNavId);
+    var activeNavLink = document.getElementById(activeNavId);
     if (activeNavLink) {
       activeNavLink.classList.add('active');
     }
@@ -1055,39 +812,37 @@ function showPage(pageId) {
 
 function handleLogin(event) {
   event.preventDefault();
-  const email = document.getElementById('loginEmail').value;
+  var email = document.getElementById('loginEmail').value;
   alert(currentLanguage === 'ar' ? 
-    `مرحباً بعودتك!\nالبريد الإلكتروني: ${email}` :
-    `Welcome back!\nEmail: ${email}`
+    'مرحباً بعودتك!\nالبريد الإلكتروني: ' + email :
+    'Welcome back!\nEmail: ' + email
   );
 }
 
 function handlePostAd(event) {
   event.preventDefault();
-  const title = document.getElementById('adTitle').value;
+  var title = document.getElementById('adTitle').value;
   alert(currentLanguage === 'ar' ? 
-    `تم نشر الإعلان بنجاح!\nالعنوان: ${title}` :
-    `Ad posted successfully!\nTitle: ${title}`
+    'تم نشر الإعلان بنجاح!\nالعنوان: ' + title :
+    'Ad posted successfully!\nTitle: ' + title
   );
 }
 
 function handleRegister(event) {
   event.preventDefault();
-  const name = document.getElementById('registerName').value;
-  const email = document.getElementById('registerEmail').value;
-  const country = document.getElementById('registerCountry').value;
-  const city = document.getElementById('registerCity').value;
-  const phone = document.getElementById('registerPhone').value;
-  const password = document.getElementById('registerPassword').value;
-  const confirmPassword = document.getElementById('confirmPassword').value;
+  var name = document.getElementById('registerName').value;
+  var email = document.getElementById('registerEmail').value;
+  var country = document.getElementById('registerCountry').value;
+  var city = document.getElementById('registerCity').value;
+  var password = document.getElementById('registerPassword').value;
+  var confirmPassword = document.getElementById('confirmPassword').value;
   
   if (password !== confirmPassword) {
     alert(currentLanguage === 'ar' ? 'كلمات المرور غير متطابقة!' : 'Passwords do not match!');
     return;
   }
   
-  // Check password requirements
-  const requirements = {
+  var requirements = {
     length: password.length >= 8,
     uppercase: /[A-Z]/.test(password),
     lowercase: /[a-z]/.test(password),
@@ -1095,24 +850,24 @@ function handleRegister(event) {
     special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
   };
   
-  const allRequirementsMet = Object.values(requirements).every(req => req);
+  var allRequirementsMet = Object.values(requirements).every(function(req) {
+    return req;
+  });
   
   if (!allRequirementsMet) {
     alert(currentLanguage === 'ar' ? 'كلمة المرور لا تستوفي جميع المتطلبات!' : 'Password does not meet all requirements!');
     return;
   }
   
-  // Simulate user registration
   alert(currentLanguage === 'ar' ?
-    `تم إنشاء الحساب بنجاح!\nالاسم: ${name}\nالمدينة: ${city}\nالدولة: ${countries[currentLanguage][country].name}` :
-    `Account created successfully!\nName: ${name}\nCity: ${city}\nCountry: ${countries[currentLanguage][country].name}`
+    'تم إنشاء الحساب بنجاح!\nالاسم: ' + name + '\nالمدينة: ' + city :
+    'Account created successfully!\nName: ' + name + '\nCity: ' + city
   );
 }
 
-// Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
   updateLanguage();
-  showPage('home'); // Show home page by default
+  showPage('home');
 });
 </script>
 </body>
