@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob:;">
 <title>🇸🇾 حراج سوريا - منصة الإعلانات المبوبة</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
@@ -219,7 +220,7 @@
   <div class="container mx-auto px-4">
     <div class="flex justify-between items-center py-4">
       <div class="flex items-center space-x-4 pl-1">
-        <a href="javascript:void(0)" onclick="showPage('home')" class="text-2xl font-bold hover:text-yellow-300 flex items-center transition-colors">
+        <a href="#" id="homeLink" class="text-2xl font-bold hover:text-yellow-300 flex items-center transition-colors">
           <svg class="logo-container" viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="bgGradientAr" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -237,7 +238,7 @@
           </svg>
         </a>
       </div>
-      <button onclick="toggleLanguage()" class="lang-btn px-4 py-2 rounded-full font-semibold transition-all shadow-lg" id="langButton">
+      <button id="langButton" class="lang-btn px-4 py-2 rounded-full font-semibold transition-all shadow-lg">
         🇺🇸 EN
       </button>
     </div>
@@ -246,11 +247,11 @@
   <div class="border-t border-slate-600">
     <div class="container mx-auto px-4">
       <nav class="flex items-center justify-center space-x-8 text-lg py-3">
-        <a href="javascript:void(0)" onclick="showPage('home')" class="nav-link" id="navHome">الرئيسية</a>
-        <a href="javascript:void(0)" onclick="showPage('categories')" class="nav-link" id="navCategories">التصنيفات</a>
-        <a href="javascript:void(0)" onclick="showPage('post-ad')" class="nav-link" id="navPostAd">أضف إعلان</a>
-        <a href="javascript:void(0)" onclick="showPage('register')" class="nav-link" id="navRegister">تسجيل</a>
-        <a href="javascript:void(0)" onclick="showPage('login')" class="nav-link" id="navLogin">دخول</a>
+        <a href="#" id="navHome" class="nav-link active">الرئيسية</a>
+        <a href="#" id="navCategories" class="nav-link">التصنيفات</a>
+        <a href="#" id="navPostAd" class="nav-link">أضف إعلان</a>
+        <a href="#" id="navRegister" class="nav-link">تسجيل</a>
+        <a href="#" id="navLogin" class="nav-link">دخول</a>
       </nav>
     </div>
   </div>
@@ -352,7 +353,7 @@
     <div class="container mx-auto px-4 py-8">
       <h1 class="text-3xl font-bold text-center mb-8" id="loginTitle">دخول</h1>
       <div class="form-container">
-        <form onsubmit="handleLogin(event)">
+        <form id="loginForm">
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" id="loginEmailLabel">البريد الإلكتروني *</label>
             <input type="email" id="loginEmail" class="form-input" required>
@@ -363,7 +364,7 @@
           </div>
           <button type="submit" class="form-btn" id="loginBtn">دخول</button>
           <div class="text-center mt-4">
-            <a href="javascript:void(0)" onclick="showPage('register')" class="text-blue-600 hover:text-blue-800" id="registerLink">ليس لديك حساب؟ سجل الآن</a>
+            <a href="#" id="registerLink" class="text-blue-600 hover:text-blue-800">ليس لديك حساب؟ سجل الآن</a>
           </div>
         </form>
       </div>
@@ -375,7 +376,7 @@
     <div class="container mx-auto px-4 py-8">
       <h1 class="text-3xl font-bold text-center mb-8" id="postAdTitle">أضف إعلان</h1>
       <div class="form-container">
-        <form onsubmit="handlePostAd(event)">
+        <form id="postAdForm">
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" id="adTitleLabel">عنوان الإعلان *</label>
             <input type="text" id="adTitle" class="form-input" required>
@@ -418,7 +419,7 @@
     <div class="container mx-auto px-4 py-8">
       <h1 class="text-3xl font-bold text-center mb-8" id="registerTitle">تسجيل</h1>
       <div class="form-container">
-        <form onsubmit="handleRegister(event)">
+        <form id="registerForm">
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" id="nameLabel">الاسم *</label>
             <input type="text" id="registerName" class="form-input" required>
@@ -429,7 +430,7 @@
           </div>
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" id="countryLabel">الدولة *</label>
-            <select id="registerCountry" class="form-input" required onchange="updateCitiesAndPhoneCode()">
+            <select id="registerCountry" class="form-input" required>
               <option value="" id="chooseCountry">اختر الدولة...</option>
             </select>
           </div>
@@ -448,7 +449,7 @@
           </div>
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" id="passwordLabel">كلمة المرور *</label>
-            <input type="password" id="registerPassword" class="form-input" required oninput="checkPasswordRequirements()">
+            <input type="password" id="registerPassword" class="form-input" required>
             <div class="password-requirements" id="passwordRequirements">
               <div class="requirement" id="req-length">
                 <span class="requirement-icon">○</span>
@@ -484,11 +485,12 @@
 </main>
 
 <script>
-var currentLanguage = 'ar';
-var currentPage = 'home';
+// Global variables
+window.currentLanguage = 'ar';
+window.currentPage = 'home';
 
 // Countries data
-var countries = {
+window.countries = {
   ar: {
     'SY': {
       name: '🇸🇾 سوريا',
@@ -516,7 +518,7 @@ var countries = {
 };
 
 // Translations
-var translations = {
+window.translations = {
   ar: {
     logoText: 'حراج سوريا',
     langButton: '🇺🇸 EN',
@@ -669,15 +671,16 @@ var translations = {
   }
 };
 
+// Helper functions
 function populateCountries() {
-  var countrySelect = document.getElementById('registerCountry');
+  const countrySelect = document.getElementById('registerCountry');
   if (!countrySelect) return;
   
-  var currentCountries = countries[currentLanguage];
-  countrySelect.innerHTML = '<option value="">' + translations[currentLanguage].chooseCountry + '</option>';
+  const currentCountries = window.countries[window.currentLanguage];
+  countrySelect.innerHTML = '<option value="">' + window.translations[window.currentLanguage].chooseCountry + '</option>';
   
   Object.keys(currentCountries).forEach(function(code) {
-    var option = document.createElement('option');
+    const option = document.createElement('option');
     option.value = code;
     option.textContent = currentCountries[code].name;
     countrySelect.appendChild(option);
@@ -688,22 +691,22 @@ function populateCountries() {
 }
 
 function updateCitiesAndPhoneCode() {
-  var countrySelect = document.getElementById('registerCountry');
-  var citySelect = document.getElementById('registerCity');
-  var phoneCodeInput = document.getElementById('phoneCode');
+  const countrySelect = document.getElementById('registerCountry');
+  const citySelect = document.getElementById('registerCity');
+  const phoneCodeInput = document.getElementById('phoneCode');
   
   if (!countrySelect || !citySelect || !phoneCodeInput) return;
   
-  var selectedCode = countrySelect.value;
+  const selectedCode = countrySelect.value;
   
-  if (selectedCode && countries[currentLanguage][selectedCode]) {
-    phoneCodeInput.value = countries[currentLanguage][selectedCode].code;
+  if (selectedCode && window.countries[window.currentLanguage][selectedCode]) {
+    phoneCodeInput.value = window.countries[window.currentLanguage][selectedCode].code;
     citySelect.disabled = false;
     
-    citySelect.innerHTML = '<option value="">' + translations[currentLanguage].chooseCity + '</option>';
-    var cities = countries[currentLanguage][selectedCode].cities;
+    citySelect.innerHTML = '<option value="">' + window.translations[window.currentLanguage].chooseCity + '</option>';
+    const cities = window.countries[window.currentLanguage][selectedCode].cities;
     cities.forEach(function(city) {
-      var option = document.createElement('option');
+      const option = document.createElement('option');
       option.value = city;
       option.textContent = city;
       citySelect.appendChild(option);
@@ -711,16 +714,16 @@ function updateCitiesAndPhoneCode() {
   } else {
     phoneCodeInput.value = '+963';
     citySelect.disabled = true;
-    citySelect.innerHTML = '<option value="">' + translations[currentLanguage].chooseCity + '</option>';
+    citySelect.innerHTML = '<option value="">' + window.translations[window.currentLanguage].chooseCity + '</option>';
   }
 }
 
 function checkPasswordRequirements() {
-  var passwordField = document.getElementById('registerPassword');
+  const passwordField = document.getElementById('registerPassword');
   if (!passwordField) return;
   
-  var password = passwordField.value;
-  var requirements = {
+  const password = passwordField.value;
+  const requirements = {
     length: password.length >= 8,
     uppercase: /[A-Z]/.test(password),
     lowercase: /[a-z]/.test(password),
@@ -729,8 +732,11 @@ function checkPasswordRequirements() {
   };
   
   Object.keys(requirements).forEach(function(req) {
-    var element = document.getElementById('req-' + req);
-    var icon = element.querySelector('.requirement-icon');
+    const element = document.getElementById('req-' + req);
+    if (!element) return;
+    const icon = element.querySelector('.requirement-icon');
+    if (!icon) return;
+    
     if (requirements[req]) {
       element.classList.add('valid');
       element.classList.remove('invalid');
@@ -744,56 +750,58 @@ function checkPasswordRequirements() {
 }
 
 function toggleLanguage() {
-  currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
+  console.log('Language toggle clicked');
+  window.currentLanguage = window.currentLanguage === 'ar' ? 'en' : 'ar';
   updateLanguage();
 }
 
 function updateLanguage() {
-  var isArabic = currentLanguage === 'ar';
+  const isArabic = window.currentLanguage === 'ar';
   
-  document.documentElement.setAttribute('lang', currentLanguage);
+  document.documentElement.setAttribute('lang', window.currentLanguage);
   document.documentElement.setAttribute('dir', isArabic ? 'rtl' : 'ltr');
   document.body.className = isArabic ? 'rtl bg-gray-50' : 'ltr bg-gray-50';
   
-  Object.keys(translations[currentLanguage]).forEach(function(key) {
-    var element = document.getElementById(key);
+  Object.keys(window.translations[window.currentLanguage]).forEach(function(key) {
+    const element = document.getElementById(key);
     if (element) {
-      element.textContent = translations[currentLanguage][key];
+      element.textContent = window.translations[window.currentLanguage][key];
     }
   });
   
-  var searchInput = document.getElementById('searchInput');
+  const searchInput = document.getElementById('searchInput');
   if (searchInput) {
-    searchInput.placeholder = translations[currentLanguage].searchPlaceholder;
+    searchInput.placeholder = window.translations[window.currentLanguage].searchPlaceholder;
   }
   
   populateCountries();
   
-  var passwordField = document.getElementById('registerPassword');
+  const passwordField = document.getElementById('registerPassword');
   if (passwordField && passwordField.value) {
     checkPasswordRequirements();
   }
 }
 
 function showPage(pageId) {
-  currentPage = pageId;
+  console.log('Showing page:', pageId);
+  window.currentPage = pageId;
   
-  var pages = document.querySelectorAll('.page');
+  const pages = document.querySelectorAll('.page');
   pages.forEach(function(page) {
     page.classList.remove('active');
   });
   
-  var targetPage = document.getElementById(pageId);
+  const targetPage = document.getElementById(pageId);
   if (targetPage) {
     targetPage.classList.add('active');
   }
   
-  var navLinks = document.querySelectorAll('.nav-link');
+  const navLinks = document.querySelectorAll('.nav-link');
   navLinks.forEach(function(link) {
     link.classList.remove('active');
   });
   
-  var navMapping = {
+  const navMapping = {
     'home': 'navHome',
     'categories': 'navCategories',
     'register': 'navRegister', 
@@ -801,9 +809,9 @@ function showPage(pageId) {
     'post-ad': 'navPostAd'
   };
   
-  var activeNavId = navMapping[pageId];
+  const activeNavId = navMapping[pageId];
   if (activeNavId) {
-    var activeNavLink = document.getElementById(activeNavId);
+    const activeNavLink = document.getElementById(activeNavId);
     if (activeNavLink) {
       activeNavLink.classList.add('active');
     }
@@ -812,8 +820,8 @@ function showPage(pageId) {
 
 function handleLogin(event) {
   event.preventDefault();
-  var email = document.getElementById('loginEmail').value;
-  alert(currentLanguage === 'ar' ? 
+  const email = document.getElementById('loginEmail').value;
+  alert(window.currentLanguage === 'ar' ? 
     'مرحباً بعودتك!\
 البريد الإلكتروني: ' + email :
     'Welcome back!\
@@ -823,8 +831,8 @@ Email: ' + email
 
 function handlePostAd(event) {
   event.preventDefault();
-  var title = document.getElementById('adTitle').value;
-  alert(currentLanguage === 'ar' ? 
+  const title = document.getElementById('adTitle').value;
+  alert(window.currentLanguage === 'ar' ? 
     'تم نشر الإعلان بنجاح!\
 العنوان: ' + title :
     'Ad posted successfully!\
@@ -834,19 +842,19 @@ Title: ' + title
 
 function handleRegister(event) {
   event.preventDefault();
-  var name = document.getElementById('registerName').value;
-  var email = document.getElementById('registerEmail').value;
-  var country = document.getElementById('registerCountry').value;
-  var city = document.getElementById('registerCity').value;
-  var password = document.getElementById('registerPassword').value;
-  var confirmPassword = document.getElementById('confirmPassword').value;
+  const name = document.getElementById('registerName').value;
+  const email = document.getElementById('registerEmail').value;
+  const country = document.getElementById('registerCountry').value;
+  const city = document.getElementById('registerCity').value;
+  const password = document.getElementById('registerPassword').value;
+  const confirmPassword = document.getElementById('confirmPassword').value;
   
   if (password !== confirmPassword) {
-    alert(currentLanguage === 'ar' ? 'كلمات المرور غير متطابقة!' : 'Passwords do not match!');
+    alert(window.currentLanguage === 'ar' ? 'كلمات المرور غير متطابقة!' : 'Passwords do not match!');
     return;
   }
   
-  var requirements = {
+  const requirements = {
     length: password.length >= 8,
     uppercase: /[A-Z]/.test(password),
     lowercase: /[a-z]/.test(password),
@@ -854,16 +862,16 @@ function handleRegister(event) {
     special: /[!@#$%^&*()_+\\-=\\[\\]{};':"\\\\|,.<>\\/?]/.test(password)
   };
   
-  var allRequirementsMet = Object.values(requirements).every(function(req) {
+  const allRequirementsMet = Object.values(requirements).every(function(req) {
     return req;
   });
   
   if (!allRequirementsMet) {
-    alert(currentLanguage === 'ar' ? 'كلمة المرور لا تستوفي جميع المتطلبات!' : 'Password does not meet all requirements!');
+    alert(window.currentLanguage === 'ar' ? 'كلمة المرور لا تستوفي جميع المتطلبات!' : 'Password does not meet all requirements!');
     return;
   }
   
-  alert(currentLanguage === 'ar' ?
+  alert(window.currentLanguage === 'ar' ?
     'تم إنشاء الحساب بنجاح!\
 الاسم: ' + name + '\
 المدينة: ' + city :
@@ -873,9 +881,76 @@ City: ' + city
   );
 }
 
+// Event listeners - using proper event binding
 document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOM loaded, initializing app...');
+  
+  // Language button
+  const langButton = document.getElementById('langButton');
+  if (langButton) {
+    langButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      toggleLanguage();
+    });
+  }
+  
+  // Navigation links
+  const navHome = document.getElementById('navHome');
+  const navCategories = document.getElementById('navCategories');
+  const navPostAd = document.getElementById('navPostAd');
+  const navRegister = document.getElementById('navRegister');
+  const navLogin = document.getElementById('navLogin');
+  const homeLink = document.getElementById('homeLink');
+  const registerLink = document.getElementById('registerLink');
+  
+  if (navHome) navHome.addEventListener('click', function(e) { e.preventDefault(); showPage('home'); });
+  if (navCategories) navCategories.addEventListener('click', function(e) { e.preventDefault(); showPage('categories'); });
+  if (navPostAd) navPostAd.addEventListener('click', function(e) { e.preventDefault(); showPage('post-ad'); });
+  if (navRegister) navRegister.addEventListener('click', function(e) { e.preventDefault(); showPage('register'); });
+  if (navLogin) navLogin.addEventListener('click', function(e) { e.preventDefault(); showPage('login'); });
+  if (homeLink) homeLink.addEventListener('click', function(e) { e.preventDefault(); showPage('home'); });
+  if (registerLink) registerLink.addEventListener('click', function(e) { e.preventDefault(); showPage('register'); });
+  
+  // Forms
+  const loginForm = document.getElementById('loginForm');
+  const postAdForm = document.getElementById('postAdForm');
+  const registerForm = document.getElementById('registerForm');
+  
+  if (loginForm) loginForm.addEventListener('submit', handleLogin);
+  if (postAdForm) postAdForm.addEventListener('submit', handlePostAd);
+  if (registerForm) registerForm.addEventListener('submit', handleRegister);
+  
+  // Country change
+  const registerCountry = document.getElementById('registerCountry');
+  if (registerCountry) {
+    registerCountry.addEventListener('change', updateCitiesAndPhoneCode);
+  }
+  
+  // Password validation
+  const registerPassword = document.getElementById('registerPassword');
+  if (registerPassword) {
+    registerPassword.addEventListener('input', checkPasswordRequirements);
+  }
+  
+  // Search button
+  const searchBtn = document.getElementById('searchBtn');
+  if (searchBtn) {
+    searchBtn.addEventListener('click', function() {
+      const searchTerm = document.getElementById('searchInput').value;
+      if (searchTerm.trim()) {
+        alert(window.currentLanguage === 'ar' ? 
+          'البحث عن: ' + searchTerm :
+          'Searching for: ' + searchTerm
+        );
+      }
+    });
+  }
+  
+  // Initialize app
   updateLanguage();
   showPage('home');
+  
+  console.log('App initialized successfully!');
 });
 </script>
 </body>
