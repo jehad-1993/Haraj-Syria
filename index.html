@@ -413,7 +413,7 @@ var translations = {
     emailLabel: 'Email *',
     passwordLabel: 'Password *',
     loginBtn: 'Login',
-    registerLink: 'Don\\'t have an account? Register now',
+    registerLink: 'Don\'t have an account? Register now',
     nameLabel: 'Name *',
     regEmailLabel: 'Email *',
     countryLabel: 'Country *',
@@ -537,10 +537,8 @@ function handleLogin(event) {
   event.preventDefault();
   var email = document.getElementById('loginEmail').value;
   var message = currentLang === 'ar' ? 
-    'تم تسجيل الدخول بنجاح!\
-البريد الإلكتروني: ' + email :
-    'Successfully logged in!\
-Email: ' + email;
+    'تم تسجيل الدخول بنجاح!\nالبريد الإلكتروني: ' + email :
+    'Successfully logged in!\nEmail: ' + email;
   alert(message);
 }
 
@@ -548,10 +546,8 @@ function handlePostAd(event) {
   event.preventDefault();
   var title = document.getElementById('adTitle').value;
   var message = currentLang === 'ar' ? 
-    'تم نشر الإعلان بنجاح!\
-العنوان: ' + title :
-    'Ad posted successfully!\
-Title: ' + title;
+    'تم نشر الإعلان بنجاح!\nالعنوان: ' + title :
+    'Ad posted successfully!\nTitle: ' + title;
   alert(message);
 }
 
@@ -568,10 +564,8 @@ function handleRegister(event) {
   }
   
   var message = currentLang === 'ar' ?
-    'تم إنشاء الحساب بنجاح!\
-الاسم: ' + name :
-    'Account created successfully!\
-Name: ' + name;
+    'تم إنشاء الحساب بنجاح!\nالاسم: ' + name :
+    'Account created successfully!\nName: ' + name;
   alert(message);
 }
 
