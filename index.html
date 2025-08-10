@@ -8,7 +8,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-body {
+* {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
@@ -61,13 +61,6 @@ body {
   border: 1px solid rgba(229,231,235,0.5);
 }
 
-.ad-card {
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-}
-
 .search-input {
   background: white;
   border: 2px solid #e5e7eb;
@@ -108,6 +101,7 @@ body {
   padding: 8px 16px;
   border-radius: 6px;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .nav-link:hover {
@@ -169,27 +163,6 @@ body {
   display: block;
 }
 
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 200px;
-}
-
-.spinner {
-  border: 4px solid #f3f4f6;
-  border-top: 4px solid #3b82f6;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
 .phone-container {
   display: flex;
   gap: 8px;
@@ -206,12 +179,6 @@ body {
 
 .phone-number {
   flex: 1;
-}
-
-.user-menu {
-  background: rgba(252,211,77,0.1);
-  border-radius: 6px;
-  padding: 8px 16px;
 }
 
 .password-requirements {
