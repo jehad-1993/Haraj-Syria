@@ -616,6 +616,9 @@ const countries = {
 
 const translations = {
   ar: {
+    navMyAds: 'إعلاناتي',
+navLogout: 'خروج',
+welcomeUser: 'مرحباً'
     logoText: 'حراج سوريا',
     langButton: '🇺🇸 EN',
     navHome: 'الرئيسية',
@@ -691,6 +694,9 @@ const translations = {
     adsTextPage8: 'إعلان'
   },
   en: {
+    navMyAds: 'My Ads',
+navLogout: 'Logout',
+welcomeUser: 'Hello'
     logoText: 'Haraj Syria',
     langButton: '🇸🇦 ع',
     navHome: 'Home',
@@ -907,9 +913,42 @@ function showPage(pageId) {
 function handleLogin(event) {
   event.preventDefault();
   const email = document.getElementById('loginEmail').value;
-  alert(currentLanguage === 'ar' ? 
-    `مرحباً بعودتك!\nالبريد الإلكتروني: ${email}` :
-    `Welcome back!\nEmail: ${email}`
+  const password = document.querySelector('#login input[type="password"]').value;
+  
+  // التحقق من صحة البيانات (محاكاة)
+  if (email && password) {
+    // محاكاة تسجيل الدخول الناجح
+    currentUser = {
+      email: email,
+      name: email.split('@')[0] // استخراج الاسم من البريد الإلكتروني
+    };
+    
+    // إخفاء قائمة الضيوف وإظهار قائمة المستخدم
+    document.getElementById('guestMenu').style.display = 'none';
+    document.getElementById('userMenu').style.display = 'block';
+    
+    // تحديث نص الترحيب
+    const welcomeElement = document.getElementById('welcomeUser');
+    if (welcomeElement) {
+      welcomeElement.textContent = currentLanguage === 'ar' ? 
+        `مرحباً ${currentUser.name}` : 
+        `Hello ${currentUser.name}`;
+    }
+    
+    // رسالة نجاح
+    alert(currentLanguage === 'ar' ? 
+      `مرحباً بعودتك ${currentUser.name}!` :
+      `Welcome back ${currentUser.name}!`
+    );
+    
+    // إعادة توجيه للصفحة الرئيسية
+    showPage('home');
+    
+  } else {
+    // رسالة خطأ إذا كانت البيانات فارغة
+    alert(currentLanguage === 'ar' ? 
+      'يرجى ملء جميع الحقول المطلوبة' : 
+      'Please fill in all required fields'
   );
 }
 
@@ -956,7 +995,22 @@ function handleRegister(event) {
     `Account created successfully!\nName: ${name}\nCity: ${city}\nCountry: ${countries[currentLanguage][country].name}`
   );
 }
-
+function logout() {
+  // مسح بيانات المستخدم
+  currentUser = null;
+  
+  // إظهار قائمة الضيوف وإخفاء قائمة المستخدم
+  document.getElementById('guestMenu').style.display = 'block';
+  document.getElementById('userMenu').style.display = 'none';
+  
+  // رسالة تأكيد الخروج
+  alert(currentLanguage === 'ar' ? 
+    'تم تسجيل الخروج بنجاح' : 
+    'Logged out successfully'
+  );
+  
+  // إعادة توجيه للصفحة الرئيسية
+  showPage('home');
 document.addEventListener('DOMContentLoaded', function() {
   updateLanguage();
   showPage('home');
