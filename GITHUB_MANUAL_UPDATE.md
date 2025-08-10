@@ -57,7 +57,7 @@
 
 2. **اضغط Edit** وتأكد من أن المحتوى:
    ```
-   REACT_APP_BACKEND_URL=https://036382c1-25df-47d0-aaa0-a75807568261.preview.emergentagent.com
+   REACT_APP_BACKEND_URL=https://77dcd158-47b2-4f3f-96d9-b244d15ee6d8.preview.emergentagent.com
    WDS_SOCKET_PORT=443
    ```
 

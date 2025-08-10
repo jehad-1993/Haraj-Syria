@@ -48,7 +48,7 @@ src={'/logos/logo-traditional.svg'}
 ## 💾 حفظ الشعارات الاحتياطية | Save Backup Logos
 
 ### للحفظ على جهازك:
-1. **افتح الرابط**: [معاينة الشعارات](https://036382c1-25df-47d0-aaa0-a75807568261.preview.emergentagent.com/logo-designs.html)
+1. **افتح الرابط**: [معاينة الشعارات](https://77dcd158-47b2-4f3f-96d9-b244d15ee6d8.preview.emergentagent.com/logo-designs.html)
 2. **انقر بالزر الأيمن** على أي شعار → "حفظ الصورة باسم"
 3. **أو انسخ الروابط المباشرة**:
    - `/logos/logo-traditional.svg`
@@ -95,7 +95,7 @@ cp /app/frontend/public/logos/logo-modern.svg /backup-location/
 ## 🔗 روابط مفيدة | Useful Links
 
 - **معاينة الشعارات**: `/logo-designs.html`
-- **الموقع الرئيسي**: [حراج سوريا](https://036382c1-25df-47d0-aaa0-a75807568261.preview.emergentagent.com)
+- **الموقع الرئيسي**: [حراج سوريا](https://77dcd158-47b2-4f3f-96d9-b244d15ee6d8.preview.emergentagent.com)
 - **مجلد الشعارات**: `/app/frontend/public/logos/`
 
 ---

@@ -4,7 +4,7 @@ import json
 
 def test_specific_login():
     """Test login with the specific credentials provided in the request"""
-    base_url = "https://036382c1-25df-47d0-aaa0-a75807568261.preview.emergentagent.com"
+    base_url = "https://77dcd158-47b2-4f3f-96d9-b244d15ee6d8.preview.emergentagent.com"
     api_url = f"{base_url}/api"
     
     # Test credentials from the request
@@ -49,7 +49,7 @@ def test_specific_login():
 
 def test_registration_with_new_user():
     """Test registration with a completely new user"""
-    base_url = "https://036382c1-25df-47d0-aaa0-a75807568261.preview.emergentagent.com"
+    base_url = "https://77dcd158-47b2-4f3f-96d9-b244d15ee6d8.preview.emergentagent.com"
     api_url = f"{base_url}/api"
     
     from datetime import datetime
