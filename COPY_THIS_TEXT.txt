@@ -1,0 +1,878 @@
+أنسخ النص التالي كاملاً وألصقه في ملف index.html على Vercel:
+
+=== ابدأ النسخ من هنا ===
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇸🇾 حراج سوريا - منصة الإعلانات المبوبة</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #1e293b 0%, #475569 50%, #1e293b 100%);
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 50%, #ffffff 100%);
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+}
+
+.logo-container {
+  height: 96px;
+  width: auto;
+}
+
+.lang-btn {
+  background: linear-gradient(135deg, #152238 0%, #1e2e47 100%);
+  border: 2px solid #d4af37;
+  color: #d4af37;
+  transition: all 0.3s ease;
+}
+
+.lang-btn:hover {
+  background: linear-gradient(135deg, #1e2e47 0%, #152238 100%);
+}
+
+.category-card {
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(229,231,235,0.5);
+}
+
+.search-input {
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px 24px;
+  font-size: 18px;
+  width: 100%;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #f97316;
+  box-shadow: 0 0 0 3px rgba(249,115,22,0.1);
+}
+
+.search-btn {
+  background: #f97316;
+  color: white;
+  border: none;
+  padding: 16px 32px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+  background: #ea580c;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 18px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  color: #fcd34d;
+  background: rgba(252,211,77,0.1);
+}
+
+.nav-link.active {
+  color: #fcd34d;
+  background: rgba(252,211,77,0.2);
+}
+
+.form-container {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+}
+
+.form-btn {
+  width: 100%;
+  padding: 14px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-btn:hover {
+  background: #2563eb;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.phone-container {
+  display: flex;
+  gap: 8px;
+}
+
+.phone-code {
+  flex: 0 0 80px;
+  background: #f3f4f6;
+  border: 2px solid #d1d5db;
+  color: #374151;
+  font-weight: 600;
+  text-align: center;
+}
+
+.phone-number {
+  flex: 1;
+}
+
+.password-requirements {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 8px;
+  padding: 8px;
+  background: #f9fafb;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+.requirement {
+  display: flex;
+  align-items: center;
+  margin: 4px 0;
+}
+
+.requirement.valid {
+  color: #10b981;
+}
+
+.requirement.invalid {
+  color: #ef4444;
+}
+
+.requirement-icon {
+  margin-left: 8px;
+  width: 16px;
+  height: 16px;
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<!-- Header -->
+<header class="gradient-bg text-white shadow-lg border-b-2 border-yellow-500">
+  <!-- Logo Row -->
+  <div class="container mx-auto px-4">
+    <div class="flex justify-between items-center py-4">
+      <div class="flex items-center space-x-4 pl-1">
+        <a href="javascript:void(0)" onclick="showPage('home')" class="text-2xl font-bold hover:text-yellow-300 flex items-center transition-colors">
+          <svg class="logo-container" viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="bgGradientAr" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#152238"/>
+                <stop offset="100%" style="stop-color:#1e2e47"/>
+              </linearGradient>
+              <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#d4af37"/>
+                <stop offset="100%" style="stop-color:#b8860b"/>
+              </linearGradient>
+            </defs>
+            <rect x="0" y="0" width="314" height="94" rx="20" fill="url(#bgGradientAr)" stroke="#d4af37" stroke-width="2"/>
+            <rect x="102" y="28" width="205" height="44" rx="8" fill="url(#textGradient)" stroke="#d4af37" stroke-width="1.5"/>
+            <text id="logoText" x="204.5" y="58" fill="#152238" font-family="Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle">حراج سوريا</text>
+          </svg>
+        </a>
+      </div>
+      <button onclick="toggleLanguage()" class="lang-btn px-4 py-2 rounded-full font-semibold transition-all shadow-lg" id="langButton">
+        🇺🇸 EN
+      </button>
+    </div>
+  </div>
+  <!-- Navigation Row -->
+  <div class="border-t border-slate-600">
+    <div class="container mx-auto px-4">
+      <nav class="flex items-center justify-center space-x-8 text-lg py-3">
+        <a href="javascript:void(0)" onclick="showPage('home')" class="nav-link" id="navHome">الرئيسية</a>
+        <a href="javascript:void(0)" onclick="showPage('categories')" class="nav-link" id="navCategories">التصنيفات</a>
+        <a href="javascript:void(0)" onclick="showPage('post-ad')" class="nav-link" id="navPostAd">أضف إعلان</a>
+        <a href="javascript:void(0)" onclick="showPage('register')" class="nav-link" id="navRegister">تسجيل</a>
+        <a href="javascript:void(0)" onclick="showPage('login')" class="nav-link" id="navLogin">دخول</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main>
+  <!-- Home Page -->
+  <div id="home" class="page active">
+    <div class="hero-gradient py-20">
+      <div class="container mx-auto px-4 text-center">
+        <h1 class="text-5xl font-bold mb-4 text-gray-800" id="homeTitle">مرحباً بك في حراج سوريا</h1>
+        <p class="text-xl mb-8 text-gray-600" id="homeSubtitle">منصة الإعلانات المبوبة الأولى في المنطقة العربية</p>
+        
+        <div class="max-w-4xl mx-auto mb-16">
+          <div class="flex flex-col md:flex-row gap-4">
+            <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن أي شيء...">
+            <button class="search-btn" id="searchBtn">بحث</button>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+            <div class="text-4xl mb-3">🚗</div>
+            <h3 class="font-semibold text-lg" id="catCars">سيارات</h3>
+            <p class="text-sm text-gray-500 mt-1">0 <span id="adsText">إعلان</span></p>
+          </div>
+          <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+            <div class="text-4xl mb-3">🏠</div>
+            <h3 class="font-semibold text-lg" id="catRealEstate">عقارات</h3>
+            <p class="text-sm text-gray-500 mt-1">0 <span id="adsText2">إعلان</span></p>
+          </div>
+          <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+            <div class="text-4xl mb-3">📱</div>
+            <h3 class="font-semibold text-lg" id="catElectronics">إلكترونيات</h3>
+            <p class="text-sm text-gray-500 mt-1">0 <span id="adsText3">إعلان</span></p>
+          </div>
+          <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+            <div class="text-4xl mb-3">💼</div>
+            <h3 class="font-semibold text-lg" id="catJobs">وظائف</h3>
+            <p class="text-sm text-gray-500 mt-1">0 <span id="adsText4">إعلان</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Categories Page -->
+  <div id="categories" class="page">
+    <div class="container mx-auto px-4 py-8">
+      <h1 class="text-3xl font-bold text-center mb-8" id="categoriesTitle">التصنيفات</h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+          <div class="text-5xl mb-4">🚗</div>
+          <h3 class="font-semibold text-lg mb-2" id="catPageCars">سيارات</h3>
+          <p class="text-sm text-gray-500">0 <span id="adsTextPage">إعلان</span></p>
+        </div>
+        <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+          <div class="text-5xl mb-4">🏠</div>
+          <h3 class="font-semibold text-lg mb-2" id="catPageRealEstate">عقارات</h3>
+          <p class="text-sm text-gray-500">0 <span id="adsTextPage2">إعلان</span></p>
+        </div>
+        <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+          <div class="text-5xl mb-4">📱</div>
+          <h3 class="font-semibold text-lg mb-2" id="catPageElectronics">إلكترونيات</h3>
+          <p class="text-sm text-gray-500">0 <span id="adsTextPage3">إعلان</span></p>
+        </div>
+        <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+          <div class="text-5xl mb-4">💼</div>
+          <h3 class="font-semibold text-lg mb-2" id="catPageJobs">وظائف</h3>
+          <p class="text-sm text-gray-500">0 <span id="adsTextPage4">إعلان</span></p>
+        </div>
+        <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+          <div class="text-5xl mb-4">🪑</div>
+          <h3 class="font-semibold text-lg mb-2" id="catPageFurniture">أثاث</h3>
+          <p class="text-sm text-gray-500">0 <span id="adsTextPage5">إعلان</span></p>
+        </div>
+        <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+          <div class="text-5xl mb-4">👕</div>
+          <h3 class="font-semibold text-lg mb-2" id="catPageClothing">ملابس</h3>
+          <p class="text-sm text-gray-500">0 <span id="adsTextPage6">إعلان</span></p>
+        </div>
+        <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+          <div class="text-5xl mb-4">🛠️</div>
+          <h3 class="font-semibold text-lg mb-2" id="catPageServices">خدمات</h3>
+          <p class="text-sm text-gray-500">0 <span id="adsTextPage7">إعلان</span></p>
+        </div>
+        <div class="category-card p-6 text-center rounded-lg shadow-md card-hover cursor-pointer">
+          <div class="text-5xl mb-4">📦</div>
+          <h3 class="font-semibold text-lg mb-2" id="catPageOthers">أخرى</h3>
+          <p class="text-sm text-gray-500">0 <span id="adsTextPage8">إعلان</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login Page -->
+  <div id="login" class="page">
+    <div class="container mx-auto px-4 py-8">
+      <h1 class="text-3xl font-bold text-center mb-8" id="loginTitle">دخول</h1>
+      <div class="form-container">
+        <form onsubmit="handleLogin(event)">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" id="loginEmailLabel">البريد الإلكتروني *</label>
+            <input type="email" id="loginEmail" class="form-input" required>
+          </div>
+          <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" id="loginPasswordLabel">كلمة المرور *</label>
+            <input type="password" id="loginPassword" class="form-input" required>
+          </div>
+          <button type="submit" class="form-btn" id="loginBtn">دخول</button>
+          <div class="text-center mt-4">
+            <a href="javascript:void(0)" onclick="showPage('register')" class="text-blue-600 hover:text-blue-800" id="registerLink">ليس لديك حساب؟ سجل الآن</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post Ad Page -->
+  <div id="post-ad" class="page">
+    <div class="container mx-auto px-4 py-8">
+      <h1 class="text-3xl font-bold text-center mb-8" id="postAdTitle">أضف إعلان</h1>
+      <div class="form-container">
+        <form onsubmit="handlePostAd(event)">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" id="adTitleLabel">عنوان الإعلان *</label>
+            <input type="text" id="adTitle" class="form-input" required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" id="adCategoryLabel">التصنيف *</label>
+            <select class="form-input" required>
+              <option value="" id="chooseCategoryOption">اختر التصنيف...</option>
+              <option value="cars" id="optionCars">سيارات</option>
+              <option value="real-estate" id="optionRealEstate">عقارات</option>
+              <option value="electronics" id="optionElectronics">إلكترونيات</option>
+              <option value="jobs" id="optionJobs">وظائف</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" id="adDescriptionLabel">الوصف *</label>
+            <textarea class="form-input" rows="4" required></textarea>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" id="adPriceLabel">السعر (ل.س) *</label>
+            <input type="number" class="form-input" required>
+          </div>
+          <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" id="adLocationLabel">المدينة *</label>
+            <select class="form-input" required>
+              <option value="" id="chooseCityOption">اختر المدينة...</option>
+              <option value="damascus" id="optionDamascus">دمشق</option>
+              <option value="aleppo" id="optionAleppo">حلب</option>
+              <option value="homs" id="optionHoms">حمص</option>
+            </select>
+          </div>
+          <button type="submit" class="form-btn" id="postAdBtn">نشر الإعلان</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Register Page -->
+  <div id="register" class="page">
+    <div class="container mx-auto px-4 py-8">
+      <h1 class="text-3xl font-bold text-center mb-8" id="registerTitle">تسجيل</h1>
+      <div class="form-container">
+        <form onsubmit="handleRegister(event)">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" id="nameLabel">الاسم *</label>
+            <input type="text" id="registerName" class="form-input" required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" id="emailLabel">البريد الإلكتروني *</label>
+            <input type="email" id="registerEmail" class="form-input" required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" id="countryLabel">الدولة *</label>
+            <select id="registerCountry" class="form-input" required onchange="updateCitiesAndPhoneCode()">
+              <option value="" id="chooseCountry">اختر الدولة...</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" id="cityLabel">المدينة *</label>
+            <select id="registerCity" class="form-input" required disabled>
+              <option value="" id="chooseCity">اختر المدينة...</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" id="phoneLabel">رقم الجوال *</label>
+            <div class="phone-container">
+              <input type="text" id="phoneCode" class="phone-code form-input" value="+963" readonly>
+              <input type="tel" id="registerPhone" class="phone-number form-input" required>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" id="passwordLabel">كلمة المرور *</label>
+            <input type="password" id="registerPassword" class="form-input" required oninput="checkPasswordRequirements()">
+            <div class="password-requirements" id="passwordRequirements">
+              <div class="requirement" id="req-length">
+                <span class="requirement-icon">○</span>
+                <span id="reqLengthText">على الأقل 8 أحرف</span>
+              </div>
+              <div class="requirement" id="req-uppercase">
+                <span class="requirement-icon">○</span>
+                <span id="reqUppercaseText">حرف كبير (A-Z)</span>
+              </div>
+              <div class="requirement" id="req-lowercase">
+                <span class="requirement-icon">○</span>
+                <span id="reqLowercaseText">حرف صغير (a-z)</span>
+              </div>
+              <div class="requirement" id="req-number">
+                <span class="requirement-icon">○</span>
+                <span id="reqNumberText">رقم (0-9)</span>
+              </div>
+              <div class="requirement" id="req-special">
+                <span class="requirement-icon">○</span>
+                <span id="reqSpecialText">رمز خاص (!@#$%...)</span>
+              </div>
+            </div>
+          </div>
+          <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" id="confirmPasswordLabel">تأكيد كلمة المرور *</label>
+            <input type="password" id="confirmPassword" class="form-input" required>
+          </div>
+          <button type="submit" class="form-btn" id="registerBtn">تسجيل</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+var currentLanguage = 'ar';
+var currentPage = 'home';
+
+// Countries data
+var countries = {
+  ar: {
+    'SY': {
+      name: '🇸🇾 سوريا',
+      code: '+963',
+      cities: ['دمشق','حلب','حمص','حماة','اللاذقية','طرطوس']
+    },
+    'SA': {
+      name: '🇸🇦 السعودية',
+      code: '+966',
+      cities: ['الرياض','جدة','مكة المكرمة','المدينة المنورة']
+    }
+  },
+  en: {
+    'SY': {
+      name: '🇸🇾 Syria',
+      code: '+963',
+      cities: ['Damascus','Aleppo','Homs','Hama','Latakia','Tartus']
+    },
+    'SA': {
+      name: '🇸🇦 Saudi Arabia',
+      code: '+966',
+      cities: ['Riyadh','Jeddah','Mecca','Medina']
+    }
+  }
+};
+
+// Translations
+var translations = {
+  ar: {
+    logoText: 'حراج سوريا',
+    langButton: '🇺🇸 EN',
+    navHome: 'الرئيسية',
+    navCategories: 'التصنيفات',
+    navPostAd: 'أضف إعلان',
+    navRegister: 'تسجيل',
+    navLogin: 'دخول',
+    registerTitle: 'تسجيل',
+    nameLabel: 'الاسم *',
+    emailLabel: 'البريد الإلكتروني *',
+    countryLabel: 'الدولة *',
+    cityLabel: 'المدينة *',
+    phoneLabel: 'رقم الجوال *',
+    passwordLabel: 'كلمة المرور *',
+    confirmPasswordLabel: 'تأكيد كلمة المرور *',
+    registerBtn: 'تسجيل',
+    chooseCountry: 'اختر الدولة...',
+    chooseCity: 'اختر المدينة...',
+    reqLengthText: 'على الأقل 8 أحرف',
+    reqUppercaseText: 'حرف كبير (A-Z)',
+    reqLowercaseText: 'حرف صغير (a-z)',
+    reqNumberText: 'رقم (0-9)',
+    reqSpecialText: 'رمز خاص (!@#$%...)',
+    homeTitle: 'مرحباً بك في حراج سوريا',
+    homeSubtitle: 'منصة الإعلانات المبوبة الأولى في المنطقة العربية',
+    searchBtn: 'بحث',
+    searchPlaceholder: 'ابحث عن أي شيء...',
+    categoriesTitle: 'التصنيفات',
+    loginTitle: 'دخول',
+    loginEmailLabel: 'البريد الإلكتروني *',
+    loginPasswordLabel: 'كلمة المرور *',
+    loginBtn: 'دخول',
+    registerLink: 'ليس لديك حساب؟ سجل الآن',
+    postAdTitle: 'أضف إعلان',
+    adTitleLabel: 'عنوان الإعلان *',
+    adCategoryLabel: 'التصنيف *',
+    adDescriptionLabel: 'الوصف *',
+    adPriceLabel: 'السعر (ل.س) *',
+    adLocationLabel: 'المدينة *',
+    postAdBtn: 'نشر الإعلان',
+    catCars: 'سيارات',
+    catRealEstate: 'عقارات',
+    catElectronics: 'إلكترونيات',
+    catJobs: 'وظائف',
+    catPageCars: 'سيارات',
+    catPageRealEstate: 'عقارات',
+    catPageElectronics: 'إلكترونيات',
+    catPageJobs: 'وظائف',
+    catPageFurniture: 'أثاث',
+    catPageClothing: 'ملابس',
+    catPageServices: 'خدمات',
+    catPageOthers: 'أخرى',
+    chooseCategoryOption: 'اختر التصنيف...',
+    optionCars: 'سيارات',
+    optionRealEstate: 'عقارات',
+    optionElectronics: 'إلكترونيات',
+    optionJobs: 'وظائف',
+    chooseCityOption: 'اختر المدينة...',
+    optionDamascus: 'دمشق',
+    optionAleppo: 'حلب',
+    optionHoms: 'حمص',
+    adsText: 'إعلان',
+    adsText2: 'إعلان',
+    adsText3: 'إعلان',
+    adsText4: 'إعلان',
+    adsTextPage: 'إعلان',
+    adsTextPage2: 'إعلان',
+    adsTextPage3: 'إعلان',
+    adsTextPage4: 'إعلان',
+    adsTextPage5: 'إعلان',
+    adsTextPage6: 'إعلان',
+    adsTextPage7: 'إعلان',
+    adsTextPage8: 'إعلان'
+  },
+  en: {
+    logoText: 'Haraj Syria',
+    langButton: '🇸🇦 ع',
+    navHome: 'Home',
+    navCategories: 'Categories',
+    navPostAd: 'Post Ad',
+    navRegister: 'Register',
+    navLogin: 'Login',
+    registerTitle: 'Register',
+    nameLabel: 'Name *',
+    emailLabel: 'Email *',
+    countryLabel: 'Country *',
+    cityLabel: 'City *',
+    phoneLabel: 'Mobile Number *',
+    passwordLabel: 'Password *',
+    confirmPasswordLabel: 'Confirm Password *',
+    registerBtn: 'Register',
+    chooseCountry: 'Choose Country...',
+    chooseCity: 'Choose City...',
+    reqLengthText: 'At least 8 characters',
+    reqUppercaseText: 'Uppercase letter (A-Z)',
+    reqLowercaseText: 'Lowercase letter (a-z)',
+    reqNumberText: 'Number (0-9)',
+    reqSpecialText: 'Special character (!@#$%...)',
+    homeTitle: 'Welcome to Haraj Syria',
+    homeSubtitle: 'The Leading Classified Ads Platform in the Arab Region',
+    searchBtn: 'Search',
+    searchPlaceholder: 'Search for anything...',
+    categoriesTitle: 'Categories',
+    loginTitle: 'Login',
+    loginEmailLabel: 'Email *',
+    loginPasswordLabel: 'Password *',
+    loginBtn: 'Login',
+    registerLink: 'Don\'t have an account? Register now',
+    postAdTitle: 'Post Ad',
+    adTitleLabel: 'Ad Title *',
+    adCategoryLabel: 'Category *',
+    adDescriptionLabel: 'Description *',
+    adPriceLabel: 'Price (SYP) *',
+    adLocationLabel: 'City *',
+    postAdBtn: 'Post Ad',
+    catCars: 'Cars',
+    catRealEstate: 'Real Estate',
+    catElectronics: 'Electronics',
+    catJobs: 'Jobs',
+    catPageCars: 'Cars',
+    catPageRealEstate: 'Real Estate',
+    catPageElectronics: 'Electronics',
+    catPageJobs: 'Jobs',
+    catPageFurniture: 'Furniture',
+    catPageClothing: 'Clothing',
+    catPageServices: 'Services',
+    catPageOthers: 'Others',
+    chooseCategoryOption: 'Choose Category...',
+    optionCars: 'Cars',
+    optionRealEstate: 'Real Estate',
+    optionElectronics: 'Electronics',
+    optionJobs: 'Jobs',
+    chooseCityOption: 'Choose City...',
+    optionDamascus: 'Damascus',
+    optionAleppo: 'Aleppo',
+    optionHoms: 'Homs',
+    adsText: 'ads',
+    adsText2: 'ads',
+    adsText3: 'ads',
+    adsText4: 'ads',
+    adsTextPage: 'ads',
+    adsTextPage2: 'ads',
+    adsTextPage3: 'ads',
+    adsTextPage4: 'ads',
+    adsTextPage5: 'ads',
+    adsTextPage6: 'ads',
+    adsTextPage7: 'ads',
+    adsTextPage8: 'ads'
+  }
+};
+
+function populateCountries() {
+  var countrySelect = document.getElementById('registerCountry');
+  if (!countrySelect) return;
+  
+  var currentCountries = countries[currentLanguage];
+  countrySelect.innerHTML = '<option value="">' + translations[currentLanguage].chooseCountry + '</option>';
+  
+  Object.keys(currentCountries).forEach(function(code) {
+    var option = document.createElement('option');
+    option.value = code;
+    option.textContent = currentCountries[code].name;
+    countrySelect.appendChild(option);
+  });
+  
+  countrySelect.value = 'SY';
+  updateCitiesAndPhoneCode();
+}
+
+function updateCitiesAndPhoneCode() {
+  var countrySelect = document.getElementById('registerCountry');
+  var citySelect = document.getElementById('registerCity');
+  var phoneCodeInput = document.getElementById('phoneCode');
+  
+  if (!countrySelect || !citySelect || !phoneCodeInput) return;
+  
+  var selectedCode = countrySelect.value;
+  
+  if (selectedCode && countries[currentLanguage][selectedCode]) {
+    phoneCodeInput.value = countries[currentLanguage][selectedCode].code;
+    citySelect.disabled = false;
+    
+    citySelect.innerHTML = '<option value="">' + translations[currentLanguage].chooseCity + '</option>';
+    var cities = countries[currentLanguage][selectedCode].cities;
+    cities.forEach(function(city) {
+      var option = document.createElement('option');
+      option.value = city;
+      option.textContent = city;
+      citySelect.appendChild(option);
+    });
+  } else {
+    phoneCodeInput.value = '+963';
+    citySelect.disabled = true;
+    citySelect.innerHTML = '<option value="">' + translations[currentLanguage].chooseCity + '</option>';
+  }
+}
+
+function checkPasswordRequirements() {
+  var passwordField = document.getElementById('registerPassword');
+  if (!passwordField) return;
+  
+  var password = passwordField.value;
+  var requirements = {
+    length: password.length >= 8,
+    uppercase: /[A-Z]/.test(password),
+    lowercase: /[a-z]/.test(password),
+    number: /[0-9]/.test(password),
+    special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
+  };
+  
+  Object.keys(requirements).forEach(function(req) {
+    var element = document.getElementById('req-' + req);
+    var icon = element.querySelector('.requirement-icon');
+    if (requirements[req]) {
+      element.classList.add('valid');
+      element.classList.remove('invalid');
+      icon.textContent = '✓';
+    } else {
+      element.classList.add('invalid');
+      element.classList.remove('valid');
+      icon.textContent = '○';
+    }
+  });
+}
+
+function toggleLanguage() {
+  currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
+  updateLanguage();
+}
+
+function updateLanguage() {
+  var isArabic = currentLanguage === 'ar';
+  
+  document.documentElement.setAttribute('lang', currentLanguage);
+  document.documentElement.setAttribute('dir', isArabic ? 'rtl' : 'ltr');
+  document.body.className = isArabic ? 'rtl bg-gray-50' : 'ltr bg-gray-50';
+  
+  Object.keys(translations[currentLanguage]).forEach(function(key) {
+    var element = document.getElementById(key);
+    if (element) {
+      element.textContent = translations[currentLanguage][key];
+    }
+  });
+  
+  var searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.placeholder = translations[currentLanguage].searchPlaceholder;
+  }
+  
+  populateCountries();
+  
+  var passwordField = document.getElementById('registerPassword');
+  if (passwordField && passwordField.value) {
+    checkPasswordRequirements();
+  }
+}
+
+function showPage(pageId) {
+  currentPage = pageId;
+  
+  var pages = document.querySelectorAll('.page');
+  pages.forEach(function(page) {
+    page.classList.remove('active');
+  });
+  
+  var targetPage = document.getElementById(pageId);
+  if (targetPage) {
+    targetPage.classList.add('active');
+  }
+  
+  var navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(function(link) {
+    link.classList.remove('active');
+  });
+  
+  var navMapping = {
+    'home': 'navHome',
+    'categories': 'navCategories',
+    'register': 'navRegister', 
+    'login': 'navLogin',
+    'post-ad': 'navPostAd'
+  };
+  
+  var activeNavId = navMapping[pageId];
+  if (activeNavId) {
+    var activeNavLink = document.getElementById(activeNavId);
+    if (activeNavLink) {
+      activeNavLink.classList.add('active');
+    }
+  }
+}
+
+function handleLogin(event) {
+  event.preventDefault();
+  var email = document.getElementById('loginEmail').value;
+  alert(currentLanguage === 'ar' ? 
+    'مرحباً بعودتك!\nالبريد الإلكتروني: ' + email :
+    'Welcome back!\nEmail: ' + email
+  );
+}
+
+function handlePostAd(event) {
+  event.preventDefault();
+  var title = document.getElementById('adTitle').value;
+  alert(currentLanguage === 'ar' ? 
+    'تم نشر الإعلان بنجاح!\nالعنوان: ' + title :
+    'Ad posted successfully!\nTitle: ' + title
+  );
+}
+
+function handleRegister(event) {
+  event.preventDefault();
+  var name = document.getElementById('registerName').value;
+  var email = document.getElementById('registerEmail').value;
+  var country = document.getElementById('registerCountry').value;
+  var city = document.getElementById('registerCity').value;
+  var password = document.getElementById('registerPassword').value;
+  var confirmPassword = document.getElementById('confirmPassword').value;
+  
+  if (password !== confirmPassword) {
+    alert(currentLanguage === 'ar' ? 'كلمات المرور غير متطابقة!' : 'Passwords do not match!');
+    return;
+  }
+  
+  var requirements = {
+    length: password.length >= 8,
+    uppercase: /[A-Z]/.test(password),
+    lowercase: /[a-z]/.test(password),
+    number: /[0-9]/.test(password),
+    special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
+  };
+  
+  var allRequirementsMet = Object.values(requirements).every(function(req) {
+    return req;
+  });
+  
+  if (!allRequirementsMet) {
+    alert(currentLanguage === 'ar' ? 'كلمة المرور لا تستوفي جميع المتطلبات!' : 'Password does not meet all requirements!');
+    return;
+  }
+  
+  alert(currentLanguage === 'ar' ?
+    'تم إنشاء الحساب بنجاح!\nالاسم: ' + name + '\nالمدينة: ' + city :
+    'Account created successfully!\nName: ' + name + '\nCity: ' + city
+  );
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  updateLanguage();
+  showPage('home');
+});
+</script>
+</body>
+</html>
+=== انتهِ النسخ هنا ===
