@@ -35,11 +35,6 @@
 .phone-container { display: flex; gap: 8px; }
 .phone-code { flex: 0 0 80px; background: #f3f4f6; border: 2px solid #d1d5db; color: #374151; font-weight: 600; text-align: center; }
 .phone-number { flex: 1; }
-.password-requirements { font-size: 12px; color: #6b7280; margin-top: 8px; padding: 8px; background: #f9fafb; border-radius: 6px; border: 1px solid #e5e7eb; }
-.requirement { display: flex; align-items: center; margin: 4px 0; }
-.requirement.valid { color: #10b981; }
-.requirement.invalid { color: #ef4444; }
-.requirement-icon { margin-left: 8px; width: 16px; height: 16px; }
 </style>
 </head>
 <body class="bg-gray-50">
@@ -249,6 +244,16 @@
             <label class="block text-gray-700 text-sm font-bold mb-2" id="countryLabel">الدولة *</label>
             <select id="registerCountry" class="form-input" required onchange="updateCities()">
               <option value="" id="chooseCountryOption">اختر الدولة...</option>
+              <option value="SY">🇸🇾 سوريا</option>
+              <option value="SA">🇸🇦 السعودية</option>
+              <option value="AE">🇦🇪 الإمارات</option>
+              <option value="EG">🇪🇬 مصر</option>
+              <option value="IQ">🇮🇶 العراق</option>
+              <option value="JO">🇯🇴 الأردن</option>
+              <option value="LB">🇱🇧 لبنان</option>
+              <option value="KW">🇰🇼 الكويت</option>
+              <option value="QA">🇶🇦 قطر</option>
+              <option value="BH">🇧🇭 البحرين</option>
             </select>
           </div>
           <div class="mb-4">
@@ -266,29 +271,7 @@
           </div>
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" id="regPasswordLabel">كلمة المرور *</label>
-            <input type="password" id="registerPassword" class="form-input" required oninput="checkPasswordRequirements()">
-            <div class="password-requirements" id="passwordRequirements">
-              <div class="requirement" id="req-length">
-                <span class="requirement-icon">○</span>
-                <span id="reqLengthText">على الأقل 8 أحرف</span>
-              </div>
-              <div class="requirement" id="req-uppercase">
-                <span class="requirement-icon">○</span>
-                <span id="reqUppercaseText">حرف كبير (A-Z)</span>
-              </div>
-              <div class="requirement" id="req-lowercase">
-                <span class="requirement-icon">○</span>
-                <span id="reqLowercaseText">حرف صغير (a-z)</span>
-              </div>
-              <div class="requirement" id="req-number">
-                <span class="requirement-icon">○</span>
-                <span id="reqNumberText">رقم (0-9)</span>
-              </div>
-              <div class="requirement" id="req-special">
-                <span class="requirement-icon">○</span>
-                <span id="reqSpecialText">رمز خاص (!@#$%...)</span>
-              </div>
-            </div>
+            <input type="password" id="registerPassword" class="form-input" required>
           </div>
           <div class="mb-6">
             <label class="block text-gray-700 text-sm font-bold mb-2" id="confirmPasswordLabel">تأكيد كلمة المرور *</label>
@@ -304,56 +287,18 @@
 <script>
 var currentLang = 'ar';
 
-// جميع الدول العربية مع المدن الرئيسية
-var arabCountries = {
-  ar: {
-    'SY': { name: '🇸🇾 سوريا', code: '+963', cities: ['دمشق','حلب','حمص','حماة','اللاذقية','طرطوس','دير الزور','الحسكة','الرقة','السويداء','درعا','إدلب'] },
-    'SA': { name: '🇸🇦 السعودية', code: '+966', cities: ['الرياض','جدة','مكة المكرمة','المدينة المنورة','الدمام','الطائف','تبوك','الأحساء','جيزان','أبها','نجران'] },
-    'AE': { name: '🇦🇪 الإمارات', code: '+971', cities: ['دبي','أبوظبي','الشارقة','العين','عجمان','الفجيرة','رأس الخيمة','أم القيوين'] },
-    'EG': { name: '🇪🇬 مصر', code: '+20', cities: ['القاهرة','الإسكندرية','الجيزة','شبرا الخيمة','بورسعيد','السويس','الأقصر','أسوان'] },
-    'IQ': { name: '🇮🇶 العراق', code: '+964', cities: ['بغداد','البصرة','الموصل','أربيل','النجف','كربلاء','السليمانية','كركوك'] },
-    'JO': { name: '🇯🇴 الأردن', code: '+962', cities: ['عمان','إربد','الزرقاء','الرصيفة','وادي الموجب','العقبة','السلط','مادبا'] },
-    'LB': { name: '🇱🇧 لبنان', code: '+961', cities: ['بيروت','طرابلس','صيدا','صور','جونية','زحلة','بعلبك','النبطية'] },
-    'KW': { name: '🇰🇼 الكويت', code: '+965', cities: ['مدينة الكويت','الأحمدي','حولي','الجهراء','مبارك الكبير','الفروانية'] },
-    'QA': { name: '🇶🇦 قطر', code: '+974', cities: ['الدوحة','الريان','أم صلال','الوكرة','الخور','دخان'] },
-    'BH': { name: '🇧🇭 البحرين', code: '+973', cities: ['المنامة','المحرق','الرفاع','مدينة حمد','مدينة عيسى','سترة'] },
-    'OM': { name: '🇴🇲 عمان', code: '+968', cities: ['مسقط','صلالة','نزوى','صور','إبراء','البريمي'] },
-    'YE': { name: '🇾🇪 اليمن', code: '+967', cities: ['صنعاء','عدن','تعز','الحديدة','إب','ذمار','مأرب'] },
-    'PS': { name: '🇵🇸 فلسطين', code: '+970', cities: ['القدس','غزة','رام الله','الخليل','نابلس','بيت لحم'] },
-    'LY': { name: '🇱🇾 ليبيا', code: '+218', cities: ['طرابلس','بنغازي','مصراتة','الزاوية','طبرق','سبها'] },
-    'TN': { name: '🇹🇳 تونس', code: '+216', cities: ['تونس','صفاقس','سوسة','القيروان','بنزرت','قابس'] },
-    'DZ': { name: '🇩🇿 الجزائر', code: '+213', cities: ['الجزائر','وهران','قسنطينة','عنابة','سطيف','باتنة'] },
-    'MA': { name: '🇲🇦 المغرب', code: '+212', cities: ['الرباط','الدار البيضاء','فاس','مراكش','طنجة','مكناس'] },
-    'SD': { name: '🇸🇩 السودان', code: '+249', cities: ['الخرطوم','أم درمان','بورتسودان','القضارف','كسلا','نيالا'] },
-    'SO': { name: '🇸🇴 الصومال', code: '+252', cities: ['مقديشو','هرجيسا','بوساسو','كيسمايو','بيدوا','جوهر'] },
-    'DJ': { name: '🇩🇯 جيبوتي', code: '+253', cities: ['جيبوتي','علي صبيح','تاجورة','أوبوك','دخيل'] },
-    'KM': { name: '🇰🇲 جزر القمر', code: '+269', cities: ['موروني','مطسامودو','فومبوني','دومني'] },
-    'MR': { name: '🇲🇷 موريتانيا', code: '+222', cities: ['نواكشوط','نواديبو','روصو','كيفة','عطار'] }
-  },
-  en: {
-    'SY': { name: '🇸🇾 Syria', code: '+963', cities: ['Damascus','Aleppo','Homs','Hama','Latakia','Tartus','Deir ez-Zor','Al-Hasakah','Raqqa','As-Suwayda','Daraa','Idlib'] },
-    'SA': { name: '🇸🇦 Saudi Arabia', code: '+966', cities: ['Riyadh','Jeddah','Mecca','Medina','Dammam','Taif','Tabuk','Al-Ahsa','Jazan','Abha','Najran'] },
-    'AE': { name: '🇦🇪 UAE', code: '+971', cities: ['Dubai','Abu Dhabi','Sharjah','Al Ain','Ajman','Fujairah','Ras Al Khaimah','Umm Al Quwain'] },
-    'EG': { name: '🇪🇬 Egypt', code: '+20', cities: ['Cairo','Alexandria','Giza','Shubra El Kheima','Port Said','Suez','Luxor','Aswan'] },
-    'IQ': { name: '🇮🇶 Iraq', code: '+964', cities: ['Baghdad','Basra','Mosul','Erbil','Najaf','Karbala','Sulaymaniyah','Kirkuk'] },
-    'JO': { name: '🇯🇴 Jordan', code: '+962', cities: ['Amman','Irbid','Zarqa','Russeifa','Wadi Musa','Aqaba','Salt','Madaba'] },
-    'LB': { name: '🇱🇧 Lebanon', code: '+961', cities: ['Beirut','Tripoli','Sidon','Tyre','Jounieh','Zahle','Baalbek','Nabatieh'] },
-    'KW': { name: '🇰🇼 Kuwait', code: '+965', cities: ['Kuwait City','Ahmadi','Hawalli','Jahra','Mubarak Al-Kabeer','Farwaniya'] },
-    'QA': { name: '🇶🇦 Qatar', code: '+974', cities: ['Doha','Al Rayyan','Umm Salal','Al Wakrah','Al Khor','Dukhan'] },
-    'BH': { name: '🇧🇭 Bahrain', code: '+973', cities: ['Manama','Muharraq','Riffa','Hamad Town','Isa Town','Sitra'] },
-    'OM': { name: '🇴🇲 Oman', code: '+968', cities: ['Muscat','Salalah','Nizwa','Sur','Ibra','Al-Buraimi'] },
-    'YE': { name: '🇾🇪 Yemen', code: '+967', cities: ['Sanaa','Aden','Taiz','Hodeidah','Ibb','Dhamar','Marib'] },
-    'PS': { name: '🇵🇸 Palestine', code: '+970', cities: ['Jerusalem','Gaza','Ramallah','Hebron','Nablus','Bethlehem'] },
-    'LY': { name: '🇱🇾 Libya', code: '+218', cities: ['Tripoli','Benghazi','Misrata','Zawiya','Tobruk','Sabha'] },
-    'TN': { name: '🇹🇳 Tunisia', code: '+216', cities: ['Tunis','Sfax','Sousse','Kairouan','Bizerte','Gabes'] },
-    'DZ': { name: '🇩🇿 Algeria', code: '+213', cities: ['Algiers','Oran','Constantine','Annaba','Setif','Batna'] },
-    'MA': { name: '🇲🇦 Morocco', code: '+212', cities: ['Rabat','Casablanca','Fes','Marrakech','Tangier','Meknes'] },
-    'SD': { name: '🇸🇩 Sudan', code: '+249', cities: ['Khartoum','Omdurman','Port Sudan','Gedaref','Kassala','Nyala'] },
-    'SO': { name: '🇸🇴 Somalia', code: '+252', cities: ['Mogadishu','Hargeisa','Bosaso','Kismayo','Baidoa','Galkayo'] },
-    'DJ': { name: '🇩🇯 Djibouti', code: '+253', cities: ['Djibouti','Ali Sabieh','Tadjoura','Obock','Dikhil'] },
-    'KM': { name: '🇰🇲 Comoros', code: '+269', cities: ['Moroni','Mutsamudu','Fomboni','Domoni'] },
-    'MR': { name: '🇲🇷 Mauritania', code: '+222', cities: ['Nouakchott','Nouadhibou','Rosso','Kiffa','Atar'] }
-  }
+// أهم الدول العربية فقط
+var mainCountries = {
+  'SY': {ar: '🇸🇾 سوريا', en: '🇸🇾 Syria', code: '+963', cities: {ar: ['دمشق','حلب','حمص','حماة'], en: ['Damascus','Aleppo','Homs','Hama']}},
+  'SA': {ar: '🇸🇦 السعودية', en: '🇸🇦 Saudi Arabia', code: '+966', cities: {ar: ['الرياض','جدة','مكة','المدينة'], en: ['Riyadh','Jeddah','Mecca','Medina']}},
+  'AE': {ar: '🇦🇪 الإمارات', en: '🇦🇪 UAE', code: '+971', cities: {ar: ['دبي','أبوظبي','الشارقة','عجمان'], en: ['Dubai','Abu Dhabi','Sharjah','Ajman']}},
+  'EG': {ar: '🇪🇬 مصر', en: '🇪🇬 Egypt', code: '+20', cities: {ar: ['القاهرة','الإسكندرية','الجيزة','أسوان'], en: ['Cairo','Alexandria','Giza','Aswan']}},
+  'IQ': {ar: '🇮🇶 العراق', en: '🇮🇶 Iraq', code: '+964', cities: {ar: ['بغداد','البصرة','الموصل','أربيل'], en: ['Baghdad','Basra','Mosul','Erbil']}},
+  'JO': {ar: '🇯🇴 الأردن', en: '🇯🇴 Jordan', code: '+962', cities: {ar: ['عمان','إربد','الزرقاء','العقبة'], en: ['Amman','Irbid','Zarqa','Aqaba']}},
+  'LB': {ar: '🇱🇧 لبنان', en: '🇱🇧 Lebanon', code: '+961', cities: {ar: ['بيروت','طرابلس','صيدا','صور'], en: ['Beirut','Tripoli','Sidon','Tyre']}},
+  'KW': {ar: '🇰🇼 الكويت', en: '🇰🇼 Kuwait', code: '+965', cities: {ar: ['مدينة الكويت','الأحمدي','حولي','الجهراء'], en: ['Kuwait City','Ahmadi','Hawalli','Jahra']}},
+  'QA': {ar: '🇶🇦 قطر', en: '🇶🇦 Qatar', code: '+974', cities: {ar: ['الدوحة','الريان','الوكرة','الخور'], en: ['Doha','Al Rayyan','Al Wakrah','Al Khor']}},
+  'BH': {ar: '🇧🇭 البحرين', en: '🇧🇭 Bahrain', code: '+973', cities: {ar: ['المنامة','المحرق','الرفاع','حمد'], en: ['Manama','Muharraq','Riffa','Hamad']}}
 };
 
 var translations = {
@@ -424,12 +369,7 @@ var translations = {
     optionJobs: 'وظائف',
     optionDamascus: 'دمشق',
     optionAleppo: 'حلب',
-    optionHoms: 'حمص',
-    reqLengthText: 'على الأقل 8 أحرف',
-    reqUppercaseText: 'حرف كبير (A-Z)',
-    reqLowercaseText: 'حرف صغير (a-z)',
-    reqNumberText: 'رقم (0-9)',
-    reqSpecialText: 'رمز خاص (!@#$%...)'
+    optionHoms: 'حمص'
   },
   en: {
     logoText: 'Haraj Syria',
@@ -498,12 +438,7 @@ var translations = {
     optionJobs: 'Jobs',
     optionDamascus: 'Damascus',
     optionAleppo: 'Aleppo',
-    optionHoms: 'Homs',
-    reqLengthText: 'At least 8 characters',
-    reqUppercaseText: 'Uppercase letter (A-Z)',
-    reqLowercaseText: 'Lowercase letter (a-z)',
-    reqNumberText: 'Number (0-9)',
-    reqSpecialText: 'Special character (!@#$%...)'
+    optionHoms: 'Homs'
   }
 };
 
@@ -562,27 +497,10 @@ function updateLanguage() {
     searchInput.placeholder = isArabic ? 'ابحث عن أي شيء...' : 'Search for anything...';
   }
   
-  populateCountries();
-}
-
-function populateCountries() {
-  var countrySelect = document.getElementById('registerCountry');
-  if (!countrySelect) return;
-  
-  var currentCountries = arabCountries[currentLang];
-  var trans = translations[currentLang];
-  
-  countrySelect.innerHTML = '<option value="">' + trans.chooseCountryOption + '</option>';
-  
-  for (var code in currentCountries) {
-    var option = document.createElement('option');
-    option.value = code;
-    option.textContent = currentCountries[code].name;
-    countrySelect.appendChild(option);
+  var selectedCountry = document.getElementById('registerCountry').value;
+  if (selectedCountry) {
+    updateCities();
   }
-  
-  countrySelect.value = 'SY';
-  updateCities();
 }
 
 function updateCities() {
@@ -593,15 +511,15 @@ function updateCities() {
   if (!countrySelect || !citySelect || !phoneCode) return;
   
   var selectedCountry = countrySelect.value;
-  var currentCountries = arabCountries[currentLang];
   var trans = translations[currentLang];
   
-  if (selectedCountry && currentCountries[selectedCountry]) {
-    phoneCode.value = currentCountries[selectedCountry].code;
+  if (selectedCountry && mainCountries[selectedCountry]) {
+    var country = mainCountries[selectedCountry];
+    phoneCode.value = country.code;
     citySelect.disabled = false;
     
     citySelect.innerHTML = '<option value="">' + trans.chooseCityRegOption + '</option>';
-    var cities = currentCountries[selectedCountry].cities;
+    var cities = country.cities[currentLang];
     for (var i = 0; i < cities.length; i++) {
       var option = document.createElement('option');
       option.value = cities[i];
@@ -612,36 +530,6 @@ function updateCities() {
     phoneCode.value = '+963';
     citySelect.disabled = true;
     citySelect.innerHTML = '<option value="">' + trans.chooseCityRegOption + '</option>';
-  }
-}
-
-function checkPasswordRequirements() {
-  var passwordField = document.getElementById('registerPassword');
-  if (!passwordField) return;
-  
-  var password = passwordField.value;
-  var requirements = {
-    length: password.length >= 8,
-    uppercase: /[A-Z]/.test(password),
-    lowercase: /[a-z]/.test(password),
-    number: /[0-9]/.test(password),
-    special: /[!@#$%^&*()_+\\-=\\[\\]{};':"\\\\|,.<>\\/?]/.test(password)
-  };
-  
-  for (var req in requirements) {
-    var element = document.getElementById('req-' + req);
-    if (!element) continue;
-    
-    var icon = element.querySelector('.requirement-icon');
-    if (requirements[req]) {
-      element.classList.add('valid');
-      element.classList.remove('invalid');
-      if (icon) icon.textContent = '✓';
-    } else {
-      element.classList.add('invalid');
-      element.classList.remove('valid');
-      if (icon) icon.textContent = '○';
-    }
   }
 }
 
