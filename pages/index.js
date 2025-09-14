@@ -1,30 +1,21 @@
 import Link from "next/link";
-import ads from "../public/data/ads.json";
 
 export default function Home() {
-  const categories = ["سيارات", "عقارات", "إلكترونيات", "وظائف", "أخرى"];
-
   return (
-    <div style={{ padding: 20 }}>
-      <h1>حراج سوريا</h1>
-      <h2>التصنيفات</h2>
-      <ul>
-        {categories.map((cat, i) => (
-          <li key={i}>{cat}</li>
-        ))}
-      </ul>
+    <div className="min-h-screen bg-gray-100 p-6">
+      {/* الهيدر */}
+      <header className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold text-gray-800">حراج سوريا</h1>
+        <Link
+          href="/add"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+        >
+          إضافة إعلان
+        </Link>
+      </header>
 
-      <h2>الإعلانات المضافة</h2>
-      {ads.length === 0 && <p>لا يوجد إعلانات بعد</p>}
-      <ul>
-        {ads.map((ad, i) => (
-          <li key={i}>
-            <Link href={`/ad/${i}`}>{ad.title} - {ad.price} ريال</Link>
-          </li>
-        ))}
-      </ul>
-
-      <Link href="/add">+ إضافة إعلان</Link>
+      {/* محتوى الصفحة */}
+      <p className="text-gray-600">لا توجد إعلانات حالياً.</p>
     </div>
   );
 }
